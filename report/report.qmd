@@ -1,9 +1,27 @@
 ---
-title: "A cool title"
-author: "Name I, First Name I and Name II, First Name II"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+title: My ML Project
+author:
+ - Name I, First Name I
+ - Name II, First Name II
+institute : Name of the University
+date: today
+title-block-banner: "#0095C8" #chosen for the university of lausanne
+toc: true
+toc-location: right
+format: 
+  html:
+    number-sections: true
+    html-math-method: katex
+    self-contained: true
+  # pdf: default # use this if you want to render pdfs instead
+abstract: |
+ The following machine learning project focuses on...
 ---
 
-```{r child = c('intro.qmd', 'data.qmd', 'eda.qmd', 'analysis.qmd', 'concl.qmd')}
+```{r, echo = FALSE, message = FALSE}
+# loading all the necessary packages
+source(here::here("src/setup.R"))
+```
+
+```{r child = paste0('sections/', c('intro.qmd', 'data.qmd', 'eda.qmd', 'supervised.qmd', 'unsupervised.qmd', 'concl.qmd'))}
 ```
