@@ -1,0 +1,981 @@
+price,number_of_rooms,address
+"CHF 854,850.–",1.5 rooms,"Beggingerstrasse 102, 8226 Schleitheim"
+"CHF 6,642,000.–",2 rooms,1223 Cologny
+"CHF 1,303,800.–",1.5 rooms,"Bachmattstrasse 2a, 8932 Mettmenstetten"
+"CHF 873,300.–",1.5 rooms,"Avenue de Mategnin 39, 1217 Meyrin"
+Price on request,1.5 rooms,"Bündtenstrasse 7, 9, 5612 Villmergen"
+"CHF 1,291,500.–",1.5 rooms,1400 Yverdon-les-Bains
+"CHF 2,281,650.–",1 room,4114 Hofstetten SO
+"CHF 2,078,700.–",1.5 rooms,"Chemin du Progrès 10B, 1214 Vernier"
+"CHF 2,324,700.–",N/A,1290 Versoix
+"CHF 4,034,400.–",1.5 rooms,"Neuschwändistrasse 61b, 6390 Engelberg"
+Price on request,N/A,"Seebacherstrasse 28 - 30, 8052 Zürich-Seebach"
+"CHF 1,070,100.–",1.5 rooms,1636 Broc
+Price on request,1.5 rooms,1000 Lausanne
+"CHF 1,463,700.–",1.5 rooms,"Chemin de la Gay 1, 1803 Chardonne"
+"CHF 1,088,550.–",1.5 rooms,9451 Kriessern
+"CHF 1,783,500.–",1.5 rooms,1635 La Tour-de-Trême
+"CHF 2,275,500.–",1 room,1290 Versoix
+"CHF 1,217,700.–",1.5 rooms,6806 Sigirino
+"CHF 1,082,400.–",1.5 rooms,"Schwandstrasse 58, 3634 Thierachern"
+"CHF 1,346,850.–",1.5 rooms,1422 Grandson
+"CHF 1,709,700.–",1 room,1254 Jussy
+"CHF 1,088,550.–",1.5 rooms,"Oelegasse 12, 3210 Kerzers"
+"CHF 1,033,200.–",1.5 rooms,"Grossmattweg 26, 4106 Therwil"
+"CHF 1,143,900.–",1.5 rooms,"Via G. Pioda, 6710 Biasca"
+"CHF 1,340,700.–",1.5 rooms,"via San Gottardo 99, 6900 Massagno"
+"CHF 1,383,750.–",1.5 rooms,1347 Le Sentier
+"CHF 1,205,400.–",1 room,"Im Augarten 11, 4147 Aesch BL"
+"CHF 1,832,700.–",1.5 rooms,"Statthalterstrasse 44b - 44g, 3018 Bern"
+"CHF 2,730,600.–",1.5 rooms,"Stockerstrasse, 8810 Horgen"
+"CHF 713,400.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,094,700.–",1.5 rooms,1882 Gryon
+"CHF 829,020.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 793,350.–",1.5 rooms,"Schöntalstrasse 11, 4438 Langenbruck"
+"CHF 2,152,500.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 3,370,200.–",1.5 rooms,1180 Rolle
+"CHF 959,400.–",1.5 rooms,"Oberdorfstrasse 14, 3322 Urtenen-Schönbühl"
+"CHF 799,500.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 2,896,650.–",1.5 rooms,"Spiserstrasse, 8047 Zürich"
+"CHF 1,291,500.–",1.5 rooms,1920 Martigny
+"CHF 1,758,900.–",1 room,"Jussy, 1254 Jussy"
+"CHF 1,223,850.–",1.5 rooms,1914 Isérables
+"CHF 1,217,700.–",1.5 rooms,"Schützenweg 12, 4123 Allschwil"
+"CHF 3,148,800.–",2 rooms,1237 Avully
+"CHF 1,094,700.–",1.5 rooms,6818 Melano
+"CHF 1,057,800.–",1.5 rooms,"Längmattstrasse 11, 4563 Gerlafingen"
+"CHF 4,138,950.–",1.5 rooms,"Via Giudino 4, 6900 Paradiso"
+"CHF 1,013,520.–",1.5 rooms,"Zwischenflühstrasse (Schuelstücki), 3756 Zwischenflüh"
+"CHF 1,070,100.–",1.5 rooms,"Mattenweg, 8374 Dussnang"
+"CHF 701,100.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 578,100.–",1.5 rooms,6612 Ascona
+"CHF 1,340,700.–",1.5 rooms,"Bernstrasse 7, 3280 Murten"
+"CHF 2,029,500.–",1.5 rooms,1010 Lausanne
+"CHF 1,463,700.–",1.5 rooms,"Hüslimattstrasse, 4417 Ziefen"
+"CHF 1,137,750.–",1.5 rooms,"Bahnhofstrasse 33, 6440 Ingenbohl"
+"CHF 1,303,800.–",1.5 rooms,"Neubrückstrasse 13, 2555 Brügg BE"
+"CHF 1,357,430.–",1.5 rooms,"Rütiweg 2, 3072 Ostermundigen"
+"CHF 2,275,500.–",1.5 rooms,1285 Athenaz (Avusy)
+"CHF 2,029,500.–",1.5 rooms,"Brunnenwis-Strasse 2a, 8627 Grüningen"
+"CHF 694,950.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 4,784,700.–",2 rooms,1253 Vandoeuvres
+"CHF 1,506,110.–",1.5 rooms,1509 Vucherens
+"CHF 547,350.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,100,850.–",1.5 rooms,"Termerweg 26, 3900 Brig"
+"CHF 535,050.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,057,800.–",1.5 rooms,"Wahlackerstrasse 3, 3052 Zollikofen"
+"CHF 940,950.–",1.5 rooms,9315 Winden
+"CHF 799,500.–",1.5 rooms,6512 Giubiasco
+"CHF 2,078,700.–",1.5 rooms,"Buchenstrasse, 9524 Zuzwil SG"
+"CHF 1,746,600.–",1.5 rooms,"Route de la Tour, 3963 Crans-Montana"
+"CHF 1,574,400.–",1.5 rooms,"Hüeblistrasse 2a, 8722 Kaltbrunn"
+"CHF 1,432,950.–",1.5 rooms,"Nyon, 1260 Nyon"
+"CHF 977,850.–",1.5 rooms,"Dorf 74, 4950 Huttwil"
+"CHF 1,949,550.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 2,004,900.–",1.5 rooms,"Via dei Platani, 6900 Massagno"
+"CHF 934,800.–",1.5 rooms,"Aentenschnabel, 8353 Elgg"
+Price on request,1.5 rooms,"Zihlstrasse, 8107 Buchs ZH"
+"CHF 1,623,600.–",1.5 rooms,"Iselisberg 19, 8524 Uesslingen-Buch"
+"CHF 1,033,200.–",1.5 rooms,"Ringstrasse 4e, 8737 Gommiswald"
+"CHF 1,552,870.–",1.5 rooms,"Grampenweg 29, 8180 Bülach"
+Price on request,1.5 rooms,"Tavelweg, 3360 Herzogenbuchsee"
+"CHF 1,586,700.–",1.5 rooms,"Nellweg 9, 5018 Erlinsbach"
+"CHF 974,160.–",1.5 rooms,"Chrummacherweg 1, 4460 Gelterkinden"
+"CHF 1,100,850.–",1.5 rooms,6702 Claro
+"CHF 1,795,800.–",1.5 rooms,"Unterer Mühlestettenweg 4, 4450 Sissach"
+"CHF 1,838,850.–",1.5 rooms,1008 Prilly
+"CHF 1,039,350.–",1.5 rooms,1026 Denges
+"CHF 2,306,250.–",1.5 rooms,"In der Rüti, 8967 Widen"
+"CHF 430,500.–",1.5 rooms,"Rue de Parcouret 71, 1964 Conthey"
+"CHF 1,746,600.–",1.5 rooms,"Via della Selva, 6850 Mendrisio"
+"CHF 2,841,300.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 1,476,000.–",1.5 rooms,"Chemin de la Gay 1, 1803 Chardonne"
+"CHF 2,078,700.–",1 room,1218 Le Grand-Saconnex
+"CHF 1,906,500.–",1.5 rooms,1023 Crissier
+"CHF 2,207,850.–",1.5 rooms,"In der Rüti, 8967 Widen"
+"CHF 1,278,580.–",1.5 rooms,"Route de Marnand 3, 1555 Villarzel"
+Price on request,2 rooms,1180 Rolle
+"CHF 1,217,700.–",1.5 rooms,"Salita Cuccarello, 6934 Bioggio"
+Price on request,1.5 rooms,"Pfannenstielstrasse 112, 8706 Meilen"
+"CHF 1,057,800.–",1.5 rooms,1636 Broc
+"CHF 1,174,650.–",1.5 rooms,"Möslistrasse 3, 3127 Mühlethurnen"
+"CHF 3,431,700.–",1.5 rooms,"Aufdorfstrasse 212, 8708 Männedorf"
+Price on request,2.5 rooms,9244 Niederuzwil
+"CHF 2,232,450.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 947,100.–",1.5 rooms,"Via San Giobbe 13, 6512 Giubiasco"
+"CHF 1,783,500.–",1.5 rooms,"Itzikerdorf-Strasse 51, 8627 Grüningen"
+"CHF 1,519,050.–",1.5 rooms,1624 La Verrerie
+"CHF 984,000.–",1.5 rooms,"Rötlistrasse 4, 8717 Benken SG"
+"CHF 2,201,700.–",1.5 rooms,"Oberdorfstrasse 43, 9524 Zuzwil SG"
+"CHF 1,107,240.–",1.5 rooms,6818 Melano
+"CHF 1,586,700.–",200m²,6596 Gordola
+"CHF 527,670.–",1.5 rooms,2714 Les Genevez JU
+"CHF 1,027,050.–",1.5 rooms,6616 Losone
+"CHF 2,988,900.–",1 room,1231 Conches
+"CHF 1,193,100.–",1 room,"Via al Guast 27, 6528 Camorino"
+"CHF 1,888,050.–",1.5 rooms,2022 Bevaix
+"CHF 1,820,400.–",1.5 rooms,2035 Corcelles NE
+"CHF 1,057,800.–",1.5 rooms,1026 Denges
+"CHF 1,236,150.–",1.5 rooms,1026 Denges
+"CHF 965,550.–",1.5 rooms,"Schöntalstrasse 11, 4438 Langenbruck"
+"CHF 1,576,240.–",1.5 rooms,"Am Mattenhof 1, 6010 Kriens"
+"CHF 1,033,200.–",1.5 rooms,"Rue des Grands-Praz, 1906 Charrat"
+"CHF 639,600.–",1.5 rooms,"Dorfstrasse 23, 3673 Linden"
+"CHF 12,238,500.–",2 rooms,"Chemin de la Bergerie 38, 1936 Verbier"
+Price on request,1.5 rooms,"Wydenmööslistrasse 11, 8280 Kreuzlingen"
+"CHF 910,200.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 1,623,600.–",1.5 rooms,5702 Niederlenz
+"CHF 1,455,580.–",1.5 rooms,6828 Balerna
+"CHF 744,150.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 2,324,700.–",1.5 rooms,"Chemin du Ruisseau-Martin 6A, 1066 Epalinges"
+"CHF 750,300.–",1.5 rooms,"Gibelfeldstrasse 48, 2540 Grenchen"
+"CHF 1,383,750.–",1.5 rooms,1341 L'Orient
+"CHF 670,350.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 1,162,350.–",1.5 rooms,"Schlattgasse 8, 8716 Schmerikon"
+"CHF 1,377,600.–",1.5 rooms,"Corniche du Soleil, 3960 Sierre"
+"CHF 1,685,100.–",1 room,"chemin de la béchette 7, 1226 Thônex"
+"CHF 1,439,100.–",1.5 rooms,"Oberzelgstrasse 18, 5612 Villmergen"
+"CHF 5,682,600.–",1.5 rooms,1180 Rolle
+"CHF 824,100.–",1.5 rooms,"Via Fornasette 10, 6833 Vacallo"
+"CHF 1,125,450.–",1.5 rooms,5702 Niederlenz
+"CHF 1,783,500.–",1.5 rooms,1713 St. Antoni
+"CHF 1,783,500.–",1.5 rooms,"Bahnhofstrasse 33, 6440 Ingenbohl"
+Price on request,1.5 rooms,"Boniswilerstrasse, 5707 Seengen"
+"CHF 854,850.–",1.5 rooms,"Schatzacher, 2564 Bellmund"
+"CHF 2,293,950.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 1,586,700.–",1.5 rooms,"Propsteiweg 15, 2504 Biel/Bienne"
+"CHF 1,020,900.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 801,960.–",1.5 rooms,1907 Saxon
+"CHF 787,200.–",1.5 rooms,6235 Winikon
+"CHF 1,568,250.–",1.5 rooms,"Fustligweg 58, 4600 Olten"
+"CHF 1,455,580.–",1.5 rooms,6900 Lugano
+"CHF 1,445,250.–",1.5 rooms,"Abtwilstrasse 10, 6275 Ballwil"
+"CHF 1,832,700.–",1.5 rooms,1660 Château-d'Oex
+"CHF 731,850.–",1.5 rooms,"Surseestrasse 15, 6242 Wauwil"
+"CHF 12,300,000.–",420m²,1208 Genève
+"CHF 1,051,650.–",1.5 rooms,"Rapperswilerstrasse, 8733 Eschenbach SG"
+"CHF 2,988,900.–",1 room,1231 Conches
+"CHF 1,531,350.–",1.5 rooms,"Saalhofstrasse 20b, 5018 Erlinsbach"
+"CHF 1,476,000.–",1 room,"Dorfstrasse 36, 3206 Gammen"
+"CHF 891,750.–",1.5 rooms,"Weidweg 9, 9470 Buchs SG"
+Price on request,N/A,"alte Mülibachstrasse 2, 8805 Richterswil"
+"CHF 977,850.–",1.5 rooms,"Sägegasse, 4538 Oberbipp"
+"CHF 836,400.–",1.5 rooms,"Pintenweg 1, 6146 Grossdietwil"
+"CHF 485,850.–",1.5 rooms,6850 Mendrisio
+"CHF 1,537,500.–",1.5 rooms,"Feldstrasse, 5712 Beinwil am See"
+"CHF 2,792,100.–",2 rooms,"Dorfgasse 16, 4144 Arlesheim"
+"CHF 724,470.–",1.5 rooms,"Gartenstrasse 8, 3923 Törbel"
+"CHF 2,939,700.–",1.5 rooms,"Langwattstrasse 24, 8125 Zollikerberg"
+"CHF 1,100,850.–",1.5 rooms,2900 Porrentruy
+"CHF 1,709,700.–",1.5 rooms,"Aufdorfstrasse 212, 8708 Männedorf"
+"CHF 1,906,500.–",1.5 rooms,1820 Montreux
+"CHF 1,046,730.–",1.5 rooms,"Salzrain 12, 8913 Ottenbach"
+"CHF 608,850.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 971,700.–",1.5 rooms,"Dornacherstrasse 121, 4053 Basel"
+"CHF 2,250,900.–",1.5 rooms,1180 Rolle
+Price on request,1 room,4313 Möhlin
+"CHF 2,177,100.–",1 room,"Chemin Aux-Folies 10, 1293 Bellevue"
+"CHF 836,400.–",1.5 rooms,"Rapperswilerstrasse, 8733 Eschenbach SG"
+"CHF 1,107,000.–",1.5 rooms,"Route de Nierlet 8, 1740 Neyruz FR"
+"CHF 485,850.–",1.5 rooms,"Pian Scairolo, 11, 6987 Caslano"
+"CHF 1,365,300.–",1.5 rooms,"Via Tesserete 66, 6900 Lugano"
+"CHF 4,821,600.–",1.5 rooms,"Gschweighusweg 20, 6403 Küssnacht"
+"CHF 4,735,500.–",1.5 rooms,"Stockerstrasse, 8810 Horgen"
+"CHF 3,628,500.–",1.5 rooms,6900 Lugano
+"CHF 1,143,900.–",1.5 rooms,1584 Villars-le-Grand
+Price on request,1.5 rooms,"Rechenbühl 81, 8106 Adlikon b. Regensdorf"
+"CHF 461,250.–",1.5 rooms,1882 Gryon
+"CHF 738,000.–",1.5 rooms,"Sägegasse, 4538 Oberbipp"
+"CHF 1,722,000.–",1.5 rooms,"Boniswilerstrasse, 5707 Seengen"
+"CHF 1,832,700.–",1.5 rooms,"Oberzelgstrasse 18, 5612 Villmergen"
+"CHF 1,217,700.–",1.5 rooms,1180 Rolle
+"CHF 1,014,750.–",1.5 rooms,1026 Denges
+Price on request,2 rooms,1253 Vandoeuvres
+Price on request,1.5 rooms,1669 Albeuve
+"CHF 688,800.–",1.5 rooms,"Via al Ponte 25, 6900 Massagno"
+"CHF 1,027,050.–",1.5 rooms,"Eggental 16, 5607 Hägglingen"
+"CHF 1,654,350.–",1.5 rooms,"Herrengässli 12, 3532 Zäziwil"
+"CHF 1,168,500.–",1.5 rooms,"Dorfstrasse 16, 6467 Schattdorf"
+"CHF 1,476,610.–",1 room,"Rue de Grand-Combe 105, 3961 Grimentz"
+"CHF 1,389,900.–",1.5 rooms,1026 Denges
+"CHF 5,227,500.–",1.5 rooms,1820 Territet
+"CHF 608,850.–",1 room,"Payerne, 1530 Payerne"
+"CHF 922,500.–",1.5 rooms,1532 Fétigny
+"CHF 1,525,200.–",1.5 rooms,"Wigarteweg 1, 8915 Hausen am Albis"
+Price on request,1.5 rooms,"Dorfstrasse 40, 9108 Gonten"
+"CHF 1,230,000.–",1.5 rooms,1470 Estavayer-le-Lac
+"CHF 2,982,750.–",1.5 rooms,"Schönenbuchstrasse 11, 4123 Allschwil"
+"CHF 2,644,500.–",2 rooms,"Jurastrasse, 4542 Luterbach"
+"CHF 682,650.–",1.5 rooms,5702 Niederlenz
+"CHF 797,040.–",1.5 rooms,"Kantonsstrasse 94, 6234 Triengen"
+"CHF 1,426,800.–",1.5 rooms,"Hügelweg 3, 3906 Saas-Fee"
+"CHF 541,200.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,254,600.–",1.5 rooms,"Adlerstrasse 22, 3604 Thun"
+"CHF 1,131,600.–",1.5 rooms,"Via Trecola, 6556 Leggia"
+"CHF 1,949,550.–",1.5 rooms,1947 Champsec (Versegères)
+"CHF 1,482,150.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+"CHF 910,200.–",1.5 rooms,"Grenzstrasse 4, 2558 Aegerten"
+Price on request,1.5 rooms,"Im Himmelrich 21, 8967 Widen"
+"CHF 1,108,230.–",1.5 rooms,"Am Mattenhof 1, 6010 Kriens"
+Price on request,1.5 rooms,"Via Er Strada Novo 4, 6513 Monte Carasso"
+"CHF 1,543,650.–",1.5 rooms,"Aegelseestrasse, 3375 Inkwil"
+"CHF 1,931,100.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 944,640.–",1.5 rooms,6900 Lugano
+"CHF 1,906,500.–",2 rooms,"Schöntalstrasse 11, 4438 Langenbruck"
+"CHF 2,884,350.–",1.5 rooms,"Rebgasse 31, 4102 Binningen"
+"CHF 1,094,700.–",1.5 rooms,"Chemin des Noz 17, 2942 Alle"
+"CHF 897,900.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 1,174,650.–",1.5 rooms,"Bertschi 3, 8416 Flaach"
+"CHF 1,672,800.–",1.5 rooms,"Greifenseestrasse 13, 8603 Schwerzenbach"
+"CHF 1,955,700.–",1.5 rooms,6962 Viganello
+"CHF 2,152,500.–",1.5 rooms,"Rütiweid 12, 6330 Cham"
+"CHF 1,168,500.–",1.5 rooms,"Dählenweg 14 und 16, 4950 Huttwil"
+"CHF 3,370,200.–",1.5 rooms,1260 Nyon
+"CHF 1,414,500.–",1.5 rooms,"Austrasse 2, 4106 Therwil"
+"CHF 2,195,550.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 2,324,700.–",1.5 rooms,1805 Jongny
+"CHF 1,832,700.–",1 room,"Jussy, 1254 Jussy"
+"CHF 1,291,500.–",1.5 rooms,"Ausserdorf, 8239 Dörflingen"
+"CHF 1,076,250.–",1.5 rooms,"Stägacher, 8627 Grüningen"
+"CHF 830,250.–",16m²,"Dorfstrasse 19, 9205 Waldkirch"
+"CHF 1,076,250.–",1.5 rooms,"Aegschhüs, 3983 Mörel"
+"CHF 799,500.–",1.5 rooms,"Avenue du Grand-Saint-Bernard 1, 1921 Martigny-Croix"
+"CHF 553,500.–",1.5 rooms,"Fichtenweg, 3225 Müntschemier"
+"CHF 3,665,400.–",1.5 rooms,1820 Veytaux
+"CHF 608,850.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 11,931,000.–",1 room,1936 Verbier
+"CHF 1,832,700.–",1 room,1285 Athenaz (Avusy)
+"CHF 787,200.–",1.5 rooms,"Sigriswilstrasse 17-23, 3654 Gunten"
+"CHF 1,832,700.–",1.5 rooms,"Via delle Scuole, 6900 Paradiso"
+"CHF 1,205,400.–",1.5 rooms,1433 Suchy
+Price on request,1.5 rooms,"Verbier, 1936 Verbier"
+"CHF 885,600.–",1.5 rooms,"Avenue du Grand-Saint-Bernard 1, 1921 Martigny-Croix"
+"CHF 436,650.–",1.5 rooms,"Allmendstrasse 80, 2540 Grenchen"
+"CHF 731,850.–",1.5 rooms,"St. Pelagibergstrasse, 9205 Waldkirch"
+"CHF 5,522,700.–",2.5 rooms,6645 Brione sopra Minusio
+"CHF 1,469,850.–",1.5 rooms,"Lessingstrasse 22, 9008 St. Gallen"
+Price on request,1.5 rooms,"Weingartenweg 2 & 4, 8049 Zürich"
+"CHF 897,900.–",1.5 rooms,"Zentrumstrasse, 4556 Aeschi SO"
+"CHF 1,906,500.–",1.5 rooms,4107 Ettingen
+"CHF 1,291,500.–",1.5 rooms,1337 Vallorbe
+Price on request,170m²,1180 Rolle
+"CHF 1,254,600.–",1.5 rooms,6500 Bellinzona
+"CHF 3,185,700.–",2 rooms,1293 Bellevue
+"CHF 2,435,400.–",1.5 rooms,"Seemattstrasse 17, 3322 Urtenen-Schönbühl"
+Price on request,1.5 rooms,"Böllistrasse, 5702 Niederlenz"
+"CHF 1,082,400.–",1.5 rooms,"Münschwilerstrasse 23, 9554 Tägerschen"
+Price on request,1.5 rooms,"Via Ceresio, 6900 Lugano"
+"CHF 1,193,100.–",1.5 rooms,"Salita Cuccarello, 6934 Bioggio"
+"CHF 1,094,700.–",1.5 rooms,"Haupstrasse339 / Schulstrasse, 4234 Zullwil"
+"CHF 756,450.–",1.5 rooms,8374 Dussnang
+"CHF 1,672,800.–",1.5 rooms,2035 Corcelles NE
+"CHF 1,623,600.–",1.5 rooms,"Im Hasensprung 10a, 8478 Thalheim an der Thur"
+"CHF 1,455,580.–",1.5 rooms,"Via Campagnola 22/b, 6852 Genestrerio"
+"CHF 1,147,590.–",1.5 rooms,"Möslistrasse 3, 3127 Mühlethurnen"
+"CHF 553,500.–",1.5 rooms,1896 Vouvry
+"CHF 1,691,250.–",1.5 rooms,"Waldrain 24, 2562 Port"
+"CHF 799,500.–",1.5 rooms,"Eggental 16, 5607 Hägglingen"
+"CHF 811,800.–",1.5 rooms,"Via Valle Maggia 21, 6600 Locarno"
+"CHF 1,781,040.–",1.5 rooms,"Sonnhalde, 6354 Vitznau"
+"CHF 2,361,600.–",1.5 rooms,"Rebenstrasse 31, 8309 Nürensdorf"
+"CHF 1,107,000.–",1.5 rooms,"Bahnhofstrasse 33, 6440 Ingenbohl"
+"CHF 1,389,900.–",1.5 rooms,1180 Rolle
+"CHF 1,107,000.–",1.5 rooms,"Via Er Strada Novo 4, 6513 Monte Carasso"
+"CHF 817,950.–",1.5 rooms,"Stägacher, 8627 Grüningen"
+"CHF 726,930.–",1.5 rooms,"Impasse de l'Arbogne 18, 1563 Dompierre FR"
+"CHF 1,254,600.–",1.5 rooms,6862 Rancate
+"CHF 1,082,400.–",1.5 rooms,1636 Broc
+"CHF 1,180,800.–",1.5 rooms,"Rankweg 11, 4402 Frenkendorf"
+Price on request,1.5 rooms,"Via Ceresio, 6900 Lugano"
+"CHF 774,900.–",1.5 rooms,"Bielstrasse 12, 3237 Brüttelen"
+"CHF 1,020,900.–",1.5 rooms,"Route Principale, 3961 St-Luc"
+"CHF 953,250.–",1.5 rooms,"Terbinerstrasse 81, 3930 Visp"
+Price on request,1 room,3963 Crans-Montana
+"CHF 1,722,000.–",1.5 rooms,"Allmendweg 4, 4242 Laufen"
+Price on request,1.5 rooms,"Dorfstrasse 40, 9108 Gonten"
+"CHF 1,033,200.–",1.5 rooms,"Sportstrasse 8/8a, 9200 Gossau SG"
+"CHF 910,200.–",1.5 rooms,1737 Plasselb
+"CHF 713,400.–",1.5 rooms,"Buchlistrasse 8, 4704 Niederbipp"
+"CHF 1,429,260.–",1.5 rooms,"Seetalstrasse 89, 5703 Seon"
+"CHF 1,955,700.–",1.5 rooms,1012 Lausanne
+"CHF 2,558,400.–",1.5 rooms,6933 Muzzano
+"CHF 2,103,300.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+Price on request,N/A,1247 Anières
+"CHF 1,027,050.–",1.5 rooms,3977 Granges VS
+"CHF 896,670.–",1.5 rooms,"Rheinsfelderstrasse 14, 8192 Zweidlen"
+"CHF 795,810.–",1.5 rooms,"Via Prati, 6855 Stabio"
+"CHF 1,353,000.–",1.5 rooms,"Hörnlistrasse 25, 8496 Steg im Tösstal"
+"CHF 3,013,500.–",1.5 rooms,"Unter dem Hölzli 7, 4102 Binningen"
+"CHF 1,605,150.–",1.5 rooms,"An der Rauti 20, 8752 Näfels"
+"CHF 1,137,750.–",1.5 rooms,"Rue des Alpes 6A, 1020 Renens"
+"CHF 1,217,700.–",1.5 rooms,"Schürmattweg, 4203 Grellingen"
+"CHF 1,217,700.–",1.5 rooms,"Oberzelgstrasse 18, 5612 Villmergen"
+"CHF 1,814,250.–",1 room,"Sarreyer, 1948 Sarreyer"
+"CHF 867,150.–",1.5 rooms,1965 Savièse
+"CHF 1,519,050.–",1.5 rooms,"Birkenweg, 6043 Adligenswil"
+"CHF 1,070,100.–",1.5 rooms,5642 Mühlau
+"CHF 1,383,750.–",1.5 rooms,1422 Grandson
+"CHF 1,156,200.–",1.5 rooms,"Viehmarktgasse 45, 4242 Laufen"
+"CHF 1,057,800.–",1.5 rooms,1914 Isérables
+"CHF 2,583,000.–",1.5 rooms,"Allmendweg 4, 4242 Laufen"
+"CHF 1,182,030.–",1.5 rooms,"Salzrain 12, 8913 Ottenbach"
+"CHF 848,700.–",1.5 rooms,6802 Rivera
+"CHF 2,017,200.–",1.5 rooms,"Itzikerdorf-Strasse 53, 8627 Grüningen"
+"CHF 1,937,860.–",1.5 rooms,"Oberes Büel 4, 8457 Humlikon"
+"CHF 2,275,500.–",1.5 rooms,"Rosenstrasse 19, 5426 Lengnau"
+"CHF 1,273,050.–",1.5 rooms,"Riedtalstrasse 19, 4800 Zofingen"
+"CHF 1,011,060.–",1 room,"Dorfstrasse 56, 3438 Lauperswil"
+"CHF 787,200.–",1.5 rooms,"Via Cantonale 32, 6565 S. Bernardino"
+"CHF 602,700.–",1.5 rooms,6512 Giubiasco
+Price on request,1.5 rooms,"Verbier, 1936 Verbier"
+"CHF 1,340,700.–",1.5 rooms,"Weiherhofstrasse 12, 9552 Bronschhofen"
+"CHF 2,611,960.–",1.5 rooms,"Salita Cuccarello, 6934 Bioggio"
+Price on request,1.5 rooms,1180 Rolle
+"CHF 787,200.–",1.5 rooms,9064 Hundwil
+"CHF 1,697,400.–",1.5 rooms,"Rebenstrasse 31, 8309 Nürensdorf"
+"CHF 1,709,700.–",1.5 rooms,1635 La Tour-de-Trême
+"CHF 1,463,700.–",1.5 rooms,"Landbergstrasse 34, 9230 Flawil"
+"CHF 1,623,600.–",1.5 rooms,"Rebenstrasse 31, 8309 Nürensdorf"
+Price on request,1.5 rooms,"Brunnenackerstrasse, 9422 Staad SG"
+"CHF 1,346,850.–",1.5 rooms,"Halacherstrasse 2, 8965 Berikon"
+"CHF 1,439,100.–",1.5 rooms,"Rheinstrasse 11, 8239 Dörflingen"
+"CHF 1,709,700.–",1.5 rooms,"Muttenzerstrasse 61, 4133 Pratteln"
+"CHF 2,644,500.–",1.5 rooms,"Via del Canvetto 1, 6900 Lugano"
+"CHF 1,162,350.–",1.5 rooms,"Neudörflingerstrasse 1, 8239 Dörflingen"
+"CHF 1,961,850.–",1.5 rooms,"Glarnerstrasse 32, 8854 Siebnen"
+"CHF 1,328,400.–",1.5 rooms,"Heerwiesweg, 8488 Turbenthal"
+"CHF 1,020,900.–",1.5 rooms,6512 Giubiasco
+"CHF 1,383,750.–",1.5 rooms,"Fustligweg 60, 4600 Olten"
+"CHF 1,402,200.–",1.5 rooms,"Seetalstrasse 124, 5503 Schafisheim"
+"CHF 2,115,600.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 1,715,850.–",1.5 rooms,5105 Auenstein
+"CHF 1,894,200.–",1.5 rooms,"Itzikerdorf-Strasse 51, 8627 Grüningen"
+"CHF 4,366,500.–",530m²,"Schmiedgasse 30, 9100 Herisau"
+"CHF 3,567,000.–",1.5 rooms,"Buchzelgstrasse 82, 8053 Zürich"
+Price on request,1.5 rooms,8192 Glattfelden
+"CHF 4,920,000.–",1.5 rooms,"Via Giudino 4, 6900 Paradiso"
+"CHF 1,469,850.–",1.5 rooms,"Fabrikgässli 3, 5616 Meisterschwanden"
+"CHF 664,200.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 1,100,850.–",1.5 rooms,9451 Kriessern
+"CHF 836,400.–",1.5 rooms,"Via Cantonale 31, 6565 S. Bernardino"
+"CHF 1,506,750.–",1.5 rooms,"Fustligweg 68, 4600 Olten"
+"CHF 1,002,450.–",1.5 rooms,"Gändli 30d, 6468 Attinghausen"
+"CHF 608,850.–",1.5 rooms,"Eggental 16, 5607 Hägglingen"
+"CHF 3,050,400.–",1.5 rooms,1180 Rolle
+"CHF 1,070,100.–",1.5 rooms,"La Roche, 1634 La Roche FR"
+"CHF 2,367,750.–",1.5 rooms,3906 Saas-Fee
+Price on request,1.5 rooms,"Tavelweg, 3360 Herzogenbuchsee"
+"CHF 2,017,200.–",1 room,1820 Montreux
+"CHF 590,400.–",2.5 rooms,1026 Denges
+"CHF 750,300.–",1.5 rooms,8374 Dussnang
+"CHF 781,050.–",1.5 rooms,"Collombey-Muraz, 1868 Collombey"
+"CHF 1,845,000.–",1.5 rooms,"Via Tesserete 66, 6900 Lugano"
+"CHF 2,681,400.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 1,555,950.–",1.5 rooms,"Käterlistrasse 22, 5102 Rupperswil"
+"CHF 1,328,400.–",1.5 rooms,"Route de la Chenevière 33a, 1763 Granges-Paccot"
+"CHF 725,700.–",1.5 rooms,1966 Ayent
+"CHF 984,000.–",1.5 rooms,6500 Bellinzona
+"CHF 639,600.–",1.5 rooms,"Eggental 16, 5607 Hägglingen"
+"CHF 750,300.–",1.5 rooms,"Sägegasse, 4538 Oberbipp"
+"CHF 2,767,500.–",1.5 rooms,1180 Rolle
+"CHF 842,550.–",1.5 rooms,"Sägegasse, 4538 Oberbipp"
+"CHF 1,426,800.–",1.5 rooms,1031 Mex VD
+"CHF 799,500.–",1.5 rooms,"Via alla Chiesa, 6557 Cama"
+"CHF 1,033,200.–",1.5 rooms,"Zentrumstrasse, 4556 Aeschi SO"
+"CHF 3,253,350.–",1.5 rooms,"Via Tesserete 66, 6900 Lugano"
+Price on request,1.5 rooms,6598 Tenero
+"CHF 3,484,590.–",1.5 rooms,1012 Lausanne
+"CHF 1,340,700.–",1.5 rooms,3000 Bern
+"CHF 1,100,850.–",1.5 rooms,6986 Novaggio
+"CHF 977,850.–",1.5 rooms,"Altweg, 6264 Pfaffnau"
+"CHF 1,821,010.–",1.5 rooms,"Route des Rahas 6, 3961 Grimentz"
+Price on request,1.5 rooms,"Fuederholzstrasse 19, 8704 Herrliberg"
+"CHF 1,020,900.–",1.5 rooms,"Rue des Grands-Praz, 1906 Charrat"
+"CHF 744,920.–",1.5 rooms,1994 Aproz (Sion)
+"CHF 1,045,500.–",1.5 rooms,"Rue de Parcouret 71, 1964 Conthey"
+"CHF 1,346,850.–",1.5 rooms,1422 Grandson
+"CHF 848,700.–",1.5 rooms,"Route de Valeyres 30, 1350 Orbe"
+"CHF 799,500.–",1.5 rooms,"Rue des Alpes 6A, 1020 Renens"
+"CHF 4,305,000.–",1 room,1885 Chesières
+"CHF 1,758,900.–",1.5 rooms,"Rebenstrasse 31, 8309 Nürensdorf"
+"CHF 848,700.–",1.5 rooms,8580 Amriswil
+"CHF 910,200.–",1.5 rooms,8374 Dussnang
+"CHF 1,211,550.–",1.5 rooms,1400 Yverdon-les-Bains
+"CHF 916,350.–",1.5 rooms,"Bahnhofstrasse, 3512 Walkringen"
+"CHF 2,398,500.–",1.5 rooms,6900 Lugano
+"CHF 848,700.–",1.5 rooms,9608 Ganterschwil
+"CHF 2,693,700.–",1.5 rooms,1844 Villeneuve VD
+"CHF 1,008,600.–",1.5 rooms,6596 Gordola
+"CHF 2,361,600.–",1.5 rooms,"Alte Landstrasse 360, 8708 Männedorf"
+"CHF 2,841,300.–",1.5 rooms,"Spiserstrasse, 8047 Zürich"
+"CHF 922,500.–",1.5 rooms,6900 Lugano
+"CHF 1,353,000.–",1.5 rooms,"Stallikonerstrasse 72, 8903 Birmensdorf ZH"
+"CHF 774,900.–",1 room,"Egelseestrasse 2, 8280 Kreuzlingen"
+"CHF 1,143,900.–",1.5 rooms,"Avenue Edouard-Dubois 5, 2000 Neuchâtel"
+"CHF 602,700.–",1.5 rooms,6500 Bellinzona
+Price on request,1.5 rooms,"St. Pelagibergstrasse, 9205 Waldkirch"
+"CHF 1,968,000.–",1.5 rooms,"Via Bigliac 14, 7153 Falera"
+"CHF 1,451,400.–",1 room,"Binningerstrasse 45, 4104 Oberwil BL"
+"CHF 922,500.–",1.5 rooms,"Ausserdorf, 8239 Dörflingen"
+"CHF 2,078,700.–",1.5 rooms,"Brunnenwis-Strasse 2a, 8627 Grüningen"
+Price on request,1.5 rooms,"Tavelweg, 3360 Herzogenbuchsee"
+"CHF 854,850.–",1.5 rooms,"Route principale 11, 1796 Courgevaux"
+"CHF 1,659,270.–",1.5 rooms,"Gstipfstrasse, 3902 Glis"
+"CHF 581,100.–",1.5 rooms,1994 Aproz (Sion)
+"CHF 2,521,500.–",1 room,1285 Athenaz (Avusy)
+"CHF 1,660,500.–",1 room,"Jussy, 1254 Jussy"
+"CHF 1,346,850.–",1.5 rooms,"Turnhallenstrasse, 8252 Schlatt TG"
+"CHF 329,640.–",1.5 rooms,9400 Rorschach
+"CHF 897,900.–",2.5 rooms,1180 Rolle
+"CHF 1,396,050.–",1.5 rooms,"Schlattgasse 8, 8716 Schmerikon"
+"CHF 627,300.–",1.5 rooms,"Cottens FR, 1741 Cottens FR"
+"CHF 1,045,500.–",1.5 rooms,"Längmattstrasse 11, 4563 Gerlafingen"
+"CHF 1,371,450.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+"CHF 2,066,400.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 6,150,000.–",280m²,1200 Genève
+"CHF 4,649,400.–",1.5 rooms,"Via Orbisana 34, 6933 Muzzano"
+"CHF 1,525,200.–",1.5 rooms,"Chemin des Dazelets, 2068 Hauterive"
+"CHF 1,660,500.–",1.5 rooms,"Rebenstrasse 31, 8309 Nürensdorf"
+"CHF 1,918,800.–",1.5 rooms,"Wigarteweg 5, 8915 Hausen am Albis"
+"CHF 891,750.–",1.5 rooms,"Rue de l'Hôpital 8A, 2024 St-Aubin-Sauges"
+"CHF 1,660,500.–",1.5 rooms,"Zum Höhenweg 13, 3900 Brigerbad"
+"CHF 4,784,700.–",1 room,1224 Chêne-Bougeries
+"CHF 1,260,750.–",1.5 rooms,8374 Dussnang
+"CHF 1,020,900.–",1.5 rooms,"Unterforststrasse, 4313 Möhlin"
+"CHF 911,430.–",1.5 rooms,3957 Erschmatt
+"CHF 879,450.–",1.5 rooms,2557 Studen BE
+"CHF 1,463,700.–",1.5 rooms,1896 Vouvry
+"CHF 5,756,400.–",1.5 rooms,1180 Rolle
+"CHF 1,586,700.–",1.5 rooms,1026 Denges
+"CHF 639,600.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 1,414,500.–",1.5 rooms,"Farbstutz 1, 6166 Hasle LU"
+"CHF 1,014,750.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 2,558,400.–",1.5 rooms,1180 Rolle
+"CHF 1,100,850.–",1.5 rooms,6828 Balerna
+"CHF 639,600.–",1 room,"Dorfstrasse 23, 3673 Linden"
+"CHF 1,297,650.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+"CHF 1,057,800.–",1 room,"Lischmatt 6 + 8, 4719 Ramiswil"
+"CHF 1,722,000.–",1.5 rooms,3906 Saas-Fee
+Price on request,1.5 rooms,"Impasse des Grangettes, 1725 Posieux"
+"CHF 1,585,470.–",1.5 rooms,"Bahnhofstrasse 17, 4118 Rodersdorf"
+"CHF 1,574,400.–",1.5 rooms,"Südstrasse, 3942 St. German"
+Price on request,1.5 rooms,"Konstanzerstrasse, 9500 Wil SG"
+"CHF 1,586,700.–",1.5 rooms,1094 Paudex
+"CHF 2,189,400.–",1.5 rooms,"Wigarteweg 3, 8915 Hausen am Albis"
+"CHF 1,168,500.–",1.5 rooms,"Bahnhofstrasse 33, 6440 Ingenbohl"
+"CHF 738,000.–",1.5 rooms,"Sigriswilstrasse 17-23, 3654 Gunten"
+"CHF 1,180,800.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+"CHF 1,193,100.–",1.5 rooms,"Buchenstrasse 31, 9042 Speicher"
+"CHF 805,650.–",1.5 rooms,1896 Vouvry
+"CHF 2,158,650.–",1.5 rooms,2022 Bevaix
+"CHF 1,592,850.–",1.5 rooms,"Unterer Kapf, 9405 Wienacht-Tobel"
+Price on request,1.5 rooms,"Brütschenbächliweg 6, 5722 Gränichen"
+"CHF 2,017,200.–",1 room,"Cointrin, 1216 Cointrin"
+"CHF 1,211,550.–",1.5 rooms,1026 Echandens
+"CHF 1,180,800.–",1.5 rooms,9451 Kriessern
+Price on request,1.5 rooms,"Via Ceresio, 6900 Lugano"
+"CHF 2,423,100.–",1.5 rooms,1805 Jongny
+"CHF 7,257,000.–",1 room,1208 Genève
+"CHF 615,000.–",1.5 rooms,"Bahnhofstrasse - Kirchgasse, 5605 Dottikon"
+"CHF 1,820,400.–",1 room,1942 Levron
+"CHF 947,100.–",1.5 rooms,"Kantonsstrasse 94, 6234 Triengen"
+"CHF 3,062,700.–",1.5 rooms,"Rebwiesstrasse 32, 8702 Zollikon"
+"CHF 1,377,600.–",1.5 rooms,"Hauptstrasse 143, 3286 Muntelier"
+"CHF 2,269,350.–",1.5 rooms,"In der Rüti, 8967 Widen"
+"CHF 1,204,170.–",1.5 rooms,"Kapelle 55, 1718 Rechthalten"
+"CHF 2,218,920.–",1.5 rooms,"Am Mattenhof 1, 6010 Kriens"
+"CHF 1,334,550.–",1.5 rooms,"Mellingerstrasse 7, 5443 Niederrohrdorf"
+"CHF 2,693,700.–",1 room,1226 Thônex
+"CHF 722,010.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,107,000.–",1.5 rooms,1180 Rolle
+"CHF 1,260,750.–",1.5 rooms,5628 Aristau
+"CHF 704,790.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,131,600.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 921,270.–",1.5 rooms,"Via Vignola 11, 6900 Lugano"
+Price on request,1.5 rooms,1530 Payerne
+"CHF 1,309,950.–",1.5 rooms,"Leueren 12, 4324 Obermumpf"
+"CHF 1,328,400.–",1.5 rooms,"Mattenweg, 8374 Dussnang"
+"CHF 854,850.–",1.5 rooms,"Mattenweg, 8374 Dussnang"
+"CHF 1,340,700.–",1.5 rooms,"Fabrikstrasse 7, 6482 Gurtnellen"
+"CHF 1,162,350.–",1.5 rooms,"Nesplenweg, 4710 Balsthal"
+"CHF 2,004,900.–",1.5 rooms,"Via dei Platani, 6900 Lugano"
+"CHF 953,250.–",1.5 rooms,"Mattenweg, 8374 Dussnang"
+"CHF 1,599,000.–",1.5 rooms,6780 Airolo
+"CHF 829,020.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,586,700.–",1.5 rooms,"Corniche du Soleil, 3960 Sierre"
+"CHF 977,850.–",1.5 rooms,"Schürmattweg, 4203 Grellingen"
+"CHF 1,685,100.–",1.5 rooms,"Greifenseestrasse 13, 8603 Schwerzenbach"
+"CHF 1,820,400.–",1.5 rooms,"Itzikerdorf-Strasse 51, 8627 Grüningen"
+"CHF 916,350.–",1.5 rooms,"Halacherstrasse 2, 8965 Berikon"
+"CHF 2,140,200.–",1.5 rooms,"Kurvenstrasse 12a, 9053 Teufen AR"
+"CHF 2,201,700.–",1 room,"Chemin Jacques-Philibert-de-Sauvage 22, 1219 Châtelaine"
+"CHF 1,131,600.–",1.5 rooms,"Sankt Gallerstrasse 154, 9320 Arbon"
+Price on request,1.5 rooms,"Wydenmööslistrasse 11, 8280 Kreuzlingen"
+"CHF 1,635,900.–",1.5 rooms,1180 Rolle
+"CHF 2,496,900.–",1.5 rooms,"Via Tesserete 66, 6900 Lugano"
+"CHF 859,770.–",1.5 rooms,"Route des Bas-Epenis 6, 1871 Choëx"
+"CHF 2,447,700.–",1.5 rooms,"Chemin des Mésanges 6, 1012 Lausanne"
+"CHF 1,002,450.–",1.5 rooms,"Route Principale, 3961 St-Luc"
+"CHF 922,500.–",1.5 rooms,"Sankt Gallerstrasse 156, 9320 Stachen"
+"CHF 848,700.–",1.5 rooms,"Dotzigenstrasse 1, 3292 Busswil BE"
+"CHF 1,660,500.–",1.5 rooms,1180 Rolle
+Price on request,1.5 rooms,1700 Fribourg
+"CHF 1,821,010.–",1.5 rooms,"Route des Rahâs 6, 3961 Grimentz"
+"CHF 1,211,550.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+"CHF 2,078,700.–",1.5 rooms,1180 Rolle
+"CHF 799,500.–",1.5 rooms,1869 Massongex
+"CHF 1,586,700.–",1.5 rooms,1175 Lavigny
+"CHF 1,783,500.–",1.5 rooms,"Curtinatsch, 7546 Scuol"
+"CHF 774,900.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 971,700.–",1.5 rooms,"Corso San Gottardo, 6830 Chiasso"
+"CHF 2,361,600.–",1.5 rooms,2035 Corcelles NE
+"CHF 1,414,500.–",1.5 rooms,"Boniswilerstrasse, 5707 Seengen"
+"CHF 461,250.–",1.5 rooms,6500 Bellinzona
+"CHF 405,900.–",1 room,"In den Holeematten 6, 4102 Binningen"
+"CHF 2,115,600.–",N/A,"Chemin Mégard, 1290 Versoix"
+"CHF 1,617,450.–",1 room,"Abtwilerstrasse 1, 5645 Aettenschwil"
+"CHF 1,949,550.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 928,650.–",1.5 rooms,1737 Plasselb
+"CHF 621,150.–",1 room,"Payerne, 1530 Payerne"
+"CHF 2,398,500.–",1.5 rooms,"Unterrainstrasse 30, 9050 Appenzell"
+"CHF 922,500.–",1.5 rooms,"Via Acquedotto, 6814 Cadempino"
+"CHF 1,131,600.–",1.5 rooms,3000 Bern
+"CHF 1,900,350.–",1.5 rooms,"Statthalterstrasse 44, 44a, 3018 Bern"
+Price on request,1.5 rooms,"Oberbotsbergstrasse 67, 9230 Flawil"
+"CHF 854,850.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 1,906,500.–",1.5 rooms,"Holgassstrasse 71, 8634 Hombrechtikon"
+"CHF 1,205,400.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 1,586,700.–",1 room,"chemin de la béchette 7, 1226 Thônex"
+Price on request,N/A,"Fehraltorferstrasse 9, 8615 Uster"
+"CHF 1,391,130.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 1,260,750.–",1.5 rooms,"Dorfstrasse 19, 9205 Waldkirch"
+"CHF 1,131,600.–",1.5 rooms,2056 Dombresson
+"CHF 799,500.–",1.5 rooms,"Via Fornasette 10, 6833 Vacallo"
+"CHF 859,770.–",1.5 rooms,"Moosweg 9, 9470 Buchs SG"
+"CHF 5,904,000.–",2 rooms,"Oberer Rütiweg 1, 8803 Rüschlikon"
+"CHF 885,600.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 4,059,000.–",1 room,1918 La Tzoumaz
+"CHF 885,600.–",1.5 rooms,"Abtwilstrasse 8a, 6275 Ballwil"
+"CHF 2,244,750.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 658,050.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 1,439,100.–",1.5 rooms,"Hofbergstrasse 18, 9500 Wil SG"
+"CHF 885,600.–",1.5 rooms,"Chännel 7, 6067 Melchtal"
+"CHF 858,540.–",1.5 rooms,3957 Erschmatt
+"CHF 1,660,500.–",1.5 rooms,"Unterwienacht 446, 9405 Wienacht-Tobel"
+"CHF 1,082,400.–",1.5 rooms,"Scheffelstrasse 3, 9400 Rorschach"
+"CHF 1,125,450.–",1 room,"Via Berzona, 6632 Vogorno"
+"CHF 1,143,900.–",1.5 rooms,"Gütschweg 1, Goldau, 6410 Goldau"
+"CHF 2,766,270.–",1.5 rooms,9404 Rorschacherberg
+"CHF 1,414,500.–",1.5 rooms,1400 Yverdon-les-Bains
+"CHF 537,510.–",1.5 rooms,1907 Saxon
+"CHF 533,820.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 670,350.–",1.5 rooms,"Rue d'Aoste 5a, 1920 Martigny"
+"CHF 6,027,000.–",2 rooms,1231 Conches
+"CHF 722,010.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,709,700.–",1.5 rooms,"Neubrückstrasse 13, 2555 Brügg BE"
+"CHF 2,318,550.–",1.5 rooms,"In der Rüti, 8967 Widen"
+"CHF 2,078,700.–",1.5 rooms,"Parkstrasse 22, 4102 Binningen"
+"CHF 442,800.–",1.5 rooms,"Via Cava, 6855 Stabio"
+"CHF 1,193,100.–",1.5 rooms,1341 L'Orient
+Price on request,1.5 rooms,"Maiacher 7, 8126 Zumikon"
+"CHF 897,900.–",1.5 rooms,"Höhenweg, 3900 Brigerbad"
+"CHF 1,383,750.–",1.5 rooms,4800 Zofingen
+"CHF 1,709,700.–",1.5 rooms,"Oberzelgstrasse 16, 5612 Villmergen"
+"CHF 1,709,700.–",1.5 rooms,"Greutensberg 7, 9514 Wuppenau"
+"CHF 2,712,150.–",1.5 rooms,"Belvédèrestrasse 75, 5621 Zufikon"
+"CHF 1,586,700.–",1.5 rooms,1803 Chardonne
+"CHF 810,570.–",1.5 rooms,1965 Savièse
+"CHF 553,500.–",1.5 rooms,6528 Camorino
+"CHF 3,247,200.–",1.5 rooms,"Spiserstrasse, 8047 Zürich"
+"CHF 615,000.–",1.5 rooms,"Leimgasse 5, 4314 Zeiningen"
+"CHF 2,029,500.–",1.5 rooms,"Hauptstrasse 210, 2532 Magglingen/Macolin"
+"CHF 2,164,800.–",1.5 rooms,"Tobelmühlestrasse 2, 7270 Davos Platz"
+"CHF 1,455,580.–",1.5 rooms,6855 Stabio
+"CHF 1,660,500.–",1.5 rooms,"Battenhaus 3092, 9052 Niederteufen"
+"CHF 2,785,950.–",1.5 rooms,"Buchhalde 44, 5018 Erlinsbach AG"
+"CHF 805,650.–",1 room,6850 Mendrisio
+"CHF 1,131,600.–",1.5 rooms,1696 Vuisternens-en-Ogoz
+"CHF 1,783,500.–",1.5 rooms,1867 Ollon VD
+"CHF 1,955,700.–",1.5 rooms,1882 Gryon
+"CHF 1,193,100.–",1.5 rooms,"Neubrückstrasse 13, 2555 Brügg BE"
+"CHF 1,020,900.–",1.5 rooms,"B, chemin de Boton 42, 1880 Bex"
+"CHF 2,767,500.–",1.5 rooms,"Heimweg 8, 3097 Liebefeld"
+"CHF 1,943,400.–",1 room,"chemin de la béchette 7, 1226 Thônex"
+"CHF 1,832,700.–",1.5 rooms,"Bremenstallstrasse, 4313 Möhlin"
+"CHF 1,715,850.–",1.5 rooms,1867 Ollon VD
+"CHF 541,200.–",1.5 rooms,6512 Giubiasco
+Price on request,1.5 rooms,"Fuederholzstrasse 19, 8704 Herrliberg"
+"CHF 977,850.–",1.5 rooms,"Dorf 74, 4934 Madiswil"
+"CHF 1,322,250.–",1.5 rooms,"Geisshubelweg 55, 4852 Rothrist"
+"CHF 2,804,400.–",1.5 rooms,"Friedheimweg 37, 6353 Weggis"
+"CHF 1,426,800.–",1.5 rooms,6612 Ascona
+"CHF 965,550.–",1.5 rooms,2557 Studen BE
+"CHF 541,200.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,014,750.–",1.5 rooms,"Ausserdorf, 8239 Dörflingen"
+"CHF 1,672,800.–",1.5 rooms,2035 Corcelles NE
+"CHF 5,682,600.–",1.5 rooms,1180 Rolle
+"CHF 922,500.–",1.5 rooms,8374 Dussnang
+"CHF 1,100,850.–",1.5 rooms,"Rue du Stand 24B, 1958 St-Léonard"
+"CHF 2,441,550.–",1 room,"Fuhrstrasse 28, 8820 Wädenswil"
+"CHF 1,063,950.–",1.5 rooms,"Allmendstrasse 80, 2540 Grenchen"
+"CHF 824,100.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 1,666,650.–",1.5 rooms,"Rebgasse 31, 4102 Binningen"
+"CHF 1,020,900.–",1.5 rooms,6596 Gordola
+"CHF 1,455,580.–",1.5 rooms,6850 Mendrisio
+"CHF 707,250.–",1.5 rooms,"Chilchweg, 3771 Zweisimmen"
+"CHF 1,100,850.–",1.5 rooms,"Promenade Iris de Roten 1, 2800 Delémont"
+Price on request,1.5 rooms,"Via Pioda, 6710 Biasca"
+"CHF 977,850.–",1.5 rooms,8374 Dussnang
+"CHF 694,950.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 615,000.–",1.5 rooms,"Pian Scairolo, 11, 6900 Lugano"
+"CHF 1,063,950.–",1.5 rooms,"Höhenweg 9, 3661 Uetendorf"
+"CHF 1,205,400.–",1.5 rooms,6933 Muzzano
+Price on request,N/A,"45.848554, 9.013788, 6834 Morbio Inferiore"
+"CHF 854,850.–",1.5 rooms,"Marthalerstrasse 16, 8463 Benken"
+"CHF 1,193,100.–",1 room,"Strada Cantonale, 6525 Gnosca"
+"CHF 1,537,500.–",1.5 rooms,"Rebbergstrasse 3, 8157 Dielsdorf"
+Price on request,1.5 rooms,"Neulandenstrasse, 9500 Wil SG"
+"CHF 1,439,100.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 1,156,200.–",1.5 rooms,1904 Vernayaz
+"CHF 1,613,090.–",1.5 rooms,6855 Stabio
+"CHF 1,217,700.–",1.5 rooms,"Sankt Gallerstrasse 156, 9320 Arbon"
+"CHF 2,183,250.–",1.5 rooms,"Rebgasse 31, 4102 Binningen"
+"CHF 2,558,400.–",1.5 rooms,"Chemin d'Aiguerosse 3, 1882 Gryon"
+"CHF 916,350.–",1.5 rooms,"Bahnhofstrasse, 3512 Walkringen"
+"CHF 953,250.–",1.5 rooms,6500 Bellinzona
+"CHF 436,650.–",1.5 rooms,1882 Gryon
+"CHF 2,330,850.–",1.5 rooms,"In der Rüti, 8967 Widen"
+"CHF 651,900.–",1.5 rooms,6924 Sorengo
+"CHF 608,850.–",1.5 rooms,"Halacherstrasse 2, 8965 Berikon"
+"CHF 492,000.–",1.5 rooms,2108 Couvet
+"CHF 1,340,700.–",1.5 rooms,"Mühlegasse 19, 4852 Rothrist"
+"CHF 1,746,600.–",1.5 rooms,"Weinbergstrasse 68, 5000 Aarau"
+"CHF 971,700.–",1.5 rooms,"Riederenstrasse 4, 8638 Goldingen"
+"CHF 1,232,460.–",1.5 rooms,"Sonnhalde, 6354 Vitznau"
+Price on request,2.5 rooms,6900 Lugano
+"CHF 5,289,000.–",1 room,1224 Chêne-Bougeries
+"CHF 1,033,200.–",1.5 rooms,"Rue des Grands-Praz, 1906 Charrat"
+Price on request,1.5 rooms,"Gérignoz, 3780 Gstaad"
+"CHF 1,039,350.–",1.5 rooms,6612 Ascona
+"CHF 1,340,700.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 1,672,800.–",1 room,"chemin de la béchette 7, 1226 Thônex"
+"CHF 1,100,850.–",1.5 rooms,"Dorfstrasse 26, 4856 Glashütten"
+"CHF 436,650.–",1 room,6828 Balerna
+"CHF 2,324,700.–",1.5 rooms,1180 Rolle
+"CHF 5,104,500.–",1 room,1224 Chêne-Bougeries
+"CHF 1,125,450.–",1.5 rooms,"Termerweg 26, 3900 Brig"
+"CHF 848,700.–",1.5 rooms,"Route de Drône, 1965 Saint-Germain (Savièse)"
+"CHF 965,550.–",1.5 rooms,"Bahnhofstrasse, 3512 Walkringen"
+"CHF 1,439,100.–",1.5 rooms,"Oberzelgstrasse 18, 5612 Villmergen"
+"CHF 996,300.–",1.5 rooms,"Gändli 28a, 6468 Attinghausen"
+"CHF 1,599,000.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+Price on request,1.5 rooms,8967 Widen
+Price on request,1.5 rooms,"Im Himmelrich 21, 8967 Widen"
+"CHF 873,300.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 1,562,100.–",1.5 rooms,"Gändli 30c, 6468 Attinghausen"
+"CHF 873,300.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 3,444,000.–",1 room,"Hauptstrasse 210, 2532 Magglingen/Macolin"
+"CHF 5,049,150.–",1.5 rooms,"Neuschwändistrasse 13a, 6390 Engelberg"
+"CHF 1,383,750.–",1.5 rooms,"Bertschi 3, 8416 Flaach"
+"CHF 731,850.–",1.5 rooms,"Route de l'Etriva, 1776 Montagny-la-Ville"
+"CHF 1,353,000.–",1.5 rooms,"Dorfstrasse 19, 9205 Waldkirch"
+"CHF 1,574,400.–",1.5 rooms,"Lärchenweg 19, 3672 Oberdiessbach"
+"CHF 2,730,600.–",2.5 rooms,"Wydenmööslistrasse 11, 8280 Kreuzlingen"
+"CHF 947,100.–",1.5 rooms,1854 Leysin
+"CHF 738,000.–",1.5 rooms,5314 Kleindöttingen
+Price on request,1.5 rooms,"Via Canonico Ghiringhelli, 6500 Bellinzona"
+"CHF 904,050.–",1.5 rooms,"Bielstrasse 12, 3237 Brüttelen"
+"CHF 2,023,350.–",1.5 rooms,1023 Crissier
+"CHF 1,931,100.–",2 rooms,8404 Winterthur
+"CHF 3,677,700.–",1 room,1256 Troinex
+"CHF 910,200.–",1.5 rooms,"Hinterdorfstrasse 12, 6235 Winikon"
+"CHF 2,816,700.–",3.5 rooms,"Schwendetalstrasse 75, 9057 Wasserauen"
+"CHF 1,020,900.–",1.5 rooms,1584 Villars-le-Grand
+"CHF 953,250.–",1.5 rooms,8374 Dussnang
+"CHF 1,548,570.–",1.5 rooms,"Route de Ponty 9, 1522 Lucens"
+"CHF 490,770.–",1.5 rooms,"Buchlistrasse 8, 4704 Niederbipp"
+"CHF 676,500.–",1.5 rooms,1896 Vouvry
+"CHF 1,414,500.–",1.5 rooms,"Fuchsrainweg 1a, 4314 Zeiningen"
+"CHF 836,400.–",1.5 rooms,"Sankt Gallerstrasse 152, 9320 Arbon"
+"CHF 2,041,800.–",1.5 rooms,1180 Rolle
+"CHF 1,501,830.–",1.5 rooms,"Salzrain 12, 8913 Ottenbach"
+"CHF 398,960.–",1 room,"Oberseepromenade, 7050 Arosa"
+"CHF 1,820,400.–",1.5 rooms,2035 Corcelles NE
+"CHF 1,353,000.–",1 room,"Chemin Plein-sud 27, 1226 Thônex"
+"CHF 958,170.–",1.5 rooms,"Fanalweg 3a, 7307 Jenins"
+"CHF 1,199,250.–",1.5 rooms,"Rue des Champs du Moulin 4, 1964 Conthey"
+"CHF 2,306,250.–",1.5 rooms,"Witikonerstrasse 445, 8053 Zürich"
+"CHF 7,995,000.–",1.5 rooms,"Résidence Le Marmotton, 3963 Crans-Montana"
+"CHF 664,200.–",1.5 rooms,1896 Vouvry
+"CHF 839,110.–",1.5 rooms,"Rütiweg 2, 3072 Ostermundigen"
+Price on request,1.5 rooms,"Aegärtustrasse 11, 3916 Ferden"
+"CHF 1,081,170.–",1.5 rooms,"Rheinsfelderstrasse 14, 8192 Zweidlen"
+"CHF 1,808,100.–",1.5 rooms,2035 Corcelles NE
+"CHF 1,537,500.–",1.5 rooms,6616 Losone
+"CHF 289,050.–",2.5 rooms,1950 Sion
+"CHF 1,049,190.–",1.5 rooms,"Erlihalde, 5106 Veltheim AG"
+"CHF 1,143,900.–",1.5 rooms,"Halde, 9475 Sevelen"
+"CHF 731,850.–",1.5 rooms,"Altweg, 6264 Pfaffnau"
+"CHF 706,020.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 738,000.–",2 rooms,1180 Rolle
+"CHF 479,700.–",1.5 rooms,"Kalkstätten 181, 3158 Guggisberg"
+"CHF 1,476,000.–",1.5 rooms,"Aarefeldstrasse 16, 4658 Däniken SO"
+"CHF 2,054,100.–",1.5 rooms,"Fanalweg 3a, 7307 Jenins"
+"CHF 1,214,150.–",1.5 rooms,6900 Massagno
+"CHF 787,200.–",1.5 rooms,1868 Collombey
+"CHF 1,266,900.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 1,131,600.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 922,500.–",1.5 rooms,"Sankt Gallerstrasse 156, 9320 Stachen"
+"CHF 405,900.–",1.5 rooms,"Schöntalstrasse 11, 4438 Langenbruck"
+"CHF 2,201,700.–",1 room,1218 Le Grand-Saconnex
+"CHF 891,750.–",1.5 rooms,1532 Fétigny
+"CHF 1,033,200.–",1.5 rooms,8374 Dussnang
+"CHF 682,650.–",1.5 rooms,"Rankweg 11, 4402 Frenkendorf"
+"CHF 1,500,600.–",1 room,1942 Levron
+"CHF 1,469,850.–",1.5 rooms,"Schürmattweg, 4203 Grellingen"
+Price on request,1.5 rooms,1978 Lens
+"CHF 2,189,400.–",1.5 rooms,"Chemin du Signal, 1070 Puidoux"
+"CHF 1,100,850.–",1.5 rooms,2900 Porrentruy
+"CHF 947,100.–",1.5 rooms,"Bachstrasse 32, 4654 Lostorf"
+"CHF 596,550.–",1.5 rooms,1564 Domdidier
+"CHF 3,121,740.–",1.5 rooms,"Am Mattenhof 1, 6010 Kriens"
+"CHF 1,078,710.–",1.5 rooms,1341 L'Orient
+"CHF 1,875,750.–",300m²,2068 Hauterive NE
+"CHF 1,131,600.–",1.5 rooms,"Route de Drône, 1965 Saint-Germain (Savièse)"
+"CHF 750,300.–",2.5 rooms,"Pully, 1009 Pully"
+"CHF 885,600.–",1.5 rooms,1584 Villars-le-Grand
+"CHF 1,854,840.–",1.5 rooms,"Fanalweg 3a, 7307 Jenins"
+"CHF 1,131,600.–",1.5 rooms,1372 Bavois
+"CHF 1,537,500.–",1.5 rooms,"Dorfstrasse 30, 8773 Haslen GL"
+"CHF 1,322,250.–",1.5 rooms,"Altweg, 6264 Pfaffnau"
+"CHF 676,500.–",1.5 rooms,1965 Savièse
+"CHF 1,613,090.–",1.5 rooms,6830 Chiasso
+"CHF 607,620.–",1.5 rooms,"Route de Lamberson 15, 3960 Sierre"
+"CHF 940,950.–",1.5 rooms,"Gstaldenstrasse 13, 9442 Berneck"
+"CHF 1,045,500.–",1.5 rooms,6512 Giubiasco
+"CHF 2,675,250.–",1.5 rooms,"Immenweg 23, 8050 Zürich"
+"CHF 731,850.–",1.5 rooms,"Chemin des Grèves 118, 1568 Portalban"
+"CHF 1,758,900.–",1.5 rooms,"Riedstrasse 26, 3626 Hünibach"
+"CHF 1,648,200.–",1.5 rooms,"Varbye Résidence, 1936 Verbier"
+"CHF 854,850.–",1.5 rooms,1372 Bavois
+"CHF 774,900.–",1.5 rooms,"Grenzstrasse 4, 2558 Aegerten"
+"CHF 1,263,210.–",1.5 rooms,6596 Gordola
+"CHF 1,057,800.–",1.5 rooms,"Abtwilstrasse 8a, 6275 Ballwil"
+"CHF 1,116,840.–",1.5 rooms,"Via Prati, 6855 Stabio"
+"CHF 958,170.–",1.5 rooms,1723 Marly
+"CHF 9,437,790.–",1.5 rooms,"Via Orbisana 34, 6933 Muzzano"
+"CHF 3,308,700.–",2.5 rooms,1066 Epalinges
+"CHF 3,382,500.–",1.5 rooms,"Reservoirstrasse 1, 8955 Oetwil an der Limmat"
+Price on request,1.5 rooms,"Sonneggstrasse, 9642 Ebnat-Kappel"
+"CHF 885,600.–",1.5 rooms,3000 Bern
+Price on request,1.5 rooms,"Zihlstrasse, 8107 Buchs ZH"
+"CHF 725,700.–",1.5 rooms,"Corso San Gottardo, 6830 Chiasso"
+"CHF 873,300.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 1,869,600.–",1.5 rooms,2035 Corcelles NE
+"CHF 2,644,500.–",1.5 rooms,"Via del Canvetto 1, 6900 Lugano"
+"CHF 1,340,700.–",1.5 rooms,"Weiherhofstrasse 12, 9552 Bronschhofen"
+"CHF 1,340,700.–",1.5 rooms,"Berggasse 25, 8332 Russikon"
+"CHF 712,170.–",1.5 rooms,"Route de l'Etriva 29, 1776 Montagny-la-Ville"
+"CHF 872,070.–",1.5 rooms,"Grindelstrasse 4, 5628 Aristau"
+"CHF 971,700.–",1.5 rooms,2557 Studen BE
+"CHF 1,463,700.–",1.5 rooms,"Oberdorfstrasse 11, 9200 Gossau SG"
+"CHF 824,100.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 1,217,700.–",1.5 rooms,5630 Muri AG
+"CHF 1,414,500.–",1.5 rooms,"Beim Pulverturm, 8762 Schwanden GL"
+"CHF 761,500.–",1.5 rooms,1994 Aproz (Sion)
+"CHF 1,451,400.–",1.5 rooms,"Chemin de la Gay 1, 1803 Chardonne"
+"CHF 1,586,700.–",1.5 rooms,"Rheinstrasse 11, 8239 Dörflingen"
+"CHF 1,199,250.–",1.5 rooms,"Zürcherstrasse 28B, 8104 Weiningen ZH"
+"CHF 1,408,350.–",1.5 rooms,"Impasse du Lynx 32, 1264 St-Cergue"
+"CHF 1,613,090.–",1.5 rooms,"Via Campagnola 22/b, 6852 Genestrerio"
+"CHF 3,075,000.–",1.5 rooms,3963 Crans-Montana
+"CHF 996,300.–",1.5 rooms,8725 Ernetschwil
+"CHF 3,198,000.–",1.5 rooms,"Neuschwändistrasse 61a, 6390 Engelberg"
+"CHF 1,691,250.–",1.5 rooms,"Route de Grand-Combe 72, 3961 Grimentz"
+Price on request,1.5 rooms,6598 Tenero
+Price on request,1.5 rooms,"Aussenfeldstrasse 17, 5032 Aarau Rohr"
+"CHF 836,400.–",1.5 rooms,"San Bernardino 30, 6565 S. Bernardino"
+"CHF 1,586,700.–",1.5 rooms,6900 Lugano
+"CHF 2,792,100.–",1.5 rooms,"Allenbergstrasse 65, 8712 Stäfa"
+"CHF 1,303,800.–",1.5 rooms,5642 Mühlau
+"CHF 627,300.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 2,324,700.–",1.5 rooms,"Chemin du Vandel 5, 1228 Plan-les-Ouates"
+"CHF 572,860.–",1.5 rooms,1994 Aproz (Sion)
+"CHF 2,004,900.–",1.5 rooms,"Via dei Platani, 6900 Massagno"
+"CHF 1,709,700.–",1.5 rooms,1635 La Tour-de-Trême
+"CHF 442,800.–",1.5 rooms,"Route de la Crête-Blanche, 3977 Granges VS"
+"CHF 1,205,400.–",1.5 rooms,"Hofacherstrasse 4, 8624 Grüt"
+"CHF 710,940.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 707,250.–",1.5 rooms,"Route principale 13, 1796 Courgevaux"
+"CHF 2,275,500.–",1 room,1256 Troinex
+"CHF 1,771,200.–",1 room,"chemin de la béchette 7, 1226 Thônex"
+Price on request,1.5 rooms,"Verbier, 1936 Verbier"
+"CHF 811,610.–",1.5 rooms,3960 Sierre
+"CHF 1,377,600.–",1.5 rooms,"Gändli 30b, 6468 Attinghausen"
+"CHF 1,167,270.–",1.5 rooms,5736 Burg AG
+Price on request,1.5 rooms,"Avenue de Chamonix 3B, 1207 Genève"
+"CHF 1,857,300.–",1.5 rooms,1180 Rolle
+"CHF 1,383,750.–",1.5 rooms,1422 Grandson
+"CHF 1,076,250.–",1.5 rooms,"Agriswilstrasse 25, 3216 Ried bei Kerzers"
+"CHF 1,562,100.–",1.5 rooms,1026 Denges
+"CHF 1,088,550.–",1.5 rooms,"Route de Lens, 1958 St-Léonard"
+"CHF 2,693,700.–",1.5 rooms,"Seemattstrasse 17, 3322 Urtenen-Schönbühl"
+"CHF 2,324,700.–",1.5 rooms,"Lettenweg 81, 4123 Allschwil"
+"CHF 1,107,000.–",1.5 rooms,"Bielstrasse 28, 3982 Bitsch"
+"CHF 1,100,850.–",1.5 rooms,"Fürhaldenweg, 4434 Hölstein"
+Price on request,1.5 rooms,"Tavelweg, 3360 Herzogenbuchsee"
+"CHF 1,254,600.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 1,540,570.–",1.5 rooms,"Sonnhalde, 6354 Vitznau"
+"CHF 1,193,100.–",1.5 rooms,"Chemin des Planches 2, 1341 L'Orient"
+"CHF 2,066,400.–",1.5 rooms,"Via Contra 65, 6598 Tenero-Contra"
+"CHF 1,291,500.–",1.5 rooms,1180 Rolle
+"CHF 1,039,350.–",1.5 rooms,"Route Principale, 3961 St-Luc"
+"CHF 971,700.–",1.5 rooms,"Salita Cuccarello, 6934 Bioggio"
+"CHF 1,088,550.–",1.5 rooms,"Bulliard 81, 1792 Cordast"
+"CHF 1,328,400.–",1.5 rooms,"Abtwilstrasse 10, 6275 Ballwil"
+"CHF 1,709,700.–",1.5 rooms,1635 La Tour-de-Trême
+"CHF 1,512,900.–",1.5 rooms,"Rebbergstrasse 3, 8157 Dielsdorf"
+"CHF 977,850.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 492,000.–",2.5 rooms,"Höhenweg 9, 3661 Uetendorf"
+"CHF 2,078,700.–",1.5 rooms,6933 Muzzano
+"CHF 1,094,700.–",1.5 rooms,7310 Bad Ragaz
+"CHF 1,632,830.–",1.5 rooms,1509 Vucherens
+"CHF 3,148,800.–",1.5 rooms,"Via Tesserete 66, 6900 Lugano"
+"CHF 817,950.–",1.5 rooms,"Untere Etzmatten, 4467 Rothenfluh"
+"CHF 611,310.–",1.5 rooms,"Junkerstrasse 85, 8238 Büsingen am Hochrhein"
+"CHF 1,586,700.–",1.5 rooms,"Trottengasse 14, 5042 Hirschthal"
+"CHF 1,906,500.–",1.5 rooms,"Weiherhofstrasse, 9552 Bronschhofen"
+"CHF 836,400.–",1.5 rooms,"Zürichstrasse 3a, 4922 Bützberg"
+"CHF 636,550.–",1.5 rooms,6833 Vacallo
+"CHF 847,470.–",1.5 rooms,"Wegacker 1, 4553 Subingen"
+Price on request,1.5 rooms,"Alte Landstrasse 26, 8803 Rüschlikon"
+"CHF 1,094,700.–",1.5 rooms,"Seestrasse 102, 9326 Horn"
+"CHF 510,450.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,476,000.–",1.5 rooms,"Chemin de la Gay 1, 1803 Chardonne"
+"CHF 1,678,950.–",1.5 rooms,2014 Bôle
+"CHF 627,300.–",1.5 rooms,6987 Caslano
+"CHF 528,900.–",1.5 rooms,6987 Caslano
+"CHF 1,039,350.–",1.5 rooms,9451 Kriessern
+"CHF 1,474,770.–",1.5 rooms,"Route de Ponty 9, 1522 Lucens"
+"CHF 1,291,500.–",1.5 rooms,3973 Venthône
+"CHF 891,750.–",1.5 rooms,"VIA COLOMBERA, 6984 Pura"
+"CHF 1,955,700.–",1.5 rooms,1882 Gryon
+"CHF 731,850.–",1.5 rooms,1700 Fribourg
+"CHF 1,223,850.–",1 room,"Binningerstrasse 45, 4104 Oberwil BL"
+"CHF 1,512,900.–",1.5 rooms,"Lerchenstrasse 51, 4103 Bottmingen"
+"CHF 1,223,850.–",1.5 rooms,8374 Dussnang
+"CHF 1,414,500.–",1.5 rooms,1422 Grandson
+"CHF 2,275,500.–",1.5 rooms,"Hauptstrasse 210, 2532 Magglingen/Macolin"
+"CHF 2,902,800.–",1.5 rooms,1180 Rolle
+"CHF 1,328,400.–",1.5 rooms,"Turnhallenstrasse, 8252 Schlatt TG"
+"CHF 1,328,400.–",1.5 rooms,"Grüningerstrasse 16, 8624 Grüt"
+"CHF 1,168,500.–",1.5 rooms,"via San Gottardo 99, 6900 Massagno"
+"CHF 547,350.–",1.5 rooms,"Route de Drône, 1965 Saint-Germain (Savièse)"
+"CHF 1,551,030.–",1.5 rooms,"Via Strada Regina 14, 6929 Gravesano"
+"CHF 1,044,270.–",1.5 rooms,"Gartenstrasse 8, 3923 Törbel"
+"CHF 1,223,850.–",1.5 rooms,"Rue des Alpes 6A, 1020 Renens"
+"CHF 5,313,600.–",1.5 rooms,"Neuschwändistrasse 13b, 6390 Engelberg"
+"CHF 1,613,090.–",1.5 rooms,6850 Mendrisio
+"CHF 725,700.–",1.5 rooms,1532 Fétigny
+"CHF 922,500.–",1.5 rooms,"Rue Saint-Théodule, 1920 Martigny"
+"CHF 959,400.–",1.5 rooms,"Kantonsstrasse 94, 6234 Triengen"
+"CHF 1,931,100.–",2 rooms,"Hofackerstrasse 4 / Brunnenweg 4, 8471 Oberwil (Dägerlen)"
+"CHF 1,413,270.–",1.5 rooms,"Moosweg 7, 9470 Buchs SG"
+"CHF 1,291,500.–",1.5 rooms,"Ischenstrasse 7, 6376 Emmetten"
+"CHF 836,400.–",1.5 rooms,"Zentralstrasse, 5627 Besenbüren"
+"CHF 824,100.–",1.5 rooms,1175 Lavigny
+"CHF 633,450.–",1 room,"Binzholzstrasse 27, 8636 Wald ZH"
+"CHF 1,217,700.–",1.5 rooms,"Bernstrasse 33, 4852 Rothrist"
+"CHF 1,045,500.–",1.5 rooms,"Eichenweg 15, 4132 Muttenz"
+"CHF 1,328,400.–",1.5 rooms,"Rankweg 11, 4402 Frenkendorf"
+"CHF 977,850.–",1.5 rooms,"Rue du Pichiou, 3966 Réchy"
+"CHF 676,500.–",1.5 rooms,"Dotzigenstrasse 1, 3292 Busswil BE"
+Price on request,2.5 rooms,"Route d'Avry 69, 1643 Gumefens"
+"CHF 1,217,700.–",1.5 rooms,"Rüdenbüschelistrasse, 4206 Seewen"
+"CHF 984,000.–",1.5 rooms,"Eggental 16, 5607 Hägglingen"
+"CHF 1,070,100.–",1.5 rooms,"Dorfstrasse, 8166 Niederweningen"
+"CHF 1,691,250.–",1.5 rooms,6987 Caslano
+"CHF 1,783,500.–",1.5 rooms,1024 Ecublens VD
+"CHF 867,150.–",1.5 rooms,"Payerne, 1530 Payerne"
+"CHF 897,900.–",1.5 rooms,"Route Principale, 3961 St-Luc"
+"CHF 633,450.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 2,330,850.–",1.5 rooms,"Tannackerstrasse 21, 3653 Oberhofen am Thunersee"
+"CHF 940,950.–",1.5 rooms,6802 Rivera
+"CHF 934,800.–",1.5 rooms,6900 Lugano
+"CHF 1,020,900.–",1.5 rooms,"Rue des Grands-Praz, 1906 Charrat"
+"CHF 1,586,700.–",1.5 rooms,"Rue du Bugnon, 1375 Penthéréaz"
+Price on request,1.5 rooms,1180 Rolle
+"CHF 781,050.–",1.5 rooms,1896 Vouvry
+"CHF 824,100.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 1,783,500.–",1.5 rooms,"Neuschwändistrasse 61a, 6390 Engelberg"
+"CHF 2,029,500.–",1 room,1285 Athenaz (Avusy)
+"CHF 1,955,700.–",1.5 rooms,"Brunnenwis-Strasse 2a, 8627 Grüningen"
+"CHF 1,309,950.–",1.5 rooms,2087 Cornaux NE
+"CHF 1,629,750.–",1.5 rooms,"Ergolzstrasse 16, 4133 Pratteln"
+"CHF 731,850.–",1.5 rooms,"Hauptstrasse 44, 5737 Menziken"
+"CHF 1,456,320.–",1.5 rooms,"Liestalerstrasse, 4411 Seltisberg"
+Price on request,1.5 rooms,"Verbier, 1936 Verbier"
+"CHF 1,463,700.–",1.5 rooms,6806 Sigirino
+"CHF 1,119,300.–",1.5 rooms,"Route de Nierlet 8, 1740 Neyruz FR"
+"CHF 768,750.–",1.5 rooms,1896 Vouvry
+"CHF 1,254,600.–",1.5 rooms,"Halde, 9475 Sevelen"
+"CHF 3,148,800.–",1.5 rooms,1180 Rolle
+"CHF 1,955,700.–",1.5 rooms,1012 Lausanne
+"CHF 1,549,800.–",1.5 rooms,"Birnenweg 22, 5507 Mellingen"
+"CHF 1,076,250.–",1.5 rooms,"Rue de la Millière, 1963 Vétroz"
+"CHF 965,550.–",1.5 rooms,"Rapperswilerstrasse, 8733 Eschenbach SG"
+"CHF 813,030.–",1.5 rooms,6500 Bellinzona
+Price on request,1.5 rooms,"Weingartenweg 2 & 4, 8049 Zürich"
+"CHF 1,709,700.–",1 room,"Hofackerstrasse 4 / Brunnenweg 4, 8471 Oberwil (Dägerlen)"
+"CHF 2,312,400.–",1.5 rooms,"Alte Landstrasse 360, 8708 Männedorf"
+"CHF 676,500.–",1.5 rooms,"Eggental 16, 5607 Hägglingen"
+"CHF 1,783,500.–",1.5 rooms,"feldstrasse, 5712 Beinwil am See"
+"CHF 1,070,100.–",1.5 rooms,2557 Studen BE
+"CHF 830,250.–",1.5 rooms,"Romanshornerstrasse 56, 9320 Arbon"
+Price on request,1.5 rooms,"Via Da Mulin 26, 7504 Pontresina"
+"CHF 1,082,400.–",1.5 rooms,"Möslistrasse 3, 3127 Mühlethurnen"
+"CHF 2,306,250.–",1.5 rooms,"Binzholzstrasse 27, 8636 Wald ZH"
+Price on request,2 rooms,8280 Kreuzlingen
+"CHF 1,313,640.–",1.5 rooms,"Frutigenstrasse 22, 3700 Spiez"
+"CHF 1,039,350.–",1.5 rooms,"Ausserdorf, 8239 Dörflingen"
+"CHF 1,002,450.–",1.5 rooms,6616 Losone
+"CHF 1,131,600.–",1.5 rooms,1372 Bavois
+"CHF 1,402,200.–",1.5 rooms,"Via alle Gerre, 6516 Cugnasco"
+"CHF 1,156,200.–",1.5 rooms,"Grossfeld 19 (Haus F), 6423 Seewen SZ"
+"CHF 602,700.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 1,398,510.–",1.5 rooms,"Via Strada Regina 14, 6929 Gravesano"
+"CHF 879,450.–",1.5 rooms,"Trümlerestrasse 26, 3126 Kaufdorf"
+"CHF 1,746,600.–",1.5 rooms,"Eichenweg, 4132 Muttenz"
+"CHF 1,353,000.–",1.5 rooms,"Boniswilerstrasse, 5707 Seengen"
+"CHF 1,783,500.–",1.5 rooms,"Eichenweg, 4132 Muttenz"
+"CHF 799,500.–",1.5 rooms,"Silostrasse 9, 4950 Huttwil"
+"CHF 1,432,950.–",1.5 rooms,1904 Vernayaz
+"CHF 2,976,600.–",1.5 rooms,"Route de la Tour, 3963 Crans-Montana"
+"CHF 781,050.–",1.5 rooms,"Route du Château 4, 1453 Bullet"
+"CHF 1,316,100.–",1.5 rooms,"Aussenfeldstrasse 17, 5032 Aarau Rohr"
+"CHF 867,150.–",2.5 rooms,1180 Rolle
+"CHF 1,094,700.–",1.5 rooms,"via Belloni, 6862 Rancate"
+"CHF 1,168,500.–",1.5 rooms,"Südstrasse, 5623 Boswil"
+"CHF 1,070,100.–",1.5 rooms,"La Roche, 1634 La Roche FR"
+"CHF 1,586,700.–",200m²,6596 Gordola
+"CHF 959,400.–",1.5 rooms,6596 Gordola
+"CHF 977,850.–",1.5 rooms,"Rue des Alpes 6A, 1020 Renens"
+"CHF 1,008,600.–",1.5 rooms,"Neudörflingerstrasse 1, 8239 Dörflingen"
+"CHF 1,537,500.–",1.5 rooms,"Neuschwändistrasse 61a, 6390 Engelberg"
+"CHF 958,170.–",1.5 rooms,"Kapelle 55, 1718 Rechthalten"
+"CHF 2,312,400.–",1.5 rooms,1163 Etoy
+"CHF 1,709,700.–",1.5 rooms,"Chemin du Progrès 10B, 1214 Vernier"
+"CHF 1,081,170.–",1.5 rooms,"Kapelle 55, 1718 Rechthalten"
+Price on request,1.5 rooms,"Zentralstrasse, 4556 Aeschi SO"
+"CHF 1,832,700.–",1.5 rooms,"Chemin des Dazelets, 2068 Hauterive"
+"CHF 1,193,100.–",1.5 rooms,"Oberzelgstrasse 18, 5612 Villmergen"
+"CHF 1,463,700.–",1.5 rooms,"Alpenblickstrasse 42a, 8340 Hinwil"
+"CHF 1,291,500.–",1.5 rooms,"Schwandstrasse 58, 3634 Thierachern"
+"CHF 1,586,700.–",1.5 rooms,"Waldrain 24, 2562 Port"
+"CHF 824,100.–",1.5 rooms,"Route de Fribourg 14, 1721 Misery"
+"CHF 565,800.–",1.5 rooms,"San Bernardino 30, 6565 S. Bernardino"
+"CHF 758,130.–",1.5 rooms,1994 Aproz (Sion)
+"CHF 1,227,540.–",1.5 rooms,"Seilerweg 16, 5303 Würenlingen"
+"CHF 1,143,900.–",1.5 rooms,"Schwandstrasse 58, 3634 Thierachern"
+"CHF 1,340,700.–",1.5 rooms,"Jegenstorfstrasse 9, 3309 Zauggenried"
+"CHF 1,340,700.–",1.5 rooms,"Chemin Pré-Val, 1110 Morges"
