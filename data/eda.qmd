@@ -1,8 +1,25 @@
+---
+title: "EDA properties"
+format: html
+editor: visual
+---
+
+## Change the path below
+
+```{r, warning=FALSE}
+# Load required libraries
+library(ggplot2)
+library(plotly)
 library(here)
 
 #print(here)
 setwd("/Users/admin/Desktop/A HEC/Master/Semestre 2/Machine Learning/Machine_Learning/data")
 
+```
+
+## Loading and small cleaning (not complete for now)
+
+```{r, warning=FALSE}
 # Load the CSV file into a data frame
 properties1 <- read.csv("v1_properties.csv")
 properties2 <- read.csv("v2_properties.csv")
@@ -26,12 +43,11 @@ properties <- properties[properties$price >= 10000, ]
 
 # Subset the dataset to exclude rows with numbers of rooms < 25
 properties <- properties[properties$number_of_rooms <25, ]
+```
 
-# Load required libraries
-library(ggplot2)
-library(plotly)
+##  Histogram of prices
 
-# Create histogram of prices
+```{r, warning=FALSE}
 histogram_price <- ggplot(properties, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "red") +
   labs(title = "Distribution of Prices",
@@ -43,10 +59,15 @@ interactive_histogram_price <- ggplotly(histogram_price)
 # Display the interactive histogram
 interactive_histogram_price
 
+```
 
+## Histogram of prices for each property type 
 
-# Create a histogram of prices for each property type
-ggplot(properties, aes(x = price)) +
+note : only price between 0 and 500000 so some outliers aren't here
+
+```{r, warning=FALSE}
+# Create the ggplot object
+histogram <- ggplot(properties, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ property_type, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Property Type",
@@ -55,9 +76,18 @@ ggplot(properties, aes(x = price)) +
   theme_minimal() +
   xlim(0, 5000000)
 
+# Convert ggplot object to plotly object
+interactive_histogram <- ggplotly(histogram)
 
+# Display the interactive plot
+interactive_histogram
+```
 
+## Histogram of prices for each year category
 
+note : only price between 0 and 500000 so some outliers aren't here
+
+```{r, warning=FALSE}
 properties$year_category <- substr(properties$year_category, 1, 9)
 # Assuming 'year_category' is a column in the 'properties' dataset
 properties$year_category <- as.factor(properties$year_category)
@@ -75,9 +105,13 @@ interactive_histogram_year <- ggplotly(histogram)
 # Display the interactive plot
 interactive_histogram_year
 
+```
 
+## Histogram of prices for each canton
 
-# Create a histogram of prices for each canton
+note : only price between 0 and 500000 so some outliers aren't here
+
+```{r, warning=FALSE}
 histogram <- ggplot(properties, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ canton, scales = "free", ncol = 2) +
@@ -93,37 +127,47 @@ interactive_histogram <- ggplotly(histogram)
 # Display the interactive plot
 interactive_histogram
 
+```
 
-# 
-# metrecarré <- read.csv("snb-data-plimoincha-fr-all-20240321_0900.csv")
-# # Assuming your data frame is named metrecarré
-# metrecarré <- metrecarré[-1, ]
-# 
-# split_data <- lapply(metrecarré, function(x) unlist(strsplit(as.character(x), ";")))
-# 
-# split_df <- do.call(rbind, split_data)
-# 
-# 
-# 
-# 
-# 
-# #install.packages("readxl")
-# library(readxl)
-# 
-# # Read the cpi file
-# cpi_data_excel <- read_excel("cpi.xlsx")
-# # Write the data to a CSV file
-# write.csv(cpi_data_excel, "cpi.csv", row.names = FALSE)
-# # Load the CSV file into a data frame
-# cpi <- read.csv("cpi.csv")
-# 
-# 
-# 
-# # Read the empty_dwellings file
-# empty_excel <- read_excel("empty_dwellings_by_canton_1999-2023.xlsx")
-# # Write the data to a CSV file
-# write.csv(empty_excel, "empty_dwellings.csv", row.names = FALSE)
-# # Load the CSV file into a data frame
-# empty_dwellings <- read.csv("empty_dwellings.csv")
-# 
-# 
+## Histogram of prices for each number of rooms
+
+note : only price between 0 and 500000 so some outliers aren't here
+
+and the graph below only show apartments with less than 10 rooms (but you can change the code if needed
+
+```{r, warning=FALSE}
+
+# Preprocess the number_of_rooms column
+properties$number_of_rooms <- as.character(properties$number_of_rooms)
+properties$number_of_rooms <- gsub("\\D", "", properties$number_of_rooms)  # Remove non-numeric characters
+properties$number_of_rooms <- as.numeric(properties$number_of_rooms)       # Convert to numeric
+properties$number_of_rooms <- trunc(properties$number_of_rooms)             # Truncate non-integer values
+properties_room <- properties[properties$number_of_rooms < 10, ]                  # Filter only number_of_rooms less than 10
+
+# Create a histogram of prices for each number of rooms
+histogram <- ggplot(properties_room, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
+  labs(title = "Distribution of Prices by Number of Rooms",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim(0, 5000000)
+
+# Convert ggplot object to plotly object
+interactive_histogram <- ggplotly(histogram)
+
+# Display the interactive plot
+interactive_histogram
+
+```
+
+## Test Regression
+
+```{r}
+# Perform multiple linear regression
+model <- lm(price ~ number_of_rooms + canton + property_type + year_category, data = properties)
+
+# Summarize the regression model
+summary(model)
+```
