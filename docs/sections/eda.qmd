@@ -1,9 +1,4 @@
----
-title: "EDA properties"
-author: "Hugo Troendle, Urs Huerni, Léo Wenger"
-format: html
-editor: visual
----
+# EDA
 
 ## Change the path below
 
@@ -15,67 +10,15 @@ library(ggplot2)
 library(plotly)
 library(here)
 library(readxl)
-
-
 # Set the working directory to the data folder
 here::set_here()
 
 ```
 
-## Loading and small cleaning (not complete for now)
-
-```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
-# Load the CSV file into a data frame
-properties <- read.csv("../data/properties.csv")
-
-# impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
-# # Remove last 13 rows
-# impots <- head(impots, -14)
-# # Rename columns
-# colnames(impots) <- c("Chefs-lieux cantonaux", "Impôt cantonal", "Impôt communal", "Impôt paroissial Evang. / réform", "Impôt paroissial Kath. / cath.rom")
-# write.csv(impots, "statistik-steuerfuesse-np-1995-2023-fr.csv", row.names = FALSE)
-# 
-
-# Identify values causing the issue
-problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
-
-# Replace non-numeric values with NA
-properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
-
-# Remove non-numeric characters and convert to numeric
-properties$price <- as.numeric(gsub("[^0-9]", "", properties$price))
-
-# Subset the dataset to exclude rows with price < 20000
-properties <- properties[properties$price >= 20000, ]
-
-# Subset the dataset to exclude rows with numbers of rooms < 25
-properties <- properties[properties$number_of_rooms <25, ]
-
-# Replace incomplete addresses
-properties$address <- gsub("^\\W*[.,0-]\\W*", "", properties$address)
-
-properties_filtered <- na.omit(properties)
-
-properties_filtered$year_category <- substr(properties_filtered$year_category, 1, 9)
-# Assuming 'year_category' is a column in the 'properties' dataset
-properties_filtered$year_category <- as.factor(properties_filtered$year_category)
-
-# Preprocess the number_of_rooms column
-properties_filtered$number_of_rooms <- as.character(properties_filtered$number_of_rooms)
-properties_filtered$number_of_rooms <- gsub("\\D", "", properties_filtered$number_of_rooms)  # Remove non-numeric characters
-properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
-properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
-```
 
 ## Histogram of prices
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
 histogram_price <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "red") +
   labs(title = "Distribution of Prices",
@@ -86,7 +29,6 @@ histogram_price <- ggplot(properties_filtered, aes(x = price)) +
 interactive_histogram_price <- ggplotly(histogram_price)
 # Display the interactive histogram
 interactive_histogram_price
-
 ```
 
 ## Histogram of prices for each property type
@@ -94,9 +36,6 @@ interactive_histogram_price
 note : only price between 0 and 500000 so some outliers aren't here
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
 # Create the ggplot object
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
@@ -120,9 +59,6 @@ interactive_histogram
 note : only price between 0 and 500000 so some outliers aren't here
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
 # Create a histogram of prices for each year category
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
@@ -144,9 +80,6 @@ interactive_histogram_year
 note : only price between 0 and 500000 so some outliers aren't here
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ canton, scales = "free", ncol = 2) +
@@ -172,9 +105,6 @@ note : only price between 0 and 500000 so some outliers aren't here
 and the graph below only show apartments with less than 10 rooms (but you can change the code if needed
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
 properties_room <- properties_filtered[properties_filtered$number_of_rooms < 20, ]                  # Filter only number_of_rooms less than 20
 
 # Create a histogram of prices for each number of rooms
@@ -199,9 +129,6 @@ interactive_histogram
 ## Test Regression
 
 ```{r}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
 # Perform multiple linear regression
 model <- lm(price ~ number_of_rooms + canton + property_type + year_category, data = properties)
 
