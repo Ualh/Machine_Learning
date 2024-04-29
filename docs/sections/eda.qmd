@@ -10,6 +10,8 @@ library(ggplot2)
 library(plotly)
 library(here)
 library(readxl)
+library(dplyr)
+library(tidyr)
 # Set the working directory to the data folder
 here::set_here()
 
