@@ -9,14 +9,12 @@
 ```{r 1, echo = FALSE, message = FALSE, warning=FALSE}
 library(here)
 library(readxl)
-
 properties <- read.csv(file.path(here(),"data/properties.csv"))
 ```
 
 
 
-## Loading and small cleaning (not complete for now)
-
+## Main dataset Cleaning
 ```{r 2, warning=FALSE}
 getwd()
 # Load the CSV file into a data frame
@@ -100,7 +98,7 @@ properties_filtered <- df[!is.na(df$City),]
 ```
 
 
-##Impots
+## Tax data cleaning
 ```{r impots, warning=FALSE}
 #excel file modified for fribourg and liestal 
 # read csv
@@ -126,7 +124,7 @@ rm(impots1)
 write.csv(impots, file.path(here(),"data/impots.csv"), row.names = TRUE)
 ```
 
-##properties and impots merged
+### Merging the two datasets
 ```{r impots 2}
 # Create a copy of properties_filtered
 properties_merged <- properties_filtered
@@ -151,16 +149,18 @@ for (canton_name in unique(properties_filtered$canton)) {
 # Write data to CSV based on here()
 write.csv(properties_merged, file.path(here(),"data/properties_merged.csv"), row.names = TRUE)
 ```
-##dataset used for the rest of the analysis
+
+dataset used for the rest of the analysis
 ```{r}
 properties_filtered <- properties_merged
 ```
 
 
-### Cleaning of commune data
+## Cleaning of commune data
 ```{r commune, warning=FALSE}
 # il faudra changer le path
 commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
+
 # We keep only 2019 to have some reference? (2020 is apparently not really complete)
 commune_2019 <- subset(commune_prep, PERIOD_REF == "2019") %>%
   select(c("REGION", "CODE_REGION", "INDICATORS", "VALUE", "STATUS"))
