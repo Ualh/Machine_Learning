@@ -45,11 +45,9 @@ empty_dwellings <- read.csv(file.path(directory,"../data/empty_dwellings.csv"))
 ## Loading and small cleaning (not complete for now)
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
+getwd()
 # Load the CSV file into a data frame
-properties <- read.csv("../data/properties.csv")
+properties <- read.csv("../../data/properties.csv")
 
 # impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
 # # Remove last 13 rows
