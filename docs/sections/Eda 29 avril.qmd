@@ -265,21 +265,19 @@ interactive_histogram
 #| code-summary: "Click to show code"
 colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)] <- gsub("\\s+", "_", colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)])
 
+# Create a scatter plot to visualize correlation between price and Impôt cantonal
+scatter_plot <- ggplot(properties_filtered, aes(x = price, y = Impôt_cantonal_impots)) +
+  geom_point() +
+  labs(title = "Correlation between Price and Impôt cantonal",
+       x = "Price",
+       y = "Impôt cantonal") +
+  theme_minimal()
 
-# # Create a histogram of prices for each Impôt cantonal
-# histogram <- ggplot(properties_filtered, aes(x = price, fill = Impôt_cantonal_impots)) +
-#   geom_histogram(binwidth = 100000, color = "black") +
-#   labs(title = "Distribution of Prices by Impôt cantonal",
-#        x = "Price",
-#        y = "Frequency",
-#        fill = "Impôt cantonal") +
-#   theme_minimal()
-# 
-# # Convert ggplot object to plotly object
-# interactive_histogram <- ggplotly(histogram)
-# 
-# # Display the interactive plot
-# interactive_histogram
+# Convert ggplot object to plotly object
+interactive_plot <- ggplotly(scatter_plot)
+
+# Display the interactive plot
+interactive_plot
 ```
 
 ## Test Regression
