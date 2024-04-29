@@ -8,38 +8,14 @@
 
 ```{r echo = FALSE, message = FALSE, warning=FALSE}
 library(here)
+library(readxl)
 directory <- here()
 
 properties <- read.csv(file.path(directory,"../data/properties.csv"))
 
-metrecarré <- read.csv(file.path(directory,"../data/snb-data-plimoincha-fr-all-20240321_0900.csv"))
-# Assuming your data frame is named metrecarré
-metrecarré <- metrecarré[-1, ]
 
-split_data <- lapply(metrecarré, function(x) unlist(strsplit(as.character(x), ";")))
-
-split_df <- do.call(rbind, split_data)
 ```
 
-```{r  echo = FALSE, message = FALSE, warning=FALSE}
-#install.packages("readxl")
-library(readxl)
-
-# Read the cpi file
-cpi_data_excel <- read_excel(file.path(directory,"../data/cpi.xlsx"))
-# Write the data to a CSV file
-write.csv(cpi_data_excel, file.path(directory,"../data/cpi.csv"), row.names = FALSE)
-# Load the CSV file into a data frame
-cpi <- read.csv(file.path(directory,"../data/cpi.csv"))
-
-
-# Read the empty_dwellings file
-empty_excel <- read_excel(file.path(directory,"../data/empty_dwellings_by_canton_1999-2023.xlsx"))
-# Write the data to a CSV file
-write.csv(empty_excel, file.path(directory,"../data/empty_dwellings.csv"), row.names = FALSE)
-# Load the CSV file into a data frame
-empty_dwellings <- read.csv(file.path(directory,"../data/empty_dwellings.csv"))
-```
 
 
 ## Loading and small cleaning (not complete for now)
@@ -48,14 +24,6 @@ empty_dwellings <- read.csv(file.path(directory,"../data/empty_dwellings.csv"))
 getwd()
 # Load the CSV file into a data frame
 properties <- read.csv("../../data/properties.csv")
-
-# impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
-# # Remove last 13 rows
-# impots <- head(impots, -14)
-# # Rename columns
-# colnames(impots) <- c("Chefs-lieux cantonaux", "Impôt cantonal", "Impôt communal", "Impôt paroissial Evang. / réform", "Impôt paroissial Kath. / cath.rom")
-# write.csv(impots, "statistik-steuerfuesse-np-1995-2023-fr.csv", row.names = FALSE)
-# 
 
 # Identify values causing the issue
 problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
@@ -86,6 +54,11 @@ properties_filtered$number_of_rooms <- as.character(properties_filtered$number_o
 properties_filtered$number_of_rooms <- gsub("\\D", "", properties_filtered$number_of_rooms)  # Remove non-numeric characters
 properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
 properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
+
+
+# Assuming properties_filtered is your dataframe
+properties_filtered$canton <- tools::toTitleCase(properties_filtered$canton)
+
 ```
 
 ## Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
@@ -142,4 +115,64 @@ amto = pd.read_csv("Project/Machine_Learning/data/AMTOVZ_CSV_LV95.csv", sep=';',
 
 amto.head()
 
+```
+
+##Impots
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Click to show code"
+
+#excel file modified for fribourg and liestal 
+impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
+# Remove last 13 rows
+impots <- head(impots, -14)
+# Rename columns
+colnames(impots) <- c("Chefs-lieux cantonaux", "Impôt cantonal", "Impôt communal", "Impôt paroissial Evang. / réform", "Impôt paroissial Kath. / cath.rom")
+
+# Set row names to the content of the first column
+rownames(impots) <- impots$`Chefs-lieux cantonaux`
+
+# Remove the first column (which is now row names)
+impots1 <- impots[, -1, drop = FALSE]
+
+# Set the row names for impots1 the same as impots
+rownames(impots1) <- rownames(impots)
+impots <- impots1
+rm(impots1)
+
+# Write data to CSV
+write.csv(impots, "statistik-steuerfuesse-np-1995-2023-fr.csv", row.names = TRUE)
+
+```
+##properties and impots merged
+```{r}
+#| code-fold: true
+#| code-summary: "Click to show code"
+# Create a copy of properties_filtered
+properties_merged <- properties_filtered
+
+# Loop through unique canton names in properties_filtered
+for (canton_name in unique(properties_filtered$canton)) {
+  # Check if canton_name exists as a row name in impots
+  if (canton_name %in% rownames(impots)) {
+    # Get the corresponding row from impots
+    impots_row <- impots[canton_name, ]
+    
+    # Add columns to properties_merged with impots content
+    for (col_name in names(impots)) {
+      properties_merged[properties_merged$canton == canton_name, paste0(col_name, "_impots")] <- impots_row[[col_name]]
+    }
+    
+    # Remove impots_row from memory
+    rm(impots_row)
+  }
+}
+
+# Write data to CSV
+write.csv(properties_merged, "properties_with_impots.csv", row.names = FALSE)
+
+```
+##dataset used for the rest of the analysis
+```{r}
+properties_filtered <- properties_merged
 ```
