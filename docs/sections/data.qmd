@@ -88,3 +88,58 @@ properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_
 properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
 ```
 
+## Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
+
+```{r}
+head(properties_filtered)
+df <- properties_filtered
+#the address column is like : '1844 Villeneuve VD' and has zip code number in it
+#taking out the zip code number and creating a new column 'zip_code'
+#the way to identify the zip code is to identify numbers that are 4 digits long
+df$zip_code <- as.numeric(gsub("\\D", "", df$address))
+#removing the first two number of zip code has more than 4 number
+df$zip_code <- ifelse(df$zip_code > 9999, df$zip_code %% 10000, df$zip_code)
+head(df)
+```
+
+```{r}
+#read .csv AMTOVZ_CSV_LV95
+amto <- read.csv("Project/Machine_Learning/data/AMTOVZ_CSV_LV95.csv", sep=';', encoding='latin1')
+head(amto)
+
+#creating a new dataframe with 'Ortschaftsname' as 'City'Place_name', 'PLZ' as 'zip_code' and 'KantonskÃ.rzel' as 'Canton_code'
+amto_df <- data.frame(City=amto$Ortschaftsname, zip_code=amto$PLZ, Canton_code=amto$KantonskÃ.rzel)
+head(amto_df)
+```
+```{r}
+#merge the two dataframes 'df' and 'amto_df' on 'zip_code'
+df <- merge(df, amto_df, by='zip_code', all.x=TRUE)
+head(df)
+
+#check if there are nan in city
+df[is.na(df$City),]
+
+```
+We have 144 NAN, where
+
+- The zip code was not found in the atmo df
+- The zip code was incorectly isolated from the address
+
+Removed them
+```{r}
+#remove the rows with nan in city
+df <- df[!is.na(df$City),]
+```
+
+```{python}
+#retrieve the r dataframe in python
+properties = r.properties
+import pandas as pd
+properties.head()
+
+#read AMTOVZ_CSV_LV95.csv
+amto = pd.read_csv("Project/Machine_Learning/data/AMTOVZ_CSV_LV95.csv", sep=';', encoding='latin1')
+
+amto.head()
+
+```
