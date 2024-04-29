@@ -29,7 +29,7 @@ here::set_here()
 #| code-summary: "Click to show code"
 
 # Load the CSV file into a data frame
-properties <- read.csv("../../data/properties.csv")
+properties <- read.csv("../data/properties.csv")
 
 # impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
 # # Remove last 13 rows

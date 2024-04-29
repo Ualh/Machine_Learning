@@ -6,13 +6,13 @@
 * Spotting mistakes and missing data (could be part of EDA too)
 * Listing anomalies and outliers (could be part of EDA too)
 
-```{r}
+```{r echo = FALSE, message = FALSE, warning=FALSE}
 library(here)
-directory <- here("data")
+directory <- here()
 
-properties <- read.csv(file.path(directory,"properties.csv"))
+properties <- read.csv(file.path(directory,"../data/properties.csv"))
 
-metrecarré <- read.csv(file.path(directory,"snb-data-plimoincha-fr-all-20240321_0900.csv"))
+metrecarré <- read.csv(file.path(directory,"../data/snb-data-plimoincha-fr-all-20240321_0900.csv"))
 # Assuming your data frame is named metrecarré
 metrecarré <- metrecarré[-1, ]
 
@@ -21,49 +21,72 @@ split_data <- lapply(metrecarré, function(x) unlist(strsplit(as.character(x), "
 split_df <- do.call(rbind, split_data)
 ```
 
-```{r}
+```{r  echo = FALSE, message = FALSE, warning=FALSE}
 #install.packages("readxl")
 library(readxl)
 
 # Read the cpi file
-cpi_data_excel <- read_excel(file.path(directory,"cpi.xlsx"))
+cpi_data_excel <- read_excel(file.path(directory,"../data/cpi.xlsx"))
 # Write the data to a CSV file
-write.csv(cpi_data_excel, file.path(directory,"cpi.csv"), row.names = FALSE)
+write.csv(cpi_data_excel, file.path(directory,"../data/cpi.csv"), row.names = FALSE)
 # Load the CSV file into a data frame
-cpi <- read.csv(file.path(directory,"cpi.csv"))
+cpi <- read.csv(file.path(directory,"../data/cpi.csv"))
 
 
 # Read the empty_dwellings file
-empty_excel <- read_excel(file.path(directory,"empty_dwellings_by_canton_1999-2023.xlsx"))
+empty_excel <- read_excel(file.path(directory,"../data/empty_dwellings_by_canton_1999-2023.xlsx"))
 # Write the data to a CSV file
-write.csv(empty_excel, file.path(directory,"empty_dwellings.csv"), row.names = FALSE)
+write.csv(empty_excel, file.path(directory,"../data/empty_dwellings.csv"), row.names = FALSE)
 # Load the CSV file into a data frame
-empty_dwellings <- read.csv(file.path(directory,"empty_dwellings.csv"))
+empty_dwellings <- read.csv(file.path(directory,"../data/empty_dwellings.csv"))
 ```
 
 
-## Loading and Cleaning Data
+## Loading and small cleaning (not complete for now)
 
 ```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Click to show code"
+
 # Load the CSV file into a data frame
-properties <- read.csv(file.path(directory,"properties.csv"))
+properties <- read.csv("../data/properties.csv")
+
+# impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
+# # Remove last 13 rows
+# impots <- head(impots, -14)
+# # Rename columns
+# colnames(impots) <- c("Chefs-lieux cantonaux", "Impôt cantonal", "Impôt communal", "Impôt paroissial Evang. / réform", "Impôt paroissial Kath. / cath.rom")
+# write.csv(impots, "statistik-steuerfuesse-np-1995-2023-fr.csv", row.names = FALSE)
+# 
+
+# Identify values causing the issue
+problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
+
+# Replace non-numeric values with NA
+properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
 
 # Remove non-numeric characters and convert to numeric
-properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
 properties$price <- as.numeric(gsub("[^0-9]", "", properties$price))
 
-# Subset the dataset to exclude rows with price < 20000 or number of rooms >= 25
-properties <- properties[properties$price >= 20000 & properties$number_of_rooms < 25, ]
+# Subset the dataset to exclude rows with price < 20000
+properties <- properties[properties$price >= 20000, ]
 
-# Clean and preprocess address and year_category columns
+# Subset the dataset to exclude rows with numbers of rooms < 25
+properties <- properties[properties$number_of_rooms <25, ]
+
+# Replace incomplete addresses
 properties$address <- gsub("^\\W*[.,0-]\\W*", "", properties$address)
-properties$year_category <- substr(properties$year_category, 1, 9)
-properties$year_category <- as.factor(properties$year_category)
-
-# Preprocess the number_of_rooms column
-properties$number_of_rooms <- as.numeric(gsub("\\D", "", properties$number_of_rooms))
-properties$number_of_rooms <- trunc(properties$number_of_rooms)
 
 properties_filtered <- na.omit(properties)
+
+properties_filtered$year_category <- substr(properties_filtered$year_category, 1, 9)
+# Assuming 'year_category' is a column in the 'properties' dataset
+properties_filtered$year_category <- as.factor(properties_filtered$year_category)
+
+# Preprocess the number_of_rooms column
+properties_filtered$number_of_rooms <- as.character(properties_filtered$number_of_rooms)
+properties_filtered$number_of_rooms <- gsub("\\D", "", properties_filtered$number_of_rooms)  # Remove non-numeric characters
+properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
+properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
 ```
 
