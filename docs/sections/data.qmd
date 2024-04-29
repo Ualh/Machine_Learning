@@ -41,3 +41,31 @@ write.csv(empty_excel, file.path(directory,"empty_dwellings.csv"), row.names = F
 empty_dwellings <- read.csv(file.path(directory,"empty_dwellings.csv"))
 ```
 
+
+## Loading and Cleaning Data
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Click to show code"
+# Load the CSV file into a data frame
+properties <- read.csv("../../data/properties.csv")
+
+# Remove non-numeric characters and convert to numeric
+properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
+properties$price <- as.numeric(gsub("[^0-9]", "", properties$price))
+
+# Subset the dataset to exclude rows with price < 20000 or number of rooms >= 25
+properties <- properties[properties$price >= 20000 & properties$number_of_rooms < 25, ]
+
+# Clean and preprocess address and year_category columns
+properties$address <- gsub("^\\W*[.,0-]\\W*", "", properties$address)
+properties$year_category <- substr(properties$year_category, 1, 9)
+properties$year_category <- as.factor(properties$year_category)
+
+# Preprocess the number_of_rooms column
+properties$number_of_rooms <- as.numeric(gsub("\\D", "", properties$number_of_rooms))
+properties$number_of_rooms <- trunc(properties$number_of_rooms)
+
+properties_filtered <- na.omit(properties)
+```
+
