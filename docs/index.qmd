@@ -13,6 +13,8 @@ format:
     number-sections: true
     html-math-method: katex
     self-contained: true
+    code-fold: true  # Enable code folding in HTML output
+    code-summary: "Click to show code"
   # pdf: default # use this if you want to render pdfs instead
 abstract: |
  The following machine learning project focuses on...

@@ -13,8 +13,6 @@ toc-location: left
 
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
 # Load required libraries
 library(ggplot2)
 library(plotly)
@@ -24,8 +22,6 @@ here::set_here()
 ## Histogram of Prices
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
 histogram_price <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "red") +
   labs(title = "Distribution of Prices", x = "Price")
@@ -38,8 +34,6 @@ interactive_histogram_price
 Note: Only prices between 0 and 500000 are included to exclude outliers.
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ property_type, scales = "free", ncol = 2) +
@@ -53,8 +47,6 @@ interactive_histogram
 Note: Only prices between 0 and 500000 are included to exclude outliers.
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
 histogram_year <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ year_category, scales = "free", ncol = 2) +
@@ -66,8 +58,6 @@ interactive_histogram_year
 ## Test Regression
 
 ```{r}
-#| code-fold: true
-#| code-summary: "Click to show code"
 # Perform multiple linear regression
 model <- lm(price ~ number_of_rooms + canton + property_type + year_category, data = properties_filtered)
 ```
