@@ -128,18 +128,5 @@ We have 144 NAN, where
 Removed them
 ```{r}
 #remove the rows with nan in city
-df <- df[!is.na(df$City),]
-```
-
-```{python}
-#retrieve the r dataframe in python
-properties = r.properties
-import pandas as pd
-properties.head()
-
-#read AMTOVZ_CSV_LV95.csv
-amto = pd.read_csv("Project/Machine_Learning/data/AMTOVZ_CSV_LV95.csv", sep=';', encoding='latin1')
-
-amto.head()
-
+properties_filtered <- df[!is.na(df$City),]
 ```
