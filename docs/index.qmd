@@ -22,7 +22,9 @@ abstract: |
 
 ```{r, echo = FALSE, message = FALSE}
 # loading all the necessary packages
-source(here::here("../src/setup.R"))
+library(here)
+here()
+source(here("src/setup.R"))
 ```
 
 

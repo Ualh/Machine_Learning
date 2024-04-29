@@ -6,24 +6,21 @@
 * Spotting mistakes and missing data (could be part of EDA too)
 * Listing anomalies and outliers (could be part of EDA too)
 
-```{r echo = FALSE, message = FALSE, warning=FALSE}
+```{r 1, echo = FALSE, message = FALSE, warning=FALSE}
 library(here)
 library(readxl)
-directory <- here()
 
-properties <- read.csv(file.path(directory,"../data/properties.csv"))
-
-
+properties <- read.csv(file.path(here(),"data/properties.csv"))
 ```
 
 
 
 ## Loading and small cleaning (not complete for now)
 
-```{r, warning=FALSE}
+```{r 2, warning=FALSE}
 getwd()
 # Load the CSV file into a data frame
-properties <- read.csv("../../data/properties.csv")
+properties <- read.csv(file.path(here(),"data/properties.csv"))
 
 # Identify values causing the issue
 problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
@@ -58,7 +55,7 @@ properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms
 
 # Assuming properties_filtered is your dataframe
 properties_filtered$canton <- tools::toTitleCase(properties_filtered$canton)
-
+head(properties_filtered)
 ```
 
 ## Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
@@ -75,23 +72,21 @@ df$zip_code <- ifelse(df$zip_code > 9999, df$zip_code %% 10000, df$zip_code)
 head(df)
 ```
 
-```{r}
+```{r zip}
 #read .csv AMTOVZ_CSV_LV95
-amto <- read.csv("Project/Machine_Learning/data/AMTOVZ_CSV_LV95.csv", sep=';', encoding='latin1')
+amto <- read.csv(file.path(here(),"data/AMTOVZ_CSV_LV95.csv"), sep = ";")
 head(amto)
 
 #creating a new dataframe with 'Ortschaftsname' as 'City'Place_name', 'PLZ' as 'zip_code' and 'KantonskÃ.rzel' as 'Canton_code'
-amto_df <- data.frame(City=amto$Ortschaftsname, zip_code=amto$PLZ, Canton_code=amto$KantonskÃ.rzel)
+amto_df <- data.frame(City=amto$Ortschaftsname, zip_code=amto$PLZ, Canton_code=amto$Kantonskürzel)
 head(amto_df)
 ```
+
 ```{r}
 #merge the two dataframes 'df' and 'amto_df' on 'zip_code'
 df <- merge(df, amto_df, by='zip_code', all.x=TRUE)
-head(df)
-
 #check if there are nan in city
 df[is.na(df$City),]
-
 ```
 We have 144 NAN, where
 
@@ -106,12 +101,11 @@ properties_filtered <- df[!is.na(df$City),]
 
 
 ##Impots
-```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-
+```{r impots, warning=FALSE}
 #excel file modified for fribourg and liestal 
-impots <- read_excel("../../data/statistik-steuerfuesse-np-1995-2023-fr.xlsx", skip = 14)
+# read csv
+impots <- read.csv(file.path(here(),"data/statistik-steuerfuesse-np-1995-2023-fr.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
+
 # Remove last 13 rows
 impots <- head(impots, -14)
 # Rename columns
@@ -128,14 +122,12 @@ rownames(impots1) <- rownames(impots)
 impots <- impots1
 rm(impots1)
 
-# Write data to CSV
-write.csv(impots, "statistik-steuerfuesse-np-1995-2023-fr.csv", row.names = TRUE)
-
+# Write data to CSV based on here()
+write.csv(impots, file.path(here(),"data/impots.csv"), row.names = TRUE)
 ```
+
 ##properties and impots merged
-```{r}
-#| code-fold: true
-#| code-summary: "Click to show code"
+```{r impots 2}
 # Create a copy of properties_filtered
 properties_merged <- properties_filtered
 
@@ -156,9 +148,8 @@ for (canton_name in unique(properties_filtered$canton)) {
   }
 }
 
-# Write data to CSV
-write.csv(properties_merged, "properties_with_impots.csv", row.names = FALSE)
-
+# Write data to CSV based on here()
+write.csv(properties_merged, file.path(here(),"data/properties_merged.csv"), row.names = TRUE)
 ```
 ##dataset used for the rest of the analysis
 ```{r}
@@ -167,10 +158,9 @@ properties_filtered <- properties_merged
 
 
 ### Cleaning of commune data
-```{r}
+```{r commune, warning=FALSE}
 # il faudra changer le path
-commune_prep <- read.csv("/Users/hugot/Desktop/HEC/ML/Projet/Machine_Learning/data/commune_data.csv", sep = ";")
-
+commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
 # We keep only 2019 to have some reference? (2020 is apparently not really complete)
 commune_2019 <- subset(commune_prep, PERIOD_REF == "2019") %>%
   select(c("REGION", "CODE_REGION", "INDICATORS", "VALUE", "STATUS"))
