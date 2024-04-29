@@ -4,12 +4,11 @@ format: html
 editor: visual
 ---
 
-* Mapping out the underlying structure
-* Identifying the most important variables
-* Univariate visualizations
-* Multivariate visualizations
-* Summary tables
-
+-   Mapping out the underlying structure
+-   Identifying the most important variables
+-   Univariate visualizations
+-   Multivariate visualizations
+-   Summary tables
 
 ## Change the path below
 
@@ -48,7 +47,6 @@ properties <- properties[properties$price >= 10000, ]
 # Subset the dataset to exclude rows with numbers of rooms < 25
 properties <- properties[properties$number_of_rooms <25, ]
 ```
-
 
 ## Histogram of prices
 
