@@ -51,7 +51,7 @@ properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_
 properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
 
 
-# Assuming properties_filtered is your dataframe
+# add majuscule to canton
 properties_filtered$canton <- tools::toTitleCase(properties_filtered$canton)
 head(properties_filtered)
 ```
@@ -150,7 +150,7 @@ for (canton_name in unique(properties_filtered$canton)) {
 write.csv(properties_merged, file.path(here(),"data/properties_merged.csv"), row.names = TRUE)
 ```
 
-dataset used for the rest of the analysis
+##Dataset used for the rest of the analysis
 ```{r}
 properties_filtered <- properties_merged
 ```
