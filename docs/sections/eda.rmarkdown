@@ -1,0 +1,181 @@
+# EDA
+
+## Change the path below
+
+
+```{r, warning=FALSE}
+# Load required libraries
+library(ggplot2)
+library(plotly)
+library(here)
+library(readxl)
+library(dplyr)
+library(tidyr)
+```
+
+
+## Histogram of prices
+
+
+```{r, warning=FALSE}
+histogram_price <- ggplot(properties_filtered, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "red") +
+  labs(title = "Distribution of Prices",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal()
+# Convert ggplot object to plotly object
+interactive_histogram_price <- ggplotly(histogram_price)
+# Display the interactive histogram
+interactive_histogram_price
+```
+
+
+## Histogram of prices for each property type
+
+note : only price between 0 and 500000 so some outliers aren't here
+
+
+```{r, warning=FALSE}
+# Create the ggplot object
+histogram <- ggplot(properties_filtered, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  facet_wrap(~ property_type, scales = "free", ncol = 2) +
+  labs(title = "Distribution of Prices by Property Type",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim(0, 5000000)
+
+# Convert ggplot object to plotly object
+interactive_histogram <- ggplotly(histogram)
+
+# Display the interactive plot
+interactive_histogram
+
+```
+
+
+## Histogram of prices for each year category
+
+note : only price between 0 and 500000 so some outliers aren't here
+
+
+```{r, warning=FALSE}
+# Create a histogram of prices for each year category
+histogram <- ggplot(properties_filtered, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  facet_wrap(~ year_category, scales = "free", ncol = 2) +
+  labs(title = "Distribution of Prices by Year Category",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim(0, 5000000)
+# Convert ggplot object to plotly object
+interactive_histogram_year <- ggplotly(histogram)
+# Display the interactive plot
+interactive_histogram_year
+
+```
+
+
+## Histogram of prices for each canton
+
+note : only price between 0 and 500000 so some outliers aren't here
+
+
+```{r, warning=FALSE}
+histogram <- ggplot(properties_filtered, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  facet_wrap(~ canton, scales = "free", ncol = 2) +
+  labs(title = "Distribution of Prices by Canton",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim(0, 5000000)
+
+# Convert ggplot object to plotly object with adjusted height
+interactive_histogram <- ggplotly(histogram) %>%
+  layout(height = 1000)  # Adjust the height as needed
+
+# Display the interactive plot
+interactive_histogram
+
+```
+
+
+## Histogram of prices for each number of rooms
+
+note : only price between 0 and 500000 so some outliers aren't here
+
+and the graph below only show apartments with less than 10 rooms (but you can change the code if needed
+
+
+```{r, warning=FALSE}
+properties_room <- properties_filtered[properties_filtered$number_of_rooms < 20, ]                  # Filter only number_of_rooms less than 20
+
+# Create a histogram of prices for each number of rooms
+histogram <- ggplot(properties_room, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
+  labs(title = "Distribution of Prices by Number of Rooms",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim(0, 5000000)
+
+# Convert ggplot object to plotly object with adjusted height
+interactive_histogram <- ggplotly(histogram) %>%
+  layout(height = 1000)  # Adjust the height as needed
+
+# Display the interactive plot
+interactive_histogram
+
+```
+
+
+## Histogram of prices with impot
+
+
+```{r, warning=FALSE}
+#| code-fold: true
+#| code-summary: "Click to show code"
+colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)] <- gsub("\\s+", "_", colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)])
+
+# Create a scatter plot to visualize correlation between price and Impôt cantonal
+scatter_plot <- ggplot(properties_filtered, aes(x = price, y = Impôt_cantonal_impots)) +
+  geom_point() +
+  labs(title = "Correlation between Price and Impôt cantonal",
+       x = "Price",
+       y = "Impôt cantonal") +
+  theme_minimal()
+
+# Convert ggplot object to plotly object
+interactive_plot <- ggplotly(scatter_plot)
+
+# Display the interactive plot
+interactive_plot
+```
+
+
+## Test Regression
+
+
+```{r}
+# Perform multiple linear regression
+model <- lm(price ~ number_of_rooms + canton + property_type + year_category, data = properties)
+
+# Summarize the regression model
+summary(model)
+```
+
+```{r}
+impot_cols <- names(properties_filtered)[startsWith(names(properties_filtered), "Impôt")]
+
+# Count the number of NA values in selected columns
+na_counts <- colSums(is.na(properties_filtered[impot_cols]))
+
+# Print the counts
+print(na_counts)
+```
+

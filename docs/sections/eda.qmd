@@ -153,3 +153,13 @@ model <- lm(price ~ number_of_rooms + canton + property_type + year_category, da
 # Summarize the regression model
 summary(model)
 ```
+```{r}
+impot_cols <- names(properties_filtered)[startsWith(names(properties_filtered), "Impôt")]
+
+# Count the number of NA values in selected columns
+na_counts <- colSums(is.na(properties_filtered[impot_cols]))
+
+# Print the counts
+print(na_counts)
+```
+

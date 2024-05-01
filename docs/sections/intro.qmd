@@ -8,6 +8,17 @@
 ```{r}
 print('hello')
 ```
+# SETUP
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include=FALSE}
+library(here)
+library(readxl)
+library(ggplot2)
+library(plotly)
+library(here)
+library(readxl)
+library(dplyr)
+library(tidyr)
+```
 
 ```{python}
 # Python code
