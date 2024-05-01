@@ -16,7 +16,6 @@ properties <- read.csv(file.path(here(),"data/properties.csv"))
 
 ## Main dataset Cleaning
 ```{r 2, warning=FALSE}
-getwd()
 # Load the CSV file into a data frame
 properties <- read.csv(file.path(here(),"data/properties.csv"))
 

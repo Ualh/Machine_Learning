@@ -45,12 +45,12 @@ purrr::walk(packages, function(pkg) {
 #py_config()
 # reticulate::use_condaenv("NAME_OF_YOUR_ENVIRONMENT")
 
+
 ######################################################
 ## The following sets a few option for nice reports ##
 ######################################################
-# You can use this if you wanted to change the rendered output
 
-#general options
+# general options
 options(
   digits = 3,
   str = strOptions(strict.width = "cut"),
@@ -59,11 +59,11 @@ options(
   cli.unicode = FALSE
 )
 
-# ggplot options for the report
+# ggplot options
 theme_set(theme_light())
 
-#knitr options
-opts_chunk$set(
+# knitr options
+knitr::opts_chunk$set(
   comment = "#>",
   collapse = TRUE,
   # cache = TRUE,
@@ -72,9 +72,11 @@ opts_chunk$set(
   out.width = "70%",
   fig.align = "center",
   fig.width = 6,
+  fig.height = 4,
   fig.asp = 0.618,
   fig.show = "hold",
   message = FALSE,
-  echo = FALSE
+  echo = TRUE
 )
+
 

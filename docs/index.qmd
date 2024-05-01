@@ -6,18 +6,16 @@ author:
 institute : Name of the University
 date: today
 title-block-banner: "#0095C8" #chosen for the university of lausanne
-toc: true
-toc-location: right
-format: 
+format:
   html:
-    code-fold: true  # Enable code folding in HTML output
+    toc: true
+    toc_float: true
+    code-fold: true
     number-sections: true
     html-math-method: katex
     self-contained: true
     code-summary: "Click to show code"
-    toc: true
-    toc_float: true
-  # pdf: default # use this if you want to render pdfs instead
+    # pdf: default # use this if you want to render pdfs instead
 abstract: |
  The following machine learning project focuses on...
 ---
@@ -25,7 +23,6 @@ abstract: |
 ```{r, echo = FALSE, message = FALSE}
 # loading all the necessary packages
 library(here)
-here()
 source(here("src/setup.R"))
 ```
 
