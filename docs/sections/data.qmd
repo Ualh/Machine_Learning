@@ -157,6 +157,14 @@ properties_filtered <- properties_merged
 
 
 ## Cleaning of commune data
+
+Replaces NAs in both Taux de couverture social and Political (Conseil National Datas)
+For Taux de couverture Social: NAs were due to reason "Q" = "Not indicated to protect confidentiality"
+We replaced the NAs by the average taux de couverture in Switzerland in 2019, which was 3.2%
+
+For Political data: NAs were due to reason "M" = "Not indicated because data was not important or applicable"
+Therefore, we replaced the NAs by 0
+
 ```{r commune, warning=FALSE}
 # il faudra changer le path
 commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
@@ -176,7 +184,7 @@ commune_2019 <- commune_2019 %>%
   pivot_wider(names_from = INDICATORS, values_from = VALUE)
 
 # Rename columns using the provided map
-commune_2019 <- commune_2019 %>%
+df_commune <- commune_2019 %>%
   rename(`Population - Habitants` = Ind_01_01,
          `Population - Densité de la population` = Ind_01_03,
          `Population - Etrangers` = Ind_01_08,
@@ -200,5 +208,20 @@ commune_2019 <- commune_2019 %>%
          `Conseil national - PST/Sol.` = Ind_14_08,
          `Conseil national - PES` = Ind_14_09,
          `Conseil national - Petits partis de droite` = Ind_14_10)
+
+# If no one voted for a party, set as NA -> replacing it with 0 instead
+df_commune <- df_commune %>%
+  mutate_at(vars(starts_with("Conseil national")), ~replace_na(., 0))
+
+
+# Removing NAs from Taux de couverture sociale column
+# Setting the mean as the mean for Switzerland in 2019 (3.2%)
+mean_taux_aide_social <- 3.2
+
+# Replace NA values with the mean
+df_commune <- df_commune %>%
+  mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
+
+
 ```
 
