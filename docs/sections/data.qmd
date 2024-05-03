@@ -166,61 +166,61 @@ Therefore, we replaced the NAs by 0
 
 ```{r commune, warning=FALSE}
 # il faudra changer le path
-commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
-
-# We keep only 2019 to have some reference? (2020 is apparently not really complete)
-commune_2019 <- subset(commune_prep, PERIOD_REF == "2019") %>%
-  select(c("REGION", "CODE_REGION", "INDICATORS", "VALUE", "STATUS"))
-
-# delete les lignes ou Status = Q ou M (pas de valeur) et ensuite on enlève la colonne
-commune_2019 <- subset(commune_2019, STATUS == "A") %>%
-  select(c("REGION", "CODE_REGION", "INDICATORS", "VALUE"))
-
-# on enlève les lignes qui sont des aggrégats
-commune_2019 <- subset(commune_2019, REGION != "Schweiz")
-
-commune_2019 <- commune_2019 %>%
-  pivot_wider(names_from = INDICATORS, values_from = VALUE)
-
-# Rename columns using the provided map
-df_commune <- commune_2019 %>%
-  rename(`Population - Habitants` = Ind_01_01,
-         `Population - Densité de la population` = Ind_01_03,
-         `Population - Etrangers` = Ind_01_08,
-         `Population - Part du groupe d'âge 0-19 ans` = Ind_01_04,
-         `Population - Part du groupe d'âge 20-64 ans` = Ind_01_05,
-         `Population - Part du groupe d'âge 65+ ans` = Ind_01_06,
-         `Population - Taux brut de nuptialité` = Ind_01_09,
-         `Population - Taux brut de divortialité` = Ind_01_10,
-         `Population - Taux brut de natalité` = Ind_01_11,
-         `Population - Taux brut de mortalité` = Ind_01_12,
-         `Population - Ménages privés` = Ind_01_13,
-         `Population - Taille moyenne des ménages` = Ind_01_14,
-         `Sécurité sociale - Taux d'aide sociale` = Ind_11_01,
-         `Conseil national - PLR` = Ind_14_01,
-         `Conseil national - PDC` = Ind_14_02,
-         `Conseil national - PS` = Ind_14_03,
-         `Conseil national - UDC` = Ind_14_04,
-         `Conseil national - PEV/PCS` = Ind_14_05,
-         `Conseil national - PVL` = Ind_14_06,
-         `Conseil national - PBD` = Ind_14_07,
-         `Conseil national - PST/Sol.` = Ind_14_08,
-         `Conseil national - PES` = Ind_14_09,
-         `Conseil national - Petits partis de droite` = Ind_14_10)
-
-# If no one voted for a party, set as NA -> replacing it with 0 instead
-df_commune <- df_commune %>%
-  mutate_at(vars(starts_with("Conseil national")), ~replace_na(., 0))
-
-
-# Removing NAs from Taux de couverture sociale column
-# Setting the mean as the mean for Switzerland in 2019 (3.2%)
-mean_taux_aide_social <- 3.2
-
-# Replace NA values with the mean
-df_commune <- df_commune %>%
-  mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
-
+# commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
+# 
+# # We keep only 2019 to have some reference? (2020 is apparently not really complete)
+# commune_2019 <- subset(commune_prep, PERIOD_REF == "2019") %>%
+#   select(c("REGION", "CODE_REGION", "INDICATORS", "VALUE", "STATUS"))
+# 
+# # delete les lignes ou Status = Q ou M (pas de valeur) et ensuite on enlève la colonne
+# commune_2019 <- subset(commune_2019, STATUS == "A") %>%
+#   select(c("REGION", "CODE_REGION", "INDICATORS", "VALUE"))
+# 
+# # on enlève les lignes qui sont des aggrégats
+# commune_2019 <- subset(commune_2019, REGION != "Schweiz")
+# 
+# commune_2019 <- commune_2019 %>%
+#   pivot_wider(names_from = INDICATORS, values_from = VALUE)
+# 
+# # Rename columns using the provided map
+# df_commune <- commune_2019 %>%
+#   rename(`Population - Habitants` = Ind_01_01,
+#          `Population - Densité de la population` = Ind_01_03,
+#          `Population - Etrangers` = Ind_01_08,
+#          `Population - Part du groupe d'âge 0-19 ans` = Ind_01_04,
+#          `Population - Part du groupe d'âge 20-64 ans` = Ind_01_05,
+#          `Population - Part du groupe d'âge 65+ ans` = Ind_01_06,
+#          `Population - Taux brut de nuptialité` = Ind_01_09,
+#          `Population - Taux brut de divortialité` = Ind_01_10,
+#          `Population - Taux brut de natalité` = Ind_01_11,
+#          `Population - Taux brut de mortalité` = Ind_01_12,
+#          `Population - Ménages privés` = Ind_01_13,
+#          `Population - Taille moyenne des ménages` = Ind_01_14,
+#          `Sécurité sociale - Taux d'aide sociale` = Ind_11_01,
+#          `Conseil national - PLR` = Ind_14_01,
+#          `Conseil national - PDC` = Ind_14_02,
+#          `Conseil national - PS` = Ind_14_03,
+#          `Conseil national - UDC` = Ind_14_04,
+#          `Conseil national - PEV/PCS` = Ind_14_05,
+#          `Conseil national - PVL` = Ind_14_06,
+#          `Conseil national - PBD` = Ind_14_07,
+#          `Conseil national - PST/Sol.` = Ind_14_08,
+#          `Conseil national - PES` = Ind_14_09,
+#          `Conseil national - Petits partis de droite` = Ind_14_10)
+# 
+# # If no one voted for a party, set as NA -> replacing it with 0 instead
+# df_commune <- df_commune %>%
+#   mutate_at(vars(starts_with("Conseil national")), ~replace_na(., 0))
+# 
+# 
+# # Removing NAs from Taux de couverture sociale column
+# # Setting the mean as the mean for Switzerland in 2019 (3.2%)
+# mean_taux_aide_social <- 3.2
+# 
+# # Replace NA values with the mean
+# df_commune <- df_commune %>%
+#   mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
+# 
 
 ```
 

@@ -22,6 +22,6 @@ library(tidyr)
 
 ```{python}
 # Python code
-import numpy as np
-print(np.mean([10, 20, 30, 40, 50]))
+# import numpy as np
+# print(np.mean([10, 20, 30, 40, 50]))
 ```
