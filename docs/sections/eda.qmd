@@ -1,17 +1,4 @@
 # EDA
-
-## Change the path below
-
-```{r, warning=FALSE}
-# Load required libraries
-library(ggplot2)
-library(plotly)
-library(here)
-library(readxl)
-library(dplyr)
-library(tidyr)
-```
-
 ## Histogram of prices
 
 ```{r, warning=FALSE}
@@ -125,33 +112,35 @@ interactive_histogram
 ## Histogram of prices with impot
 
 ```{r, warning=FALSE}
-#| code-fold: true
-#| code-summary: "Click to show code"
-colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)] <- gsub("\\s+", "_", colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)])
-
-# Create a scatter plot to visualize correlation between price and Impôt cantonal
-scatter_plot <- ggplot(properties_filtered, aes(x = price, y = Impôt_cantonal_impots)) +
-  geom_point() +
-  labs(title = "Correlation between Price and Impôt cantonal",
-       x = "Price",
-       y = "Impôt cantonal") +
-  theme_minimal()
-
-# Convert ggplot object to plotly object
-interactive_plot <- ggplotly(scatter_plot)
-
-# Display the interactive plot
-interactive_plot
+# colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)] <- gsub("\\s+", "_", colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)])
+# 
+# # Create a scatter plot to visualize correlation between price and Impôt cantonal
+# scatter_plot <- ggplot(properties_filtered, aes(x = price, y = Impôt_cantonal_impots)) +
+#   geom_point() +
+#   labs(title = "Correlation between Price and Impôt cantonal",
+#        x = "Price",
+#        y = "Impôt cantonal") +
+#   theme_minimal()
+# 
+# # Convert ggplot object to plotly object
+# interactive_plot <- ggplotly(scatter_plot)
+# 
+# # Display the interactive plot
+# interactive_plot
 ```
 
 ## Test Regression
 
 ```{r}
 # Perform multiple linear regression
-model <- lm(price ~ number_of_rooms + canton + property_type + year_category, data = properties)
+model <- lm(price ~ number_of_rooms + square_meters + canton + property_type + year_category, data = properties_filtered)
 
 # Summarize the regression model
 summary(model)
+
+#show the result in the html
+kable(summary(model)$coefficients, format = "html") %>%
+  kable_styling(full_width = F)
 ```
 ```{r}
 impot_cols <- names(properties_filtered)[startsWith(names(properties_filtered), "Impôt")]

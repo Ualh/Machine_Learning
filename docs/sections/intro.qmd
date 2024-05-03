@@ -4,13 +4,16 @@
 * Related Work
 * Research questions
 
-# TESTING if R works and if Python works
+## Setup
 ```{r}
 print('hello')
 ```
-# SETUP
+
+### Libraries
+
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include=FALSE}
 library(here)
+source(here("src/setup.R"))
 library(readxl)
 library(ggplot2)
 library(plotly)
@@ -18,6 +21,7 @@ library(here)
 library(readxl)
 library(dplyr)
 library(tidyr)
+library(reactable)
 ```
 
 ```{python}

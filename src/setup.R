@@ -26,7 +26,8 @@ packages <- c(
   "patchwork", "maps", "scales", # for plotting
   "knitr", "kableExtra", "rmarkdown", # for the report
   # "reticulate", # for using python
-  "caret" # for the modelling part
+  "caret", # for the modelling part
+  "reactable" # for interactive tables
 )
 
 # Install missing packages and load all the required libraries

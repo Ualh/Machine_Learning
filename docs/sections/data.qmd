@@ -6,22 +6,25 @@
 * Spotting mistakes and missing data (could be part of EDA too)
 * Listing anomalies and outliers (could be part of EDA too)
 
-```{r 1, echo = FALSE, message = FALSE, warning=FALSE}
-library(here)
-library(readxl)
-properties <- read.csv(file.path(here(),"data/properties.csv"))
-```
 
+## Wrangling and Cleaning
 
+- ajouter source
+- ajouter description
+- expliquer blabla
+- Explain why we remove NA from m2 column.
+- Explain ...
 
-## Main dataset Cleaning
+### Raw dataset
 ```{r 2, warning=FALSE}
-# Load the CSV file into a data frame
 properties <- read.csv(file.path(here(),"data/properties.csv"))
-
+# show 1000 first rows of properties using reactable
+reactable(head(properties, 1000))
+```
+### Cleaning
+```{r}
 # Identify values causing the issue
 problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
-
 # Replace non-numeric values with NA
 properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
 
@@ -49,16 +52,28 @@ properties_filtered$number_of_rooms <- gsub("\\D", "", properties_filtered$numbe
 properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
 properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
 
-
+# remove m^2 from column 'square_meters'
+properties_filtered$square_meters <- as.numeric(gsub("\\D", "", properties_filtered$square_meters))
+# print how many NA observations left in square_meters
+print(sum(is.na(properties_filtered$square_meters)))
+# remove NA
+properties_filtered <- properties_filtered[!is.na(properties_filtered$square_meters),]
 # add majuscule to canton
 properties_filtered$canton <- tools::toTitleCase(properties_filtered$canton)
-head(properties_filtered)
+
+# show 100 first row of cleaned dataset using reactable
+reactable(head(properties_filtered, 100))
 ```
 
-## Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
+### AMTOVZ_CSV_LV95 Data
+
+- ajouter source
+- ajouter description
+- expliquer blabla
+
+#### Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
 
 ```{r}
-head(properties_filtered)
 df <- properties_filtered
 #the address column is like : '1844 Villeneuve VD' and has zip code number in it
 #taking out the zip code number and creating a new column 'zip_code'
@@ -66,17 +81,16 @@ df <- properties_filtered
 df$zip_code <- as.numeric(gsub("\\D", "", df$address))
 #removing the first two number of zip code has more than 4 number
 df$zip_code <- ifelse(df$zip_code > 9999, df$zip_code %% 10000, df$zip_code)
-head(df)
 ```
 
+#### Using AMTOVZ_CSV_LV95 to get the city and canton from the zip code
 ```{r zip}
 #read .csv AMTOVZ_CSV_LV95
 amto <- read.csv(file.path(here(),"data/AMTOVZ_CSV_LV95.csv"), sep = ";")
-head(amto)
-
 #creating a new dataframe with 'Ortschaftsname' as 'City'Place_name', 'PLZ' as 'zip_code' and 'KantonskÃ.rzel' as 'Canton_code'
 amto_df <- data.frame(City=amto$Ortschaftsname, zip_code=amto$PLZ, Canton_code=amto$Kantonskürzel)
-head(amto_df)
+# display 100 first rows of atmo_df using reactable
+reactable::reactable(head(amto_df, 1000))
 ```
 
 ```{r}
@@ -94,10 +108,18 @@ Removed them
 ```{r}
 #remove the rows with nan in city
 properties_filtered <- df[!is.na(df$City),]
+#show the first 100 rows of the cleaned dataset using reactable
+reactable(head(properties_filtered, 100))
 ```
 
 
-## Tax data cleaning
+### Tax data
+
+- ajouter source
+- ajouter description
+- expliquer blabla
+
+#### Cleaning
 ```{r impots, warning=FALSE}
 #excel file modified for fribourg and liestal 
 # read csv
@@ -120,42 +142,45 @@ impots <- impots1
 rm(impots1)
 
 # Write data to CSV based on here()
-write.csv(impots, file.path(here(),"data/impots.csv"), row.names = TRUE)
+#write.csv(impots, file.path(here(),"data/impots.csv"), row.names = TRUE)
+# show 100 first rows of impots using reactable
+reactable(head(impots, 100))
 ```
 
-### Merging the two datasets
+#### Merging the two datasets
 ```{r impots 2}
-# Create a copy of properties_filtered
-properties_merged <- properties_filtered
-
-# Loop through unique canton names in properties_filtered
-for (canton_name in unique(properties_filtered$canton)) {
-  # Check if canton_name exists as a row name in impots
-  if (canton_name %in% rownames(impots)) {
-    # Get the corresponding row from impots
-    impots_row <- impots[canton_name, ]
-    
-    # Add columns to properties_merged with impots content
-    for (col_name in names(impots)) {
-      properties_merged[properties_merged$canton == canton_name, paste0(col_name, "_impots")] <- impots_row[[col_name]]
-    }
-    
-    # Remove impots_row from memory
-    rm(impots_row)
-  }
-}
-
-# Write data to CSV based on here()
-write.csv(properties_merged, file.path(here(),"data/properties_merged.csv"), row.names = TRUE)
+# # Create a copy of properties_filtered
+# properties_merged <- properties_filtered
+# 
+# # Loop through unique canton names in properties_filtered
+# for (canton_name in unique(properties_filtered$canton)) {
+#   # Check if canton_name exists as a row name in impots
+#   if (canton_name %in% rownames(impots)) {
+#     # Get the corresponding row from impots
+#     impots_row <- impots[canton_name, ]
+#     
+#     # Add columns to properties_merged with impots content
+#     for (col_name in names(impots)) {
+#       properties_merged[properties_merged$canton == canton_name, paste0(col_name, "_impots")] <- impots_row[[col_name]]
+#     }
+#     
+#     # Remove impots_row from memory
+#     rm(impots_row)
+#   }
+# }
+# 
+# # Write data to CSV based on here()
+# write.csv(properties_merged, file.path(here(),"data/properties_merged.csv"), row.names = TRUE)
+# properties_filtered <- properties_merged
+# # show 100 first rows of properties_merged using reactable
+# reactable(head(properties_merged, 100))
 ```
 
-##Dataset used for the rest of the analysis
-```{r}
-properties_filtered <- properties_merged
-```
-
-
-## Cleaning of commune data
+### Commune Data
+#### Cleaning
+- ajouter source
+- ajouter description
+- expliquer blabla
 
 Replaces NAs in both Taux de couverture social and Political (Conseil National Datas)
 For Taux de couverture Social: NAs were due to reason "Q" = "Not indicated to protect confidentiality"
@@ -220,7 +245,7 @@ mean_taux_aide_social <- 3.2
 # Replace NA values with the mean
 df_commune <- df_commune %>%
   mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
-
-
+#show 100 first rows of df_commune using reactable
+reactable(head(df_commune, 100))
 ```
 
