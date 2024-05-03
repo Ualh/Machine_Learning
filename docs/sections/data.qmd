@@ -20,6 +20,28 @@
 properties <- read.csv(file.path(here(),"data/properties.csv"))
 # show 1000 first rows of properties using reactable
 reactable(head(properties, 1000))
+
+# Create a tibble with cantons and observations
+observations_table <- tibble(
+  Canton = c("Vaud", "Bern", "Lucerne", "Zurich", "Uri", "Schwyz",
+             "Obwalden", "Nidwalden", "Glarus", "St. Gallen", "Grisons", 
+             "Aargau", "Thurgau", "Ticino", "Valais", "Neuchatel", 
+             "Geneva", "Jura", "Zug", "Fribourg", "Solothurn", 
+             "Basel-Stadt", "Basel-Landschaft", "Schaffhausen", 
+             "Appenzell-Ausser-Rhoden", "Appenzell-Inner-Rhoden", "Total"),
+  Observations = c(3232, 1553, 376, 1191, 71, 93, 29, 51, 55, 757, 405,
+                   1481, 553, 4230, 3601, 513, 629, 329, 69, 1242, 590, 
+                   149, 705, 118, 102, 12, sum(c(3232, 1553, 376, 1191, 71, 93, 29, 51, 55, 757, 405,
+                                               1481, 553, 4230, 3601, 513, 629, 329, 69, 1242, 590, 
+                                               149, 705, 118, 102, 12)))
+)
+
+# Display the table using kable and kableExtra
+observations_table %>%
+  kbl(caption = "Number of Observations by Canton") %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover")) %>%
+  add_header_above(c(" " = 1, "Observations" = 1)) # Adds headers spanning columns
+
 ```
 ### Cleaning
 ```{r}
