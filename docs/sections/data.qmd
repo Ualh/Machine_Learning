@@ -210,10 +210,9 @@ if (non_numeric > 0) {
   print(paste("Warning: Found", non_numeric, "non-numeric values."))
 }
 
-# Perform clustering or any other analysis with cleaned_impots
+rownames(cleaned_impots) <- rownames(impots)
 
-
-reactable(head(cleaned_impots, 100))
+#reactable(head(cleaned_impots, 100))
 
 ```
 
