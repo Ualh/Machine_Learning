@@ -9,6 +9,8 @@ Trying to Cluster commune datas to:
 A regarder, est-ce qu'on fait un cluster pour les datas politques + un cluster pour les data démographiques, ou est-ce qu'on regroupe tout?
 
 ```{r}
+set.seed(123)
+
 # Clustering demographic
 cols_commune_demographic <- select(df_commune, -c("REGION", "CODE_REGION","Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
@@ -19,19 +21,45 @@ cols_commune_demographic <- scale(cols_commune_demographic)
 dist_matrix_demographic <- dist(cols_commune_demographic, method = "minkowski")
 
 # Perform hierarchical clustering
-hclust_model_demographic <- hclust(dist_matrix_demographic, method = "ward.D2")
+hclust_model_demographic <- hclust(dist_matrix_demographic, method = "ward.D")
 
 # Create dendrogram
-dend <- as.dendrogram(hclust_model_demographic)
-dend <- color_branches(dend, k = 5) 
+dend_demo <- as.dendrogram(hclust_model_demographic)
+dend_demo <- color_branches(dend_demo, k = 5) #Set number of cluster to 5, to keep the same scale for all our variables
 
-plot(dend, main = "Hierarchical Clustering Dendrogram")
+plot(dend, main = "Demographics - Hierarchical Clustering Dendrogram")
 
+df_commune$Demographic_cluster <- cutree(hclust_model_demographic, k = 5)
 ```
+```{r}
+# Clustering politics
+set.seed(123)
+
+cols_commune_politics <- select(df_commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
+
+# Scale the columns, some are total numbers, some are percentages
+cols_commune_politics <- scale(cols_commune_politics)
+
+# Calculate the distance matrix
+dist_matrix_politics <- dist(cols_commune_politics, method = "minkowski")
+
+# Perform hierarchical clustering
+hclust_model_politics <- hclust(dist_matrix_politics, method = "ward.D")
+
+# Create dendrogram
+dend_pol <- as.dendrogram(hclust_model_politics)
+dend_pol <- color_branches(dend_pol, k = 5) #Set number of cluster to 5, to keep the same scale for all our variables
+
+plot(dend_pol, main = "Politics - Hierarchical Clustering Dendrogram")
+
+df_commune$Political_cluster <- cutree(hclust_model_politics, k = 5)
+```
+
+
 
 ## Tax
 ```{r}
-#library(dendextend)
+set.seed(123)
 
 # Clean data and convert to numeric
 cleaned_impots <- apply(impots, 2, function(x) as.numeric(gsub("[^0-9.-]", "", x)))
@@ -50,10 +78,10 @@ for (i in 1:10) {
   kmeans_model <- kmeans(scaled_impots, centers = i)
   wss[i] <- sum(kmeans_model$withinss)
 }
-plot(1:10, wss, type = "b", xlab = "Number of Clusters", ylab = "Within groups sum of squares")
+# plot(1:10, wss, type = "b", xlab = "Number of Clusters", ylab = "Within groups sum of squares")
 
 # Adjust k based on elbow method
-k <- 5  # Adjust based on the plot
+k <- 5  
 
 # Perform k-means clustering again with optimal k
 kmeans_model <- kmeans(scaled_impots, centers = k)
@@ -62,10 +90,10 @@ kmeans_model <- kmeans(scaled_impots, centers = k)
 clusters <- kmeans_model$cluster
 
 # Plot dendrogram
-colored_dend <- color_branches(dend, k = 5)
-y_zoom_range <- c(0, 80)  # Adjust the y-axis range as needed
+#colored_dend <- color_branches(dend, k = 5)
+#y_zoom_range <- c(0, 80)  # Adjust the y-axis range as needed
 
-plot(colored_dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE, ylim = y_zoom_range)
+#plot(colored_dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE, ylim = y_zoom_range)
 
 ```
 ```{r}
@@ -93,5 +121,11 @@ impots_cluster <- as.data.frame(cleaned_impots)
 # Add the cluster labels to cleaned_impots
 impots_cluster$cluster <- cluster_labels
 
+```
+```{r}
+# Preparing df_commune for merging with main dataset
+
+df_commune <- select(df_commune, REGION, CODE_REGION, Demographic_cluster, Political_cluster)
+  
 ```
 
