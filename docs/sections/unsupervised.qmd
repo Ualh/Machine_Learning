@@ -27,10 +27,11 @@ hclust_model_demographic <- hclust(dist_matrix_demographic, method = "ward.D")
 dend_demo <- as.dendrogram(hclust_model_demographic)
 dend_demo <- color_branches(dend_demo, k = 5) #Set number of cluster to 5, to keep the same scale for all our variables
 
-#plot(dend, main = "Demographics - Hierarchical Clustering Dendrogram")
+plot(dend_demo, main = "Demographics - Hierarchical Clustering Dendrogram")
 
 df_commune$Demographic_cluster <- cutree(hclust_model_demographic, k = 5)
 ```
+
 ```{r}
 # Clustering politics
 set.seed(123)
@@ -96,6 +97,7 @@ clusters <- kmeans_model$cluster
 #plot(colored_dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE, ylim = y_zoom_range)
 
 ```
+
 ```{r}
 # Get the cluster centers
 cluster_centers <- kmeans_model$centers
@@ -128,6 +130,40 @@ rownames(impots_cluster) <- rownames(impots)
 # Preparing df_commune for merging with main dataset
 
 df_commune <- select(df_commune, REGION, CODE_REGION, Demographic_cluster, Political_cluster)
+
+# Merging 
+impots_cluster <- impots_cluster %>%
+  rownames_to_column("REGION")
+
+# Joining df_commune with impots_cluster based on commune names
+df_commune <- df_commune %>%
+  left_join(impots_cluster[, c("REGION", "cluster")], by = "REGION")
+
+# Renaming the 'cluster' column to 'Impots_cluster'
+names(df_commune)[names(df_commune) == "cluster"] <- "Impots_cluster"
+
+
+# Loop through each NA value in Impots_cluster column and match it with its closest match
+for (i in which(is.na(df_commune$Impots_cluster))) {
+  commune_name_na <- df_commune$REGION[i]
+  closest_match <- agrep(commune_name_na, impots_cluster$REGION, max.distance = 0.1, ignore.case = TRUE)
   
+  # If a match is found, replace NA with the cluster value
+  if (length(closest_match) > 0) {
+    df_commune$Impots_cluster[i] <- impots_cluster$cluster[closest_match[1]]
+  }
+}
+
+# There are some NAs, let's inspect them
+rows_with_na <- which(is.na(df_commune$Impots_cluster))
+
+# Display the rows with NA values
+df_commune[rows_with_na, ]
+
+# Pq 2172 obs pour df commune et seulement 2131 pour impots
+# Pq après avoir match l'un et l'autre il y a 32 de difference et pas 41
+
+# --> Merge avec les codes zip (amto) et on verra depuis la
+
 ```
 

@@ -277,7 +277,7 @@ commune_2019 <- commune_2019 %>%
   pivot_wider(names_from = INDICATORS, values_from = VALUE)
 
 # Rename columns using the provided map
-df_commune <- commune_2019 %>%
+commune <- commune_2019 %>%
   rename(`Population - Habitants` = Ind_01_01,
          `Population - Densité de la population` = Ind_01_03,
          `Population - Etrangers` = Ind_01_08,
@@ -303,7 +303,7 @@ df_commune <- commune_2019 %>%
          `Conseil national - Petits partis de droite` = Ind_14_10)
 
 # If no one voted for a party, set as NA -> replacing it with 0 instead
-df_commune <- df_commune %>%
+commune <- commune %>%
   mutate_at(vars(starts_with("Conseil national")), ~replace_na(., 0))
 
 
@@ -312,10 +312,10 @@ df_commune <- df_commune %>%
 mean_taux_aide_social <- 3.2
 
 # Replace NA values with the mean
-df_commune <- df_commune %>%
+commune <- commune %>%
   mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
-#show 100 first rows of df_commune using reactable
-reactable(head(df_commune, 100))
+#show 100 first rows of commune using reactable
+reactable(head(commune, 100))
 
 # commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
 # 
@@ -334,7 +334,7 @@ reactable(head(df_commune, 100))
 #   pivot_wider(names_from = INDICATORS, values_from = VALUE)
 # 
 # # Rename columns using the provided map
-# df_commune <- commune_2019 %>%
+# commune <- commune_2019 %>%
 #   rename(`Population - Habitants` = Ind_01_01,
 #          `Population - Densité de la population` = Ind_01_03,
 #          `Population - Etrangers` = Ind_01_08,
@@ -360,7 +360,7 @@ reactable(head(df_commune, 100))
 #          `Conseil national - Petits partis de droite` = Ind_14_10)
 # 
 # # If no one voted for a party, set as NA -> replacing it with 0 instead
-# df_commune <- df_commune %>%
+# commune <- commune %>%
 #   mutate_at(vars(starts_with("Conseil national")), ~replace_na(., 0))
 # 
 # 
@@ -369,7 +369,7 @@ reactable(head(df_commune, 100))
 # mean_taux_aide_social <- 3.2
 # 
 # # Replace NA values with the mean
-# df_commune <- df_commune %>%
+# commune <- commune %>%
 #   mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
 # 
 ```
