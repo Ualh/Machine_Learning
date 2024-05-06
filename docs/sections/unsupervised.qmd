@@ -81,6 +81,11 @@ cluster_sizes <- table(kmeans_model$cluster)
 # Print cluster sizes
 print(cluster_sizes)
 
+# Convert cleaned_impots to a data frame
+impots_cluster <- as.data.frame(cleaned_impots)
+
+# Add the cluster labels to cleaned_impots
+impots_cluster$cluster <- cluster_labels
 
 ```
 
