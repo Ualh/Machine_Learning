@@ -23,7 +23,8 @@ map <- leaflet(properties_filtered) %>%
     labels = "Properties"  # Label for the legend
   )
 
-map$width <- "100%"
+map$width <- "100%"  # Set the width of the map to 100%
+map$height <- 600  # Set the height of the map to 600 pixels
 
 map
 ```
