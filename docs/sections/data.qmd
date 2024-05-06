@@ -138,12 +138,12 @@ reactable(head(properties_filtered, 100))
 ### Tax data
 
 - ajouter source
+https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
 - ajouter description
 - expliquer blabla
 
 #### Cleaning
 ```{r impots, warning=FALSE}
-# link : https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
 # read csv
 impots <- read.csv(file.path(here(),"data/estv_income_rates.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
 
@@ -189,7 +189,11 @@ impots <- impots[, -3]
 
 # Remove 2nd column (to avoid canton column)
 impots <- impots[, -2]
-
+# Remove impot eglise
+impots <- impots[, -c(4:6)]
+impots <- impots[, -c(6:8)]
+impots <- impots[, -8]
+impots <- impots[, -10]
 # Clean data and convert to numeric
 cleaned_impots <- apply(impots, 2, function(x) as.numeric(gsub("[^0-9.-]", "", x)))
 
