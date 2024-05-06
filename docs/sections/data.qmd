@@ -143,7 +143,7 @@ reactable(head(properties_filtered, 100))
 
 #### Cleaning
 ```{r impots, warning=FALSE}
-
+# link : https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
 # read csv
 impots <- read.csv(file.path(here(),"data/estv_income_rates.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
 
@@ -152,27 +152,15 @@ impots <- impots[-1, ]
 # Remove 3rd column
 impots <- impots[, -3]
 
-# Combine text in the 2nd row
-impots[2, 1] <- paste("Impôt sur le revenu", impots[2, 1])
 # Combine text for columns 4-8
 impots[1, 4:8] <- "Impôt sur le revenu"
-
-# Combine text in the 2nd row
-impots[2, 1] <- paste("Impôt sur la fortune", impots[2, 1])
 # Combine text for columns 9-13
 impots[1, 9:13] <- "Impôt sur la fortune"
-
-# Combine text in the 2nd row
-impots[2, 1] <- paste("Impôt sur le bénéfice", impots[2, 1])
 # Combine text for columns 14-16
 impots[1, 14:16] <- "Impôt sur le bénéfice"
-
-# Combine text in the 2nd row
-impots[2, 1] <- paste("Impôt sur le capital", impots[2, 1])
 # Combine text for columns 17-19
 impots[1, 17:19] <- "Impôt sur le capital"
 
-# Combine content of the first 2 rows into the 2nd row
 # Combine content of the first 2 rows into the 2nd row
 impots[2, ] <- apply(impots[1:2, ], 2, function(x) paste(ifelse(is.na(x[1]), x[2], ifelse(is.na(x[2]), x[1], paste(x[1], x[2], sep = " ")))))
 
@@ -181,7 +169,6 @@ impots <- impots[-1, ]
 
 # Assign the text to the 1st row and 1st column
 impots[1, 1] <- "Coefficient d'impôt en %"
-
 # Replace column names with the content of the first row
 colnames(impots) <- impots[1, ]
 impots <- impots[-1, ]
@@ -203,37 +190,28 @@ impots <- impots[, -3]
 # Remove 2nd column (to avoid canton column)
 impots <- impots[, -2]
 
-reactable(head(impots, 100))
+# Clean data and convert to numeric
+cleaned_impots <- apply(impots, 2, function(x) as.numeric(gsub("[^0-9.-]", "", x)))
+
+# Replace NA values with 0
+cleaned_impots[is.na(cleaned_impots)] <- 0
+
+# Check for non-numeric values
+non_numeric <- sum(!is.na(cleaned_impots) & !is.numeric(cleaned_impots))
+if (non_numeric > 0) {
+  print(paste("Warning: Found", non_numeric, "non-numeric values."))
+}
+
+# Perform clustering or any other analysis with cleaned_impots
+
+
+reactable(head(cleaned_impots, 100))
 
 ```
 
 #### Merging the two datasets
 ```{r impots 2}
-# # Create a copy of properties_filtered
-# properties_merged <- properties_filtered
-# 
-# # Loop through unique canton names in properties_filtered
-# for (canton_name in unique(properties_filtered$canton)) {
-#   # Check if canton_name exists as a row name in impots
-#   if (canton_name %in% rownames(impots)) {
-#     # Get the corresponding row from impots
-#     impots_row <- impots[canton_name, ]
-#     
-#     # Add columns to properties_merged with impots content
-#     for (col_name in names(impots)) {
-#       properties_merged[properties_merged$canton == canton_name, paste0(col_name, "_impots")] <- impots_row[[col_name]]
-#     }
-#     
-#     # Remove impots_row from memory
-#     rm(impots_row)
-#   }
-# }
-# 
-# # Write data to CSV based on here()
-# write.csv(properties_merged, file.path(here(),"data/properties_merged.csv"), row.names = TRUE)
-# properties_filtered <- properties_merged
-# # show 100 first rows of properties_merged using reactable
-# reactable(head(properties_merged, 100))
+
 ```
 
 ### Commune Data
