@@ -22,12 +22,15 @@
 # load the required packages
 packages <- c(
   "here", # for the project's organization
-  "tidyverse", "lubridate", # for wrangling
-  "patchwork", "maps", "scales", # for plotting
+  "tidyverse", "lubridate", "dplyr", "tidyr",# for wrangling
+  "patchwork", "maps", "scales", "ggmap",# for plotting
   "knitr", "kableExtra", "rmarkdown", # for the report
   # "reticulate", # for using python
   "caret", # for the modelling part
-  "reactable" # for interactive tables
+  "reactable", # for interactive tables,
+  "readxl", # for reading excel files
+  "ggplot2", "plotly", # for plotting
+  "reactable", "kableExtra" # for tables
 )
 
 # Install missing packages and load all the required libraries
