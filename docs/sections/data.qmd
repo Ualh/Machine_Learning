@@ -143,30 +143,68 @@ reactable(head(properties_filtered, 100))
 
 #### Cleaning
 ```{r impots, warning=FALSE}
-#excel file modified for fribourg and liestal 
+
 # read csv
-impots <- read.csv(file.path(here(),"data/statistik-steuerfuesse-np-1995-2023-fr.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
+impots <- read.csv(file.path(here(),"data/estv_income_rates.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
 
-# Remove last 13 rows
-impots <- head(impots, -14)
-# Rename columns
-colnames(impots) <- c("Chefs-lieux cantonaux", "Impôt cantonal", "Impôt communal", "Impôt paroissial Evang. / réform", "Impôt paroissial Kath. / cath.rom")
+# Remove 1st row
+impots <- impots[-1, ]
+# Remove 3rd column
+impots <- impots[, -3]
 
-# Set row names to the content of the first column
-rownames(impots) <- impots$`Chefs-lieux cantonaux`
+# Combine text in the 2nd row
+impots[2, 1] <- paste("Impôt sur le revenu", impots[2, 1])
+# Combine text for columns 4-8
+impots[1, 4:8] <- "Impôt sur le revenu"
 
-# Remove the first column (which is now row names)
-impots1 <- impots[, -1, drop = FALSE]
+# Combine text in the 2nd row
+impots[2, 1] <- paste("Impôt sur la fortune", impots[2, 1])
+# Combine text for columns 9-13
+impots[1, 9:13] <- "Impôt sur la fortune"
 
-# Set the row names for impots1 the same as impots
-rownames(impots1) <- rownames(impots)
-impots <- impots1
-rm(impots1)
+# Combine text in the 2nd row
+impots[2, 1] <- paste("Impôt sur le bénéfice", impots[2, 1])
+# Combine text for columns 14-16
+impots[1, 14:16] <- "Impôt sur le bénéfice"
 
-# Write data to CSV based on here()
-#write.csv(impots, file.path(here(),"data/impots.csv"), row.names = TRUE)
-# show 100 first rows of impots using reactable
+# Combine text in the 2nd row
+impots[2, 1] <- paste("Impôt sur le capital", impots[2, 1])
+# Combine text for columns 17-19
+impots[1, 17:19] <- "Impôt sur le capital"
+
+# Combine content of the first 2 rows into the 2nd row
+# Combine content of the first 2 rows into the 2nd row
+impots[2, ] <- apply(impots[1:2, ], 2, function(x) paste(ifelse(is.na(x[1]), x[2], ifelse(is.na(x[2]), x[1], paste(x[1], x[2], sep = " ")))))
+
+# Remove 1st row
+impots <- impots[-1, ]
+
+# Assign the text to the 1st row and 1st column
+impots[1, 1] <- "Coefficient d'impôt en %"
+
+# Replace column names with the content of the first row
+colnames(impots) <- impots[1, ]
+impots <- impots[-1, ]
+
+# Check for missing values in impots
+any_missing <- any(is.na(impots))
+
+if (any_missing) {
+  print("There are missing values in impots.")
+} else {
+  print("There are no missing values in impots.")
+}
+
+
+# Replace row names with the content of the 3rd column
+row.names(impots) <- impots[, 3]
+impots <- impots[, -3]
+
+# Remove 2nd column (to avoid canton column)
+impots <- impots[, -2]
+
 reactable(head(impots, 100))
+
 ```
 
 #### Merging the two datasets
