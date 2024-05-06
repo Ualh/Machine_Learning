@@ -141,7 +141,7 @@ reactable(head(properties_filtered, 100))
 
 ### Tax data
 
-- ajouter source
+-  source
 https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
 - ajouter description
 - expliquer blabla

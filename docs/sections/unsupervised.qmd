@@ -62,6 +62,9 @@ kmeans_model <- kmeans(scaled_impots, centers = k)
 clusters <- kmeans_model$cluster
 
 # Plot dendrogram
+colored_dend <- color_branches(dend, k = 5)
+y_zoom_range <- c(0, 80)  # Adjust the y-axis range as needed
+
 plot(colored_dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE, ylim = y_zoom_range)
 
 ```
@@ -80,6 +83,9 @@ cluster_sizes <- table(kmeans_model$cluster)
 
 # Print cluster sizes
 print(cluster_sizes)
+
+# Get the cluster labels
+cluster_labels <- kmeans_model$cluster
 
 # Convert cleaned_impots to a data frame
 impots_cluster <- as.data.frame(cleaned_impots)
