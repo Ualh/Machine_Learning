@@ -51,7 +51,7 @@ hclust_model <- hclust(dist_matrix, method = "ward.D2")
 dend <- as.dendrogram(hclust_model)
 
 # Zoom range for the dendrogram
-y_zoom_range <- c(0, 10)
+y_zoom_range <- c(0, 180)
 
 # Adjust font size for better visualization
 par(cex = 0.6)
