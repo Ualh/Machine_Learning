@@ -31,7 +31,7 @@ plot(dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE,ylim = y_z
 
 ## Tax
 ```{r}
-library(dendextend)
+#library(dendextend)
 
 # Clean data and convert to numeric
 cleaned_impots <- apply(impots, 2, function(x) as.numeric(gsub("[^0-9.-]", "", x)))
@@ -40,26 +40,47 @@ cleaned_impots[is.na(cleaned_impots)] <- 0  # Replace NA values with 0
 # Scale the features
 scaled_impots <- scale(cleaned_impots)
 
-# Calculate distance matrix
-dist_matrix <- dist(scaled_impots, method = "euclidean")
+# Perform k-means clustering
+k <- 2  # Initial guess for the number of clusters
+kmeans_model <- kmeans(scaled_impots, centers = k)
 
-# Perform hierarchical clustering
-hclust_model <- hclust(dist_matrix, method = "ward.D2")
+# Check within-cluster sum of squares (elbow method)
+wss <- numeric(10)
+for (i in 1:10) {
+  kmeans_model <- kmeans(scaled_impots, centers = i)
+  wss[i] <- sum(kmeans_model$withinss)
+}
+plot(1:10, wss, type = "b", xlab = "Number of Clusters", ylab = "Within groups sum of squares")
 
-# Create dendrogram
-dend <- as.dendrogram(hclust_model)
+# Adjust k based on elbow method
+k <- 5  # Adjust based on the plot
 
-# Zoom range for the dendrogram
-y_zoom_range <- c(0, 140)
+# Perform k-means clustering again with optimal k
+kmeans_model <- kmeans(scaled_impots, centers = k)
 
-# Adjust font size for better visualization
-par(cex = 0.6)
+# Assign cluster labels to dendrogram
+clusters <- kmeans_model$cluster
 
-# Cut the dendrogram to obtain clusters
-clusters <- cutree(hclust_model, k = 4)  # Adjust the number of clusters as needed
-
-# Color branches according to clusters
-colored_dend <- color_branches(dend, k = 4)
+# Plot dendrogram
 plot(colored_dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE, ylim = y_zoom_range)
+
+```
+```{r}
+# Get the cluster centers
+cluster_centers <- kmeans_model$centers
+
+# Create a data frame with cluster centers
+cluster_centers_df <- data.frame(cluster = 1:k, cluster_centers)
+
+# Print cluster centers
+print(cluster_centers_df)
+
+# Calculate the size of each cluster
+cluster_sizes <- table(kmeans_model$cluster)
+
+# Print cluster sizes
+print(cluster_sizes)
+
+
 ```
 
