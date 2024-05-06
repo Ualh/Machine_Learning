@@ -27,7 +27,7 @@ hclust_model_demographic <- hclust(dist_matrix_demographic, method = "ward.D")
 dend_demo <- as.dendrogram(hclust_model_demographic)
 dend_demo <- color_branches(dend_demo, k = 5) #Set number of cluster to 5, to keep the same scale for all our variables
 
-plot(dend, main = "Demographics - Hierarchical Clustering Dendrogram")
+#plot(dend, main = "Demographics - Hierarchical Clustering Dendrogram")
 
 df_commune$Demographic_cluster <- cutree(hclust_model_demographic, k = 5)
 ```
@@ -120,6 +120,8 @@ impots_cluster <- as.data.frame(cleaned_impots)
 
 # Add the cluster labels to cleaned_impots
 impots_cluster$cluster <- cluster_labels
+
+rownames(impots_cluster) <- rownames(impots)
 
 ```
 ```{r}
