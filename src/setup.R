@@ -30,7 +30,8 @@ packages <- c(
   "reactable", # for interactive tables,
   "readxl", # for reading excel files
   "ggplot2", "plotly", # for plotting
-  "reactable", "kableExtra" # for tables
+  "reactable", "kableExtra", # for tables
+  "leaflet"# for maps
 )
 
 # Install missing packages and load all the required libraries

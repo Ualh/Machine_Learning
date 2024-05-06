@@ -1,4 +1,33 @@
 # EDA
+
+## Map representation of distribution of properties
+```{r}
+# Create a leaflet map with optimized markers
+map <- leaflet(properties_filtered) %>%
+  addTiles() %>%  # Add default OpenStreetMap tiles
+  addProviderTiles(providers$Esri.NatGeoWorldMap) %>% # Add topographic maps for context
+  addCircleMarkers(
+    ~lon, ~lat,
+    radius = 1.5,  # Smaller radius for the circle markers
+    color = "#32012F",  # Specifying a color for the markers
+    fillOpacity = 0.2,  # Semi-transparent fill
+    stroke = FALSE,  # No border to the circle markers to reduce visual noise
+    popup = ~paste("Price: ", price, "<br>",
+                   "Rooms: ", number_of_rooms, "<br>",
+                   "Type: ", property_type, "<br>",
+                   "Year: ", year_category),
+    label = ~paste("Price: ", price)  # Tooltip on hover
+  ) %>% addLegend(
+    position = "bottomright",  # Position the legend at the bottom right
+    colors = "#32012F",  # Use the same color as the markers
+    labels = "Properties"  # Label for the legend
+  )
+
+map$width <- "100%"
+
+map
+```
+
 ## Histogram of prices
 
 ```{r, warning=FALSE}

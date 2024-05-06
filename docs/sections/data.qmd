@@ -88,10 +88,13 @@ reactable(head(properties_filtered, 100))
 ```
 
 ### AMTOVZ_CSV_LV95 Data
+The dataset described is the "Official Index of Localities" (Répertoire officiel des localités) provided by the Swiss Federal Office of Topography (swisstopo). It contains comprehensive information about all localities in Switzerland and the Principality of Liechtenstein, including their names, postal codes, and perimeters.
 
-- ajouter source
-- ajouter description
-- expliquer blabla
+This dataset is regularly updated on a monthly basis, incorporating changes reported by cantonal authorities and Swiss Post. It serves various purposes, including spatial analysis, integration with other geographic datasets, usage as a geolocated background in GIS (Geographic Information Systems) and CAD (Computer-Aided Design) systems, statistical analysis, and as a reference dataset for information systems.
+
+Updates and release notes for the dataset are provided periodically, detailing changes and improvements made over time. The Swiss Federal Office of Topography manages and distributes this dataset as part of its responsibilities in collecting and providing official geospatial data for Switzerland.
+
+Source - [swisstopo](https://www.swisstopo.admin.ch/fr/repertoire-officiel-des-localites)
 
 #### Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
 
@@ -108,20 +111,22 @@ df$zip_code <- ifelse(df$zip_code > 9999, df$zip_code %% 10000, df$zip_code)
 #### Using AMTOVZ_CSV_LV95 to get the city and canton from the zip code
 ```{r zip}
 #read .csv AMTOVZ_CSV_LV95
-amto <- read.csv(file.path(here(),"data/AMTOVZ_CSV_LV95.csv"), sep = ";")
-#creating a new dataframe with 'Ortschaftsname' as 'City'Place_name', 'PLZ' as 'zip_code' and 'KantonskÃ.rzel' as 'Canton_code'
-amto_df <- data.frame(City=amto$Ortschaftsname, zip_code=amto$PLZ, Canton_code=amto$Kantonskürzel)
-# display 100 first rows of atmo_df using reactable
-reactable::reactable(head(amto_df, 1000))
-```
+amto <- read.csv(file.path(here(),"data/AMTOVZ_CSV_WGS84.csv"), sep = ";")
+#creating a new dataframe with 'Ortschaftsname' as 'City'Place_name', 'PLZ' as 'zip_code', 'KantonskÃ.rzel' as 'Canton_code', 'E' as 'lon' and 'N' as 'lat'
+amto_df <- amto[, c('Gemeindename', 'PLZ', 'Kantonskürzel', 'E', 'N')]
+#renaming the columns
+colnames(amto_df) <- c('Community', 'zip_code', 'Canton_code', 'lon', 'lat')
 
-```{r}
-#merge the two dataframes 'df' and 'amto_df' on 'zip_code'
-df <- merge(df, amto_df, by='zip_code', all.x=TRUE)
+#remove duplicates of zip code
+amto_df <- amto_df[!duplicated(amto_df$zip_code),]
+
+#add the variable of amto_df to the df if the zip code matches
+df <- merge(df, amto_df, by = "zip_code", all.x = TRUE)
+
 #check if there are nan in city
-df[is.na(df$City),]
+df[is.na(df$Community),]
 ```
-We have 144 NAN, where
+We have 77 NAN, where
 
 - The zip code was not found in the atmo df
 - The zip code was incorectly isolated from the address
@@ -129,8 +134,7 @@ We have 144 NAN, where
 Removed them
 ```{r}
 #remove the rows with nan in city
-properties_filtered <- df[!is.na(df$City),]
-#show the first 100 rows of the cleaned dataset using reactable
+properties_filtered <- df[!is.na(df$Community),]
 reactable(head(properties_filtered, 100))
 ```
 
