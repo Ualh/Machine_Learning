@@ -31,7 +31,8 @@ packages <- c(
   "readxl", # for reading excel files
   "ggplot2", "plotly", # for plotting
   "reactable", "kableExtra", # for tables
-  "leaflet"# for maps
+  "leaflet",# for maps
+  "gtsummary" # for summary tables
 )
 
 # Install missing packages and load all the required libraries
