@@ -157,19 +157,7 @@ interactive_histogram
 # interactive_plot
 ```
 
-## Test Regression
 
-```{r}
-# Perform multiple linear regression
-model <- lm(price ~ number_of_rooms + square_meters + canton + property_type + year_category, data = properties_filtered)
-
-# Summarize the regression model
-summary(model)
-
-#show the result in the html
-kable(summary(model)$coefficients, format = "html") %>%
-  kable_styling(full_width = F)
-```
 ```{r}
 impot_cols <- names(properties_filtered)[startsWith(names(properties_filtered), "Impôt")]
 

@@ -32,7 +32,8 @@ packages <- c(
   "ggplot2", "plotly", # for plotting
   "reactable", "kableExtra", # for tables
   "leaflet",# for maps
-  "gtsummary" # for summary tables
+  "gtsummary", # for summary tables
+  "corrplot", "car", "caret", "nortest", "Metrics" # for regression
 )
 
 # Install missing packages and load all the required libraries
