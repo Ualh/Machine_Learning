@@ -5,3 +5,115 @@
 * Two or more scores
 * Tuning of one or more hyperparameters per model
 * Interpretation of the model(s)
+
+## Linear Regression
+### Correlation Analysis
+```{r}
+correlation_matrix <- cor(properties_filtered[ , c("price", "number_of_rooms", "square_meters")], use="complete.obs")
+corrplot(correlation_matrix, method="square", type="upper", tl.col="black", tl.srt=45, tl.cex=0.8, cl.cex=0.8, addCoef.col="black", number.cex=0.8, order="hclust", hclust.method="complete", tl.pos="lt", tl.offset=0.5, cl.pos="n", cl.length=1.5)
+```
+
+```{r}
+## Multicollinearity Check
+model_for_vif <- lm(price ~ number_of_rooms + square_meters + canton + floor + year_category , data=properties_filtered)
+vif_values <- vif(model_for_vif)
+#show the result in the html
+kable(vif_values, format = "html") %>%
+  kable_styling(full_width = F)
+```
+
+### Model Building
+```{r}
+# Model Building
+## Split the Data
+set.seed(123)  # for reproducibility
+trainIndex <- createDataPartition(properties_filtered$price, p=0.8, list=FALSE)
+trainData <- properties_filtered[trainIndex, ]
+testData <- properties_filtered[-trainIndex, ]
+
+## Fit the Model
+lm_model <- lm(price ~ number_of_rooms + square_meters + property_type + floor + year_category , data=trainData)
+
+```
+
+### Model Evaluation
+```{r}
+# Model Evaluation
+## Diagnostic Checks
+plot(lm_model)
+ad.test(residuals(lm_model))
+
+#use gt summary to show the result
+tbl_reg_1 <- gtsummary::tbl_regression(lm_model)
+tbl_reg_1
+```
+
+### Model testing
+```{r}
+# stepwise regression
+lm_model2 <- step(lm_model)
+plot(lm_model2)
+ad.test(residuals(lm_model2))
+
+## Performance Metrics
+print(summary(lm_model2)$r.squared)
+print(summary(lm_model2)$adj.r.squared)
+print(rmse(testData$price, predict(lm_model2, newdata=testData)))
+print(mae(testData$price, predict(lm_model2, newdata=testData)))
+
+#use gt summary to show the result 
+tbl_reg_2 <- gtsummary::tbl_regression(lm_model2)
+tbl_reg_3 <- tbl_merge(
+  tbls= list(tbl_reg_1, tbl_reg_2),
+  tab_spanner = c("**Model 1**", "**Mode Stepwise**")
+  )
+tbl_reg_3
+```
+
+### Cross-Validation
+```{r}
+## Cross-Validation
+cv_results <- train(price ~ number_of_rooms + square_meters + year_category + property_type, data=trainData, method="lm", trControl=trainControl(method="cv", number=10))
+summary(cv_results)
+#show the CV result in the html
+kable(cv_results$results, format = "html") %>%
+  kable_styling(full_width = F)
+```
+
+### Model testing
+#### Residual vs Predicted Prices
+```{r}
+# Model Testing 
+## Test the Model
+predicted_prices <- predict(lm_model2, newdata=testData)
+testData$predicted_prices <- predicted_prices  # Add to testData to ensure alignment
+# Calculate residuals
+testData$test_residuals <- testData$price - predicted_prices  # Manually compute residuals
+
+# Residual Analysis
+gg <- ggplot(data = testData, aes(x = predicted_prices, y = test_residuals)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue") +
+  labs(title = "Residuals vs Predicted Prices", x = "Predicted Prices", y = "Residuals")
+
+# Convert ggplot to plotly
+p <- ggplotly(gg, width = 600, height = 400)
+
+# Show the interactive plot
+p
+```
+
+#### Actual vs Predicted Prices
+```{r}
+## Visualization
+gg <- ggplot(data=testData, aes(x=predicted_prices, y=price)) +
+    geom_point() +
+    geom_smooth(method="lm", col="blue") +
+    labs(title="Actual vs Predicted Prices", x="Predicted Prices", y="Actual Prices")
+
+# Convert ggplot to plotly
+p <- ggplotly(gg, width = 600, height = 400)
+
+# Show the interactive plot
+p
+```
