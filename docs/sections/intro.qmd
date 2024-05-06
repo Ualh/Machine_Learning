@@ -23,6 +23,10 @@ library(dplyr)
 library(tidyr)
 library(reactable)
 library(kableExtra)
+library(tidyverse)
+library(cluster)
+library(dendextend)
+
 ```
 
 ```{python}

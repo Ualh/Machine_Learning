@@ -1,3 +1,33 @@
 # Unsupervised learning
 
 * Clustering and/or dimension reduction
+
+Trying to Cluster commune datas to:
+1. Reduce dimension
+2. See similarities
+
+A regarder, est-ce qu'on fait un cluster pour les datas politques + un cluster pour les data démographiques, ou est-ce qu'on regroupe tout?
+
+```{r}
+# faudra changer les colonnes "select" si on sépare demographique et politique
+cols_cluster <- select(df_commune, -REGION, -CODE_REGION)
+
+# A reflechir, scale ou pas scale? pour l'instant je scale
+cols_cluster <- scale(cols_cluster)
+
+dist_matrix <- dist(cols_cluster, method ="euclidean")
+hclust <- hclust(dist_matrix, method = "centroid")
+
+dend <- as.dendrogram(hclust)
+dend <- color_branches(dend, k = 26)  # Adjust the number of clusters as needed
+
+y_zoom_range <- c(0, 10)
+par(cex = 0.6)  # Adjust the font size for better visualization
+plot(dend, main = "Hierarchical Clustering Dendrogram", horiz = FALSE,ylim = y_zoom_range)  # Set horiz to FALSE for vertical dendrogram
+
+# Cut the dendrogram to obtain clusters
+clusters <- cutree(hclust_model, k = 5)  # Adjust the number of clusters as needed
+
+
+```
+
