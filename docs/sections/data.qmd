@@ -85,6 +85,35 @@ properties_filtered$canton <- tools::toTitleCase(properties_filtered$canton)
 
 # show 100 first row of cleaned dataset using reactable
 reactable(head(properties_filtered, 100))
+
+#filter properties_filtered to contains only 'price', 'number_of_rooms', 'square_meters'
+properties_summary <- properties_filtered[, c('price', 'number_of_rooms', 'square_meters')]
+#summary statistics
+summary(properties_summary)
+# Data
+data <- data.frame(
+  price = c(25000, 690000, 992340, 1348429, 1550000, 26149500),
+  number_of_rooms = c(1.0, 35.0, 45.0, 41.1, 55.0, 185.0),
+  square_meters = c(1, 98, 136, 159, 190, 2000)
+)
+
+# Summary statistics
+summary_stats <- summary(data)
+
+# Summary statistics
+summary_stats <- cbind(
+  Min = apply(data, 2, min),
+  Q1 = apply(data, 2, quantile, probs = 0.25),
+  Median = apply(data, 2, median),
+  Mean = apply(data, 2, mean),
+  Q3 = apply(data, 2, quantile, probs = 0.75),
+  Max = apply(data, 2, max)
+)
+
+# Create table
+table <- kbl(summary_stats, align = rep('c', 6), caption = "Summary statistics for the dataset") %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+table
 ```
 
 ### AMTOVZ_CSV_LV95 Data
