@@ -209,11 +209,6 @@ reactable(head(cleaned_impots, 100))
 
 ```
 
-#### Merging the two datasets
-```{r impots 2}
-
-```
-
 ### Commune Data
 #### Cleaning
 - ajouter source
