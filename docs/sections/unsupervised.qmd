@@ -12,7 +12,7 @@ A regarder, est-ce qu'on fait un cluster pour les datas politques + un cluster p
 set.seed(123)
 
 # Clustering demographic
-cols_commune_demographic <- select(df_commune, -c("REGION", "CODE_REGION","Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
+cols_commune_demographic <- select(commune, -c("REGION", "CODE_REGION","Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
 # Scale the columns, some are total numbers, some are percentages
 cols_commune_demographic <- scale(cols_commune_demographic)
@@ -29,14 +29,14 @@ dend_demo <- color_branches(dend_demo, k = 5) #Set number of cluster to 5, to ke
 
 plot(dend_demo, main = "Demographics - Hierarchical Clustering Dendrogram")
 
-df_commune$Demographic_cluster <- cutree(hclust_model_demographic, k = 5)
+
 ```
 
 ```{r}
 # Clustering politics
 set.seed(123)
 
-cols_commune_politics <- select(df_commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
+cols_commune_politics <- select(commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
 # Scale the columns, some are total numbers, some are percentages
 cols_commune_politics <- scale(cols_commune_politics)
@@ -53,7 +53,7 @@ dend_pol <- color_branches(dend_pol, k = 5) #Set number of cluster to 5, to keep
 
 plot(dend_pol, main = "Politics - Hierarchical Clustering Dendrogram")
 
-df_commune$Political_cluster <- cutree(hclust_model_politics, k = 5)
+
 ```
 
 
@@ -125,45 +125,53 @@ impots_cluster$cluster <- cluster_labels
 
 rownames(impots_cluster) <- rownames(impots)
 
+impots_cluster <- impots_cluster %>%
+  rownames_to_column(var = "Community")
+
 ```
+
 ```{r}
 # Preparing df_commune for merging with main dataset
 
-df_commune <- select(df_commune, REGION, CODE_REGION, Demographic_cluster, Political_cluster)
+df_commune <- select(commune, REGION)
 
-# Merging 
-impots_cluster <- impots_cluster %>%
-  rownames_to_column("REGION")
+df_commune$Demographic_cluster <- cutree(hclust_model_demographic, k = 5)
+df_commune$Political_cluster <- cutree(hclust_model_politics, k = 5)
 
-# Joining df_commune with impots_cluster based on commune names
-df_commune <- df_commune %>%
-  left_join(impots_cluster[, c("REGION", "cluster")], by = "REGION")
+# Preparing to merge
 
-# Renaming the 'cluster' column to 'Impots_cluster'
-names(df_commune)[names(df_commune) == "cluster"] <- "Impots_cluster"
+merging <- inner_join(amto_df, df_commune, by = c("Community" = "REGION"))
 
+impots_cluster_subset <- impots_cluster[, c("Community", "cluster")]
+merging <- merging %>%
+  left_join(impots_cluster_subset, by = "Community")
 
-# Loop through each NA value in Impots_cluster column and match it with its closest match
-for (i in which(is.na(df_commune$Impots_cluster))) {
-  commune_name_na <- df_commune$REGION[i]
-  closest_match <- agrep(commune_name_na, impots_cluster$REGION, max.distance = 0.1, ignore.case = TRUE)
-  
-  # If a match is found, replace NA with the cluster value
-  if (length(closest_match) > 0) {
-    df_commune$Impots_cluster[i] <- impots_cluster$cluster[closest_match[1]]
-  }
+clusters_df <- merging %>%
+  rename(Tax_cluster = cluster) %>%
+  rename(Commune = Community)
+
+clusters_df <- clusters_df %>%
+  select(c("Commune", "zip_code", "Canton_code", "Demographic_cluster", "Political_cluster", "Tax_cluster"))
+
+# Only NAs are for commune Brugg, (written Brugg (AG) in the other data set) -> j'entre le cluster à la mano
+clusters_df$Tax_cluster[is.na(clusters_df$Tax_cluster)] <- 2
+
+# adding it to our main data set:
+properties_filtered <- merge(properties_filtered, clusters_df[, c("zip_code", "Demographic_cluster", "Political_cluster", "Tax_cluster")], by = "zip_code", all.x = TRUE)
+
+na_count <- sum(is.na(properties_merged[, c("Demographic_cluster", "Political_cluster", "Tax_cluster")]))
+
+# Print the result
+if (na_count > 0) {
+  print("There are NA values in the merged dataframe.")
+  print(na_count)
+} else {
+  print("There are no NA values in the merged dataframe.")
 }
 
-# There are some NAs, let's inspect them
-rows_with_na <- which(is.na(df_commune$Impots_cluster))
+# Find rows with NA values in the specified columns
+na_rows <- subset(properties_merged, is.na(Demographic_cluster) | is.na(Political_cluster) | is.na(Tax_cluster))
 
-# Display the rows with NA values
-df_commune[rows_with_na, ]
-
-# Pq 2172 obs pour df commune et seulement 2131 pour impots
-# Pq après avoir match l'un et l'autre il y a 32 de difference et pas 41
-
-# --> Merge avec les codes zip (amto) et on verra depuis la
 
 ```
 
