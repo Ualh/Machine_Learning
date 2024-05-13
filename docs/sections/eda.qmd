@@ -1,6 +1,11 @@
 # EDA
 
 ## Map representation of distribution of properties
+
+Here we decided to represent the distribution of properties in Switzerland using a map. The map is interactive and allows users to hover over the markers to see the price. The markers are color-coded in orange and have a semi-transparent fill to reduce visual noise. The size of the markers is smaller to optimize the visual representation of the data.
+
+This visualization helps in understanding the geographical spread and density of properties in the dataset.
+
 ```{r}
 # Create a leaflet map with optimized markers
 map <- leaflet(properties_filtered) %>%
@@ -9,7 +14,7 @@ map <- leaflet(properties_filtered) %>%
   addCircleMarkers(
     ~lon, ~lat,
     radius = 1.5,  # Smaller radius for the circle markers
-    color = "#32012F",  # Specifying a color for the markers
+    color = "#F97300",  # Specifying a color for the markers
     fillOpacity = 0.2,  # Semi-transparent fill
     stroke = FALSE,  # No border to the circle markers to reduce visual noise
     popup = ~paste("Price: ", price, "<br>",
@@ -19,7 +24,7 @@ map <- leaflet(properties_filtered) %>%
     label = ~paste("Price: ", price)  # Tooltip on hover
   ) %>% addLegend(
     position = "bottomright",  # Position the legend at the bottom right
-    colors = "#32012F",  # Use the same color as the markers
+    colors = "#F97300",  # Use the same color as the markers
     labels = "Properties"  # Label for the legend
   )
 
@@ -28,6 +33,8 @@ map$height <- 600  # Set the height of the map to 600 pixels
 
 map
 ```
+
+The map highlights that properties are well-distributed throughout the region, with fewer properties in the Alpine region, which is expected due to its mountainous terrain. We thus have a good representation of the data across different cantons and locations and we can use it for further analysis.
 
 ## Histogram of prices
 
