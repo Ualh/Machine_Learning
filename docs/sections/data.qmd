@@ -93,7 +93,6 @@ properties_filtered$number_of_rooms <- ifelse(properties_filtered$number_of_room
 
 
 
-#test <- properties_filtered
 
 
 # properties_filtered$number_of_rooms <- as.character(properties_filtered$number_of_rooms)

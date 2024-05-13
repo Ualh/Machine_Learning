@@ -46,7 +46,7 @@ histogram_price <- ggplot(properties_filtered, aes(x = price)) +
        y = "Frequency") +
   theme_minimal()
 # Convert ggplot object to plotly object
-interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 400 )
+interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 500 )
 # Display the interactive histogram
 interactive_histogram_price
 ```
@@ -72,9 +72,7 @@ interactive_histogram
 
 ```
 
-## Histogram of prices for each year category
-
-note : only price between 0 and 500000 so some outliers aren't here
+### Histogram of prices for each year category
 
 ```{r, warning=FALSE}
 # Create a histogram of prices for each year category
@@ -93,15 +91,13 @@ interactive_histogram_year
 
 ```
 
-## Histogram of prices for each canton
-
-note : only price between 0 and 500000 so some outliers aren't here
+### Histogram of prices for each canton
 
 ```{r, warning=FALSE}
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ canton, scales = "free", ncol = 2) +
-  labs(title = "Distribution of Prices by Canton for properties between 0 and 5 million",
+  labs(title = "Distribution by Canton for properties between 0 and 5 million",
        x = "Price",
        y = "Frequency") +
   theme(axis.text.y = element_text(size = 2)) +
@@ -117,9 +113,7 @@ interactive_histogram
 
 ```
 
-## Histogram of prices for each number of rooms
-
-note : only price between 0 and 500000 so some outliers aren't here
+### Histogram of prices for each number of rooms
 
 ```{r, warning=FALSE}
 # Create a histogram of prices for each number of rooms
@@ -140,7 +134,7 @@ interactive_histogram <- ggplotly(histogram, width = 600, height = 1000)%>%
 interactive_histogram
 
 ```
-## Histogram of properties by square meters
+### Histogram of properties by square meters
 
 ```{r}
 histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
@@ -148,8 +142,7 @@ histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   labs(title = "Distribution of Properties by Square Meters",
        x = "Square Meters",
        y = "Frequency") +
-  theme_minimal() 
-  #xlim(0, 2000)
+  theme_minimal()
 
 # Convert ggplot object to plotly object with adjusted height
 interactive_histogram <- ggplotly(histogram, width = NULL, height = NULL)  # Adjust width and height as needed

@@ -27,5 +27,5 @@ source(here("src/setup.R"))
 ```
 
 
-```{r child = paste0('sections/', c('intro.qmd', 'data.qmd', 'unsupervised.qmd','supervised.qmd', 'eda.qmd', 'concl.qmd'))}
+```{r child = paste0('sections/', c('intro.qmd', 'data.qmd', 'unsupervised.qmd', 'eda.qmd','supervised.qmd', 'concl.qmd'))}
 ```
