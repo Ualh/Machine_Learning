@@ -102,10 +102,10 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
        y = "Frequency") +
   theme(axis.text.y = element_text(size = 2)) +
   theme_minimal() +
-  xlim(0, 5000000)
+  xlim(0, 5200000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 1000) #%>%
+interactive_histogram <- ggplotly(histogram, width = 600, height = 1200) #%>%
   #layout(height = 1000)  # Adjust the height as needed
 
 # Display the interactive plot
@@ -118,23 +118,23 @@ interactive_histogram
 ```{r, warning=FALSE}
 # Create a histogram of prices for each number of rooms
 histogram <- ggplot(properties_filtered, aes(x = price)) +
-  geom_histogram(binwidth = 10000, fill = "skyblue", color = "black") +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Number of Rooms",
        x = "Price",
        y = "Frequency") +
   theme_minimal() +
-  xlim(0, 5000000)
+  xlim(0, 5200000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 1000)%>%
+interactive_histogram <- ggplotly(histogram, width = 600, height = 2000)%>%
   layout(height = 2000)
 
 # Display the interactive plot
 interactive_histogram
 
 ```
-### Histogram of properties by square meters
+## Histogram of properties by square meters
 
 ```{r}
 histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
@@ -161,8 +161,8 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price
   labs(title = "Boxplot of Property Prices by Tax Cluster",
        x = "Tax Cluster",
        y = "Price") +
-  theme_minimal() #+
-  #ylim(100000, 1000000)
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, 3000000))
 
 # Convert ggplot object to plotly object
 interactive_boxplot <- ggplotly(boxplot)
@@ -171,12 +171,6 @@ interactive_boxplot
 
 
 ```{r}
-impot_cols <- names(properties_filtered)[startsWith(names(properties_filtered), "Impôt")]
 
-# Count the number of NA values in selected columns
-na_counts <- colSums(is.na(properties_filtered[impot_cols]))
-
-# Print the counts
-print(na_counts)
 ```
 
