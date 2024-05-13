@@ -132,8 +132,6 @@ interactive_histogram
 
 note : only price between 0 and 500000 so some outliers aren't here
 
-and the graph below only show apartments with less than 10 rooms (but you can change the code if needed
-
 ```{r, warning=FALSE}
 # Create a histogram of prices for each number of rooms
 histogram <- ggplot(properties_filtered, aes(x = price)) +
@@ -147,7 +145,7 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
 
 # Convert ggplot object to plotly object with adjusted height
 interactive_histogram <- ggplotly(histogram, width = 600, height = 1000)%>%
-  layout(height = 1000)
+  layout(height = 2000)
 
 # Display the interactive plot
 interactive_histogram
@@ -175,21 +173,18 @@ interactive_histogram
 ## Histogram of prices with impot
 
 ```{r, warning=FALSE}
-# colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)] <- gsub("\\s+", "_", colnames(properties_filtered)[(ncol(properties_filtered) - 3):ncol(properties_filtered)])
-# 
-# # Create a scatter plot to visualize correlation between price and Impôt cantonal
-# scatter_plot <- ggplot(properties_filtered, aes(x = price, y = Impôt_cantonal_impots)) +
-#   geom_point() +
-#   labs(title = "Correlation between Price and Impôt cantonal",
-#        x = "Price",
-#        y = "Impôt cantonal") +
-#   theme_minimal()
-# 
-# # Convert ggplot object to plotly object
-# interactive_plot <- ggplotly(scatter_plot)
-# 
-# # Display the interactive plot
-# interactive_plot
+# Create the boxplot
+boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price)) +
+  geom_boxplot(fill = "skyblue", color = "black") +
+  labs(title = "Boxplot of Property Prices by Tax Cluster",
+       x = "Tax Cluster",
+       y = "Price") +
+  theme_minimal() +
+  ylim(100000, 400000)
+
+# Convert ggplot object to plotly object
+interactive_boxplot <- ggplotly(boxplot)
+interactive_boxplot
 ```
 
 
