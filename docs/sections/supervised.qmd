@@ -361,3 +361,4 @@ p <- ggplotly(gg, width = 600, height = 400)
 # Show the interactive plot
 p
 ```
+
