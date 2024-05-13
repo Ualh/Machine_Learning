@@ -313,7 +313,7 @@ cv_results2 <- train(price ~ number_of_rooms + square_meters + year_category + p
 summary(cv_results2)
 
 #show the CV result in the html
-metrics_cv_2 <- kable(cv_results2$results, format = "html") %>%
+metrics_cv2 <- kable(cv_results2$results, format = "html") %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))  %>%
   add_header_above(c("10 Fold Cross Validation Metrics" = 7))
 metrics_cv2
