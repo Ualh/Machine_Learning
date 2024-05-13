@@ -24,7 +24,7 @@ library(reshape2)
 
 The Swiss real estate market, characterized by its resilience and complexity, presents a significant opportunity for advanced analytical approaches to understand pricing dynamics. This project, undertaken as part of a Master’s degree in Machine Learning at the University of Lausanne, aims to harness the power of data science to predict real estate market prices in Switzerland. Utilizing contemporary machine learning techniques within this academic framework not only enhances the learning experience but also contributes to a practical understanding of real estate valuation.
 
-As housing prices continue to fluctuate amid economic uncertainties, such as interest rate changes and demographic shifts, this investigation is not only timely but also of significant importance to potential investors, policymakers, and the academic community.
+As housing prices continue to fluctuate amid economic uncertainties, such as interest rate changes and demographic shifts [Credi Suisse](https://www.credit-suisse.com/ch/en/private-clients/mortgages/schweizer-immobilienmarkt-aktuelle-fakten.html), this investigation is not only timely but also of significant importance to potential investors, policymakers, and the academic community.
 
 ### Aim Of The Investigation
 The primary objective of this study is to predict Swiss real estate market prices using real-time data scraped from ImmoScout24, a prominent Swiss real estate website. This study addresses the significant question of 
