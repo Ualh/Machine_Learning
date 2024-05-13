@@ -367,7 +367,7 @@ p
 
 We decided to implement a Random Forest model to compare its performance with the linear regression model. Random Forest is an ensemble learning method that builds multiple decision trees during training and outputs the mode of the classes or the mean prediction of the individual trees. This model is known for its robustness and ability to handle complex relationships in the data.
 
-#### Model Building
+#### Model Building and Evaluation
 
 ```{r}
 #split the data in training and test set 0.8/0.2
@@ -375,6 +375,49 @@ set.seed(123)  # for reproducibility
 trainIndex <- createDataPartition(properties_filtered$price, p=0.8, list=FALSE)
 trainData <- properties_filtered[trainIndex, ]
 testData <- properties_filtered[-trainIndex, ]
+
+#apply the RF model as a regression
+rf_model <- randomForest(price ~., data=trainData, ntree=1000, importance=TRUE)
+rf_model.pred_rf <- predict(rf_model, newdata=testData)
 ```
 
+Here are some metrics:
+```{r}
+#define a list with 5 viridis color in it
 
+rmse_rf <- sqrt(mean((testData$price - rf_model.pred_rf)^2))
+mae_rf <- mean(abs(testData$price - rf_model.pred_rf))
+r_sq_rf <- cor(testData$price, rf_model.pred_rf)^2
+
+# show those metrics in a html table
+metrics_rf <- kable(data.frame(r_sq_rf, rmse_rf, mae_rf), format = "html", col.names = c("R-Squared", "RMSE", "MAE")) %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
+  add_header_above(c("Random Forest Model Performance Metrics" = 3))
+metrics_rf
+
+plot(testData$price ~rf_model.pred_rf, col = 'skyblue',
+     xlab = 'Actual Price', ylab = 'Predicted Price',
+     main = 'Actual vs Predicted Price')
+
+abline(0,1, col = 'darkred')
+```
+
+#### Variable Importance
+
+```{r}
+varImpPlot(rf_model)
+importance(rf_model)
+```
+
+#### Cross-Validation
+
+```{r}
+cv_results_rf <- train(price ~., data=trainData, method="rf", trControl=trainControl(method="cv", number=10))
+summary(cv_results_rf)
+
+#show the CV result in the html
+metrics_cv_rf <- kable(cv_results_rf$results, format = "html") %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))  %>%
+  add_header_above(c("10 Fold Cross Validation Metrics (Random Forest)" = 7))
+metrics_cv_rf
+```

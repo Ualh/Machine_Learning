@@ -33,7 +33,8 @@ packages <- c(
   "reactable", "kableExtra", # for tables
   "leaflet",# for maps
   "gtsummary", # for summary tables
-  "corrplot", "car", "caret", "nortest", "Metrics" # for regression
+  "corrplot", "car", "caret", "nortest", "Metrics", # for regression
+  "randomForest", "magrittr" # for random forest
 )
 
 # Install missing packages and load all the required libraries
