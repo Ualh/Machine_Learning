@@ -9,7 +9,7 @@ Trying to Cluster commune datas to:
 A regarder, est-ce qu'on fait un cluster pour les datas politques + un cluster pour les data démographiques, ou est-ce qu'on regroupe tout?
 
 ```{r}
-set.seed(123)
+set.seed(100)
 
 # Clustering demographic
 cols_commune_demographic <- select(commune, -c("REGION", "CODE_REGION","Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
@@ -34,7 +34,6 @@ plot(dend_demo, main = "Demographics - Hierarchical Clustering Dendrogram")
 
 ```{r}
 # Clustering politics
-set.seed(123)
 
 cols_commune_politics <- select(commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
@@ -60,7 +59,6 @@ To prevent introducing 10 new types of taxes, we conducted a clustering analysis
 Based on the within-cluster sum of squares, we found 5 clusters. These 5 distinct clusters will be assigned to properties to determine which municipalities are subject to a particular type of tax.
 ## Tax
 ```{r}
-set.seed(123)
 
 # Clean data and convert to numeric
 cleaned_impots <- apply(impots, 2, function(x) as.numeric(gsub("[^0-9.-]", "", x)))
@@ -159,27 +157,113 @@ clusters_df$Tax_cluster[is.na(clusters_df$Tax_cluster)] <- 2
 # adding it to our main data set:
 properties_filtered <- merge(properties_filtered, clusters_df[, c("zip_code", "Demographic_cluster", "Political_cluster", "Tax_cluster")], by = "zip_code", all.x = TRUE)
 
-
-
 ```
 
 ```{r}
 # Dropping 228 rows containing NAs after the merge
-
-na_count <- sum(is.na(properties_filtered[, c("Demographic_cluster", "Political_cluster", "Tax_cluster")]))
-
-# Print the result
-if (na_count > 0) {
-  print("There are NA values in the merged dataframe.")
-  print(na_count)
-} else {
-  print("There are no NA values in the merged dataframe.")
-}
 
 # Find rows with NA values in the specified columns
 na_rows <- subset(properties_filtered, is.na(Demographic_cluster) | is.na(Political_cluster) | is.na(Tax_cluster))
 
 # Drop the NA rows
 properties_filtered <- anti_join(properties_filtered, na_rows, by = "zip_code")
+```
+
+```{r}
+# Interpretaion of demographic clusters
+demographic_vars <- select(commune, -c("REGION", "CODE_REGION", "Conseil national - PLR", "Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
+
+# Scale the variables
+scaled_demographic_vars <- scale(demographic_vars)
+
+# Convert to data frame
+scaled_demographic_vars <- as.data.frame(scaled_demographic_vars)
+
+# Add demographic cluster labels
+scaled_demographic_vars$Demographic_cluster <- cutree(hclust_model_demographic, k = 5)
+
+# Melt the dataset to long format
+melted_demographic <- melt(scaled_demographic_vars, id.vars = "Demographic_cluster")
+
+# Create boxplots for each variable
+for (variable in unique(melted_demographic$variable)) {
+  # Calculate quantiles for each combination of variable and cluster
+  quantiles <- tapply(melted_demographic$value[melted_demographic$variable == variable], melted_demographic$Demographic_cluster[melted_demographic$variable == variable], quantile, c(0.05, 0.95))
+  
+  # Determine ylim for each plot
+  ylim_min <- min(unlist(quantiles))
+  ylim_max <- max(unlist(quantiles))
+  
+  boxplot(value ~ Demographic_cluster, data = melted_demographic[melted_demographic$variable == variable,],
+          main = paste("Boxplot of", variable, "by Demographic Cluster"),
+          xlab = "Demographic Cluster",
+          ylab = variable,
+          ylim = c(ylim_min, ylim_max))
+}
+```
+```{r}
+# Subset your dataset to include only the variables used to create the political clusters and the political cluster labels
+political_vars <- select(commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
+
+# Scale the variables
+scaled_political_vars <- scale(political_vars)
+
+# Convert to data frame
+scaled_political_vars <- as.data.frame(scaled_political_vars)
+
+# Add political cluster labels
+scaled_political_vars$Political_cluster <- cutree(hclust_model_politics, k = 5)
+
+# Melt the dataset to long format
+melted_political <- melt(scaled_political_vars, id.vars = "Political_cluster")
+
+# Create boxplots for each variable
+for (variable in unique(melted_political$variable)) {
+  # Calculate quantiles for each combination of variable and cluster
+  quantiles <- tapply(melted_political$value[melted_political$variable == variable], melted_political$Political_cluster[melted_political$variable == variable], quantile, c(0.05, 0.95))
+  
+  # Determine ylim for each plot
+  ylim_min <- min(unlist(quantiles))
+  ylim_max <- max(unlist(quantiles))
+  
+  boxplot(value ~ Political_cluster, data = melted_political[melted_political$variable == variable,],
+          main = paste("Boxplot of", variable, "by Political Cluster"),
+          xlab = "Political Cluster",
+          ylab = variable,
+          ylim = c(ylim_min, ylim_max))
+}
+```
+
+```{r}
+# Subset your dataset to include only the variables used to create the tax clusters and the tax cluster labels
+tax_vars <- select(impots_cluster, -c("Community", "cluster"))
+
+# Scale the variables
+scaled_tax_vars <- scale(tax_vars)
+
+# Convert to data frame
+scaled_tax_vars <- as.data.frame(scaled_tax_vars)
+
+# Add tax cluster labels
+scaled_tax_vars$Tax_cluster <- impots_cluster$cluster
+
+# Melt the dataset to long format
+melted_tax <- melt(scaled_tax_vars, id.vars = "Tax_cluster")
+
+# Create boxplots for each variable
+for (variable in unique(melted_tax$variable)) {
+  # Calculate quantiles for each combination of variable and cluster
+  quantiles <- tapply(melted_tax$value[melted_tax$variable == variable], melted_tax$Tax_cluster[melted_tax$variable == variable], quantile, c(0.05, 0.95))
+  
+  # Determine ylim for each plot
+  ylim_min <- min(unlist(quantiles))
+  ylim_max <- max(unlist(quantiles))
+  
+  boxplot(value ~ Tax_cluster, data = melted_tax[melted_tax$variable == variable,],
+          main = paste("Boxplot of", variable, "by Tax Cluster"),
+          xlab = "Tax Cluster",
+          ylab = variable,
+          ylim = c(ylim_min, ylim_max))
+}
 ```
 

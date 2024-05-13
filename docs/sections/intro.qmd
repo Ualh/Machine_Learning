@@ -1,16 +1,5 @@
 # Introduction
 
-* Overview and Motivation
-* Related Work
-* Research questions
-
-## Setup
-```{r}
-print('hello')
-```
-
-### Libraries
-
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include=FALSE}
 library(here)
 source(here("src/setup.R"))
@@ -26,11 +15,38 @@ library(kableExtra)
 library(tidyverse)
 library(cluster)
 library(dendextend)
+library(reshape2)
 
 ```
 
-```{python}
-# Python code
-import numpy as np
-print(np.mean([10, 20, 30, 40, 50]))
-```
+## Overview and Motivation
+### Context and Background
+
+The Swiss real estate market, characterized by its resilience and complexity, presents a significant opportunity for advanced analytical approaches to understand pricing dynamics. This project, undertaken as part of a Master’s degree in Machine Learning at the University of Lausanne, aims to harness the power of data science to predict real estate market prices in Switzerland. Utilizing contemporary machine learning techniques within this academic framework not only enhances the learning experience but also contributes to a practical understanding of real estate valuation.
+
+As housing prices continue to fluctuate amid economic uncertainties, such as interest rate changes and demographic shifts, this investigation is not only timely but also of significant importance to potential investors, policymakers, and the academic community.
+
+### Aim Of The Investigation
+The primary objective of this study is to predict Swiss real estate market prices using real-time data scraped from ImmoScout24, a prominent Swiss real estate website. This study addresses the significant question of 
+
+- *How can machine learning models utilize real-time data scraped from online real estate platforms to predict price trends in the Swiss real estate market?* 
+- *How can machine learning models predict the sale prices of real estate properties in Switzerland based on current market data?*
+
+The relevance of this investigation is underpinned by the substantial financial implications of real estate investments and the benefit of predictive insights for both buyers and sellers in the market.
+The relevance of this study is underscored by the potential insights it could offer, where real estate plays a pivotal role in financial stability and growth.
+
+### Description of the Data
+The data for this study consists of a meticulously compiled dataset from ImmoScout24, featuring a wide array of variables related to property listings across Switzerland. Fields in the dataset include `price`, `number of rooms`, `square meters`, `address`, `canton`, `property type`, `floor`, and `year of construction`. These data points have been gathered through a robust scraping algorithm designed to collect a comprehensive snapshot of the current market. This dataset provides a granular view of the market, essential for training robust machine learning models.
+
+### Methodology
+This project employs model-based machine learning techniques to quantify the impact of various factors on property prices in Switzerland. The methodology involves training predictive models to interpret the complex relationships within the data, providing a statistical basis for price prediction. This approach allows for an examination of both linear dependencies and more intricate interactions, such as how location and property type combine to influence pricing.
+
+### Structure of the Report
+The report is structured as follows to provide a coherent narrative and logical flow of analysis:
+
+- Section 1: *Introduction* - Outlines the research context, objectives, and significance.
+- Section 2: *Data* - Details the sources, nature, and preprocessing of the data used.
+- Section 3: *Exploratory Data Analysis (EDA)* - Analyzes the data to uncover patterns and anomalies.
+- Section 4: *Unsupervised Learning* - Applies clustering techniques to understand market segmentation.
+- Section 5: *Supervised Learning* - Discusses the development and validation of predictive models.
+- Section 6: *Conclusion* - Summarizes the findings, discusses the implications, and suggests areas for further research.
