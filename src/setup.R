@@ -34,7 +34,8 @@ packages <- c(
   "leaflet",# for maps
   "gtsummary", # for summary tables
   "corrplot", "car", "caret", "nortest", "Metrics", # for regression
-  "randomForest", "magrittr" # for random forest
+  "randomForest", "magrittr", # for random forest
+  "glmnet" #for lasso/ridge
 )
 
 # Install missing packages and load all the required libraries
