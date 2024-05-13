@@ -96,7 +96,7 @@ note : only price between 0 and 500000 so some outliers aren't here
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ canton, scales = "free", ncol = 2) +
-  labs(title = "Distribution of Prices by Canton",
+  labs(title = "Distribution of Prices by Canton for properties between 0 and 5 million",
        x = "Price",
        y = "Frequency") +
   theme_minimal() +
@@ -110,7 +110,24 @@ interactive_histogram <- ggplotly(histogram, width = 600, height = 1000) %>%
 interactive_histogram
 
 ```
+```{r, warning=FALSE}
+histogram <- ggplot(properties_filtered, aes(x = price)) +
+  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  facet_wrap(~ canton, scales = "free", ncol = 2) +
+  labs(title = "Distribution of Prices by Canton for properties between 5 million and 10 million",
+       x = "Price",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim( 5000000,10000000)
 
+# Convert ggplot object to plotly object with adjusted height
+interactive_histogram <- ggplotly(histogram, width = 600, height = 1000) %>%
+  layout(height = 1000)  # Adjust the height as needed
+
+# Display the interactive plot
+interactive_histogram
+
+```
 ## Histogram of prices for each number of rooms
 
 note : only price between 0 and 500000 so some outliers aren't here
@@ -118,10 +135,8 @@ note : only price between 0 and 500000 so some outliers aren't here
 and the graph below only show apartments with less than 10 rooms (but you can change the code if needed
 
 ```{r, warning=FALSE}
-properties_room <- properties_filtered[properties_filtered$number_of_rooms < 20, ]                  # Filter only number_of_rooms less than 20
-
 # Create a histogram of prices for each number of rooms
-histogram <- ggplot(properties_room, aes(x = price)) +
+histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Number of Rooms",
@@ -131,7 +146,26 @@ histogram <- ggplot(properties_room, aes(x = price)) +
   xlim(0, 5000000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 1000)
+interactive_histogram <- ggplotly(histogram, width = 600, height = 1000)%>%
+  layout(height = 1000)
+
+# Display the interactive plot
+interactive_histogram
+
+```
+## Histogram of properties by square meters
+
+```{r}
+histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
+  geom_histogram(binwidth = 15, fill = "skyblue", color = "black") +
+  labs(title = "Distribution of Properties by Square Meters",
+       x = "Square Meters",
+       y = "Frequency") +
+  theme_minimal() +
+  xlim(0, 2000)
+
+# Convert ggplot object to plotly object with adjusted height
+interactive_histogram <- ggplotly(histogram, width = NULL, height = NULL)  # Adjust width and height as needed
 
 # Display the interactive plot
 interactive_histogram

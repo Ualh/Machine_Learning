@@ -48,7 +48,7 @@ observations_table %>%
 # Identify values causing the issue
 problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
 # Replace non-numeric values with NA
-properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
+#properties$number_of_rooms <- as.numeric(gsub("[^0-9.]", "", properties$number_of_rooms))
 
 # Remove non-numeric characters and convert to numeric
 properties$price <- as.numeric(gsub("[^0-9]", "", properties$price))
@@ -57,7 +57,7 @@ properties$price <- as.numeric(gsub("[^0-9]", "", properties$price))
 properties <- properties[properties$price >= 20000, ]
 
 # Subset the dataset to exclude rows with numbers of rooms < 25
-properties <- properties[properties$number_of_rooms <25, ]
+#properties <- properties[properties$number_of_rooms <25, ]
 
 # Replace incomplete addresses
 properties$address <- gsub("^\\W*[.,0-]\\W*", "", properties$address)
@@ -68,11 +68,6 @@ properties_filtered$year_category <- substr(properties_filtered$year_category, 1
 # Assuming 'year_category' is a column in the 'properties' dataset
 properties_filtered$year_category <- as.factor(properties_filtered$year_category)
 
-# Preprocess the number_of_rooms column
-properties_filtered$number_of_rooms <- as.character(properties_filtered$number_of_rooms)
-properties_filtered$number_of_rooms <- gsub("\\D", "", properties_filtered$number_of_rooms)  # Remove non-numeric characters
-properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
-properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
 
 # remove m^2 from column 'square_meters'
 properties_filtered$square_meters <- as.numeric(gsub("\\D", "", properties_filtered$square_meters))

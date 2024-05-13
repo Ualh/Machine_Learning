@@ -56,8 +56,8 @@ plot(dend_pol, main = "Politics - Hierarchical Clustering Dendrogram")
 
 ```
 
-
-
+To prevent introducing 10 new types of taxes, we conducted a clustering analysis on the tax dataset to identify which municipalities can be grouped together. 
+Based on the within-cluster sum of squares, we found 5 clusters. These 5 distinct clusters will be assigned to properties to determine which municipalities are subject to a particular type of tax.
 ## Tax
 ```{r}
 set.seed(123)
@@ -79,7 +79,7 @@ for (i in 1:10) {
   kmeans_model <- kmeans(scaled_impots, centers = i)
   wss[i] <- sum(kmeans_model$withinss)
 }
-# plot(1:10, wss, type = "b", xlab = "Number of Clusters", ylab = "Within groups sum of squares")
+#plot(1:10, wss, type = "b", xlab = "Number of Clusters", ylab = "Within groups sum of squares")
 
 # Adjust k based on elbow method
 k <- 5  
