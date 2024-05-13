@@ -155,18 +155,18 @@ interactive_histogram
 ## Histogram of prices with impot
 
 ```{r, warning=FALSE}
-# # Create the boxplot
-# boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price)) +
-#   geom_boxplot(fill = "skyblue", color = "black") +
-#   labs(title = "Boxplot of Property Prices by Tax Cluster",
-#        x = "Tax Cluster",
-#        y = "Price") +
-#   theme_minimal() +
-#   ylim(100000, 400000)
-# 
-# # Convert ggplot object to plotly object
-# interactive_boxplot <- ggplotly(boxplot)
-# interactive_boxplot
+# Create the boxplot
+boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price)) +
+  geom_boxplot(fill = "skyblue", color = "black") +
+  labs(title = "Boxplot of Property Prices by Tax Cluster",
+       x = "Tax Cluster",
+       y = "Price") +
+  theme_minimal() #+
+  #ylim(100000, 1000000)
+
+# Convert ggplot object to plotly object
+interactive_boxplot <- ggplotly(boxplot)
+interactive_boxplot
 ```
 
 

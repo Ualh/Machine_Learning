@@ -22,10 +22,6 @@ Each of these tools was chosen for its specific functionality that aids in robus
 
 ### Linear Regression - With All Prices
 
-```{r}
-head(properties_filtered)
-```
-
 #### Correlation Analysis - Continuous Variable
 
 Initially, a correlation analysis was conducted to identify and visualize linear relationships between the property prices and potential predictive variables such as the number of rooms and square meters. The correlation matrix was computed and plotted using the `corrplot` package:
@@ -77,7 +73,6 @@ sapply(testData, function(x) sum(is.na(x)))  # Check NAs in all predictors
 #use gt summary to show the result
 tbl_reg_1 <- gtsummary::tbl_regression(lm_model)
 tbl_reg_1
-
 ```
 
 ##### Metrics 
@@ -217,7 +212,7 @@ trainData <- properties_filtered[trainIndex, ]
 testData <- properties_filtered[-trainIndex, ]
 
 ## Fit the Model
-lm_model_10_90 <- lm(price ~ number_of_rooms + square_meters + property_type + floor + year_category  + Political_cluster + Tax_cluster, data=trainData)
+lm_model_10_90 <- lm(price ~ number_of_rooms + square_meters + property_type + floor + year_category  + Political_cluster + Tax_cluster + Demographic_cluster, data=trainData)
 
 summary(lm_model_10_90)
 ```
@@ -314,8 +309,9 @@ summary(cv_results2)
 
 #show the CV result in the html
 metrics_cv2 <- kable(cv_results2$results, format = "html") %>%
+  
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))  %>%
-  add_header_above(c("10 Fold Cross Validation Metrics" = 7))
+  add_header_above(c("10 Fold Cross Validation Metrics (10-90th Qt)" = 7))
 metrics_cv2
 ```
 
@@ -361,4 +357,24 @@ p <- ggplotly(gg, width = 600, height = 400)
 # Show the interactive plot
 p
 ```
+
+### Improvement
+
+- Hyperparameter Tuning: Introduce more explicit tuning, perhaps through regularization techniques like Ridge or Lasso if moving beyond basic linear regression. In caret, this can be managed through the `expand.grid` function to set up a grid of possible values for various parameters.
+
+## Model 2
+### Random Forest
+
+We decided to implement a Random Forest model to compare its performance with the linear regression model. Random Forest is an ensemble learning method that builds multiple decision trees during training and outputs the mode of the classes or the mean prediction of the individual trees. This model is known for its robustness and ability to handle complex relationships in the data.
+
+#### Model Building
+
+```{r}
+#split the data in training and test set 0.8/0.2
+set.seed(123)  # for reproducibility
+trainIndex <- createDataPartition(properties_filtered$price, p=0.8, list=FALSE)
+trainData <- properties_filtered[trainIndex, ]
+testData <- properties_filtered[-trainIndex, ]
+```
+
 
