@@ -43,10 +43,8 @@ interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 4
 # Display the interactive histogram
 interactive_histogram_price
 ```
-
-## Histogram of prices for each property type
-
-note : only price between 0 and 500000 so some outliers aren't here
+## Price between 0 and 500000
+### Histogram of prices for each property type
 
 ```{r, warning=FALSE}
 # Create the ggplot object
@@ -99,35 +97,19 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
   labs(title = "Distribution of Prices by Canton for properties between 0 and 5 million",
        x = "Price",
        y = "Frequency") +
+  theme(axis.text.y = element_text(size = 2)) +
   theme_minimal() +
   xlim(0, 5000000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 1000) %>%
-  layout(height = 1000)  # Adjust the height as needed
+interactive_histogram <- ggplotly(histogram, width = 600, height = 1000) #%>%
+  #layout(height = 1000)  # Adjust the height as needed
 
 # Display the interactive plot
 interactive_histogram
 
 ```
-```{r, warning=FALSE}
-histogram <- ggplot(properties_filtered, aes(x = price)) +
-  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
-  facet_wrap(~ canton, scales = "free", ncol = 2) +
-  labs(title = "Distribution of Prices by Canton for properties between 5 million and 10 million",
-       x = "Price",
-       y = "Frequency") +
-  theme_minimal() +
-  xlim( 5000000,10000000)
 
-# Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 1000) %>%
-  layout(height = 1000)  # Adjust the height as needed
-
-# Display the interactive plot
-interactive_histogram
-
-```
 ## Histogram of prices for each number of rooms
 
 note : only price between 0 and 500000 so some outliers aren't here
@@ -135,7 +117,7 @@ note : only price between 0 and 500000 so some outliers aren't here
 ```{r, warning=FALSE}
 # Create a histogram of prices for each number of rooms
 histogram <- ggplot(properties_filtered, aes(x = price)) +
-  geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
+  geom_histogram(binwidth = 10000, fill = "skyblue", color = "black") +
   facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Number of Rooms",
        x = "Price",
@@ -159,8 +141,8 @@ histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   labs(title = "Distribution of Properties by Square Meters",
        x = "Square Meters",
        y = "Frequency") +
-  theme_minimal() +
-  xlim(0, 2000)
+  theme_minimal() 
+  #xlim(0, 2000)
 
 # Convert ggplot object to plotly object with adjusted height
 interactive_histogram <- ggplotly(histogram, width = NULL, height = NULL)  # Adjust width and height as needed

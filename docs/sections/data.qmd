@@ -78,6 +78,29 @@ properties_filtered <- properties_filtered[!is.na(properties_filtered$square_met
 # add majuscule to canton
 properties_filtered$canton <- tools::toTitleCase(properties_filtered$canton)
 
+# # Preprocess the number_of_rooms column
+properties_filtered$number_of_rooms <- gsub(" rooms", "", properties_filtered$number_of_rooms)
+properties_filtered$number_of_rooms <- gsub(" room", "", properties_filtered$number_of_rooms)
+# Remove rows with "m²" in the "number_of_rooms" column
+properties_filtered <- properties_filtered[!grepl("m²", properties_filtered$number_of_rooms), ]
+properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)
+# Remove rows with rooms >= 100
+properties_filtered <- properties_filtered[properties_filtered$number_of_rooms <= 100, , drop = FALSE]
+# Divide cells by 10 if number of rooms is more than 27
+properties_filtered$number_of_rooms <- ifelse(properties_filtered$number_of_rooms > 27,
+                                               properties_filtered$number_of_rooms / 10,
+                                               properties_filtered$number_of_rooms)
+
+
+
+#test <- properties_filtered
+
+
+# properties_filtered$number_of_rooms <- as.character(properties_filtered$number_of_rooms)
+# properties_filtered$number_of_rooms <- gsub("\\D", properties_filtered$number_of_rooms)  # Remove non-numeric characters
+# properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
+# properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
+
 # show 100 first row of cleaned dataset using reactable
 reactable(head(properties_filtered, 100))
 
