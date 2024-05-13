@@ -50,10 +50,14 @@ interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 5
 # Display the interactive histogram
 interactive_histogram_price
 ```
-## Price between 0 and 500000
+## Price between 0 and 5 millions
 ### Histogram of prices for each property type
 
 ```{r, warning=FALSE}
+# Define breaks for x-axis in millions
+breaks <- seq(0, 5000000, by = 1000000)
+labels <- paste0(breaks/1000000, "Mio")
+
 # Create the ggplot object
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
@@ -62,7 +66,7 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
        x = "Price",
        y = "Frequency") +
   theme_minimal() +
-  xlim(0, 5000000)
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5000000))
 
 # Convert ggplot object to plotly object
 interactive_histogram <- ggplotly(histogram, width = 600, height = 1000)
@@ -75,6 +79,10 @@ interactive_histogram
 ### Histogram of prices for each year category
 
 ```{r, warning=FALSE}
+# Define breaks for x-axis in millions
+breaks <- seq(0, 5000000, by = 1000000)
+labels <- paste0(breaks/1000000, "Mio")
+
 # Create a histogram of prices for each year category
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
@@ -83,17 +91,25 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
        x = "Price",
        y = "Frequency") +
   theme_minimal() +
-  xlim(0, 5000000)
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5000000))
+
 # Convert ggplot object to plotly object
 interactive_histogram_year <- ggplotly(histogram, width = 600, height = 1000)
+
 # Display the interactive plot
 interactive_histogram_year
+
 
 ```
 
 ### Histogram of prices for each canton
 
 ```{r, warning=FALSE}
+# Define breaks for x-axis in millions
+breaks <- seq(0, 5200000, by = 1000000)
+labels <- paste0(breaks/1000000, "Mio")
+
+# Create the histogram
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ canton, scales = "free", ncol = 2) +
@@ -102,21 +118,25 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
        y = "Frequency") +
   theme(axis.text.y = element_text(size = 2)) +
   theme_minimal() +
-  xlim(0, 5200000)
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5200000))
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 1200) #%>%
-  #layout(height = 1000)  # Adjust the height as needed
+interactive_histogram <- ggplotly(histogram, width = 600, height = 1200)
 
 # Display the interactive plot
 interactive_histogram
+
 
 ```
 
 ### Histogram of prices for each number of rooms
 
 ```{r, warning=FALSE}
-# Create a histogram of prices for each number of rooms
+# Define breaks for x-axis in millions
+breaks <- seq(0, 5200000, by = 1000000)
+labels <- paste0(breaks/1000000, "Mio")
+
+# Create the histogram
 histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
@@ -124,14 +144,14 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
        x = "Price",
        y = "Frequency") +
   theme_minimal() +
-  xlim(0, 5200000)
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5200000))
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 600, height = 2000)%>%
-  layout(height = 2000)
+interactive_histogram <- ggplotly(histogram, width = 600, height = 2000) 
 
 # Display the interactive plot
 interactive_histogram
+
 
 ```
 ## Histogram of properties by square meters
@@ -157,6 +177,7 @@ interactive_histogram
 ## Histogram of prices by Tax Cluster
 
 ```{r, warning=FALSE}
+
 # Create the boxplot
 boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price)) +
   geom_boxplot(fill = "skyblue", color = "black") +
@@ -164,11 +185,14 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price
        x = "Tax Cluster",
        y = "Price") +
   theme_minimal() +
-  scale_y_continuous(limits = c(0, 4000000))
+  scale_y_continuous(labels = scales::unit_format(unit = "Mio", scale = 1e-6), limits = c(0, 4000000))
 
 # Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500 )
+interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500)
+
+# Display the interactive plot
 interactive_boxplot
+
 ```
 
 ## Histogram of prices by Political cluster
@@ -181,7 +205,7 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Political_cluster), y =
        x = "Political Cluster",
        y = "Price") +
   theme_minimal() +
-  scale_y_continuous(limits = c(0, 4000000))
+  scale_y_continuous(labels = scales::unit_format(unit = "Mio", scale = 1e-6), limits = c(0, 4000000))
 
 # Convert ggplot object to plotly object
 interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500 )
@@ -197,7 +221,7 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Demographic_cluster), y
        x = "demographic Cluster",
        y = "Price") +
   theme_minimal() +
-  scale_y_continuous(limits = c(0, 4000000))
+  scale_y_continuous(labels = scales::unit_format(unit = "Mio", scale = 1e-6), limits = c(0, 4000000))
 
 # Convert ggplot object to plotly object
 interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500 )
