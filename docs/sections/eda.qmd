@@ -136,6 +136,7 @@ interactive_histogram
 ```
 ## Histogram of properties by square meters
 To better see the data, we only show the properties with less than 1000 square meters
+
 ```{r, warning=FALSE}
 histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   geom_histogram(binwidth = 15, fill = "skyblue", color = "black") +
@@ -146,7 +147,7 @@ histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   xlim(0,1000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram)  # Adjust width and height as needed
+interactive_histogram <- ggplotly(histogram, width = 600, height = 500 )  # Adjust width and height as needed
 
 # Display the interactive plot
 interactive_histogram
@@ -166,7 +167,7 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price
   scale_y_continuous(limits = c(0, 4000000))
 
 # Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot)
+interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500 )
 interactive_boxplot
 ```
 
@@ -183,7 +184,7 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Political_cluster), y =
   scale_y_continuous(limits = c(0, 4000000))
 
 # Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot)
+interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500 )
 interactive_boxplot
 ```
 ## Histogram of prices by demographic cluster
@@ -199,6 +200,6 @@ boxplot <- ggplot(properties_filtered, aes(x = as.factor(Demographic_cluster), y
   scale_y_continuous(limits = c(0, 4000000))
 
 # Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot)
+interactive_boxplot <- ggplotly(boxplot, width = 600, height = 500 )
 interactive_boxplot
 ```
