@@ -159,7 +159,7 @@ clusters_df$Tax_cluster[is.na(clusters_df$Tax_cluster)] <- 2
 # adding it to our main data set:
 properties_filtered <- merge(properties_filtered, clusters_df[, c("zip_code", "Demographic_cluster", "Political_cluster", "Tax_cluster")], by = "zip_code", all.x = TRUE)
 
-na_count <- sum(is.na(properties_merged[, c("Demographic_cluster", "Political_cluster", "Tax_cluster")]))
+na_count <- sum(is.na(properties_filtered[, c("Demographic_cluster", "Political_cluster", "Tax_cluster")]))
 
 # Print the result
 if (na_count > 0) {
@@ -170,7 +170,7 @@ if (na_count > 0) {
 }
 
 # Find rows with NA values in the specified columns
-na_rows <- subset(properties_merged, is.na(Demographic_cluster) | is.na(Political_cluster) | is.na(Tax_cluster))
+na_rows <- subset(properties_filtered, is.na(Demographic_cluster) | is.na(Political_cluster) | is.na(Tax_cluster))
 
 
 ```
