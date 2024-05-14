@@ -127,7 +127,8 @@ properties_filtered$number_of_rooms <- ifelse(properties_filtered$number_of_room
                                                properties_filtered$number_of_rooms / 10,
                                                properties_filtered$number_of_rooms)
 
-
+#remove row with weird number of rooms
+properties_filtered <- properties_filtered[properties_filtered$number_of_rooms != 7.6, ]
 
 
 
@@ -252,12 +253,18 @@ properties_filtered <- df[!is.na(df$Community),]
 reactable(head(properties_filtered, 100))
 ```
 
-### Tax data
 
--  source
+
+### Swiss Tax Dataset Description
+The Swiss Tax dataset encompasses comprehensive information on income, wealth, profits, and capital taxes for each canton and commune in Switzerland. It provides detailed data on tax rates and regulations, allowing for in-depth analysis and comparison across regions.
+
+This dataset is sourced from various official authorities, including cantonal tax authorities and the Swiss Federal Tax Administration. It is regularly updated to reflect changes in tax laws, rates, and administrative details at both the cantonal and communal levels.
+This dataset might be useful to see if we have a link between some taxes and the prices of the properties
+
+Updates and revisions to the dataset are provided periodically, ensuring its accuracy and relevance. The Swiss Federal Tax Administration oversees the distribution and management of this dataset, supporting its role in providing reliable and comprehensive tax information for Switzerland.
+
+The dataset can be found here, take the year 2024 and the corresponding taxes.
 https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
-- ajouter description
-- expliquer blabla
 
 #### Cleaning
 ```{r impots, warning=FALSE}

@@ -39,27 +39,51 @@ The map highlights that properties are well-distributed throughout the region, w
 ## Histogram of prices
 
 ```{r, warning=FALSE}
+
+
+
+# Define breaks for x-axis in millions
+breaks <- seq(0, 25000000, by = 5000000)
+labels <- paste0(breaks/1000000, "Mio")
+
+# Calculate percentile
+percentile_95 <- quantile(properties_filtered$price, 0.95)
+percentile_05 <- quantile(properties_filtered$price, 0.05)
+percentile_99 <- quantile(properties_filtered$price, 0.99)
+# Create the histogram
 histogram_price <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "red") +
+  geom_vline(xintercept = percentile_05, linetype = "dashed", color = "blue")+
+  geom_text(aes(x = percentile_05, y = 1700, label = "5th percentile"), vjust = -1, color = "blue", size = 2) +
+  geom_vline(xintercept = percentile_95, linetype = "dashed", color = "blue") +
+  geom_text(aes(x = percentile_95, y = 1750, label = "95th percentile"), vjust = -1, color = "blue", size = 2) +
+  geom_vline(xintercept = percentile_99, linetype = "dashed", color = "blue") +
+  geom_text(aes(x = percentile_99, y = 1800, label = "99th percentile"), vjust = -1, color = "blue", size = 2) +
   labs(title = "Distribution of Prices",
-       x = "Price",
+       x = "Price in Chf",
        y = "Frequency") +
-  theme_minimal()
+  theme_minimal() +
+  scale_x_continuous(breaks = breaks, labels = labels)
+
 # Convert ggplot object to plotly object
-interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 500 )
+interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 500)
+
 # Display the interactive histogram
 interactive_histogram_price
-```
-As we can see, the majority of the properties are less than 5 million.
 
-## Price between 0 and 5 millions
-To enhance data visibility, we focus on the majority of the data between 5 and 10 million, while filtering out outliers.
+
+```
+As we can see, 90% of the properties are concentrated between 395590 chf and 3,3 million chf. Feel free zoom on this part of the graph to see the majority of the properties.
+Only 5% worth more than 3,3 million and only 1% of the properties worth more than 6,6 million.
+
+## Price between 0 and 3,5 millions
+To enhance data visibility, we will focus on the majority of the data between 0 and 3,5 million, while filtering out outliers.
 
 ### Histogram of prices for each property type
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.keep="all"}
 # Define breaks for x-axis in millions
-breaks <- seq(0, 5000000, by = 1000000)
+breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
 
 # Create the ggplot object
@@ -67,15 +91,15 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ property_type, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Property Type",
-       x = "Price",
+       x = "Price in Chf",
        y = "Frequency") +
   theme_minimal() +
-  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5000000))
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Convert ggplot object to plotly object
-interactive_histogram <- ggplotly(histogram, width = 750, height = 1000)
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1100)
 # Adjust margins to prevent x-axis label from being cut off
-interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50))
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 
 # Display the interactive plot
 interactive_histogram
@@ -85,9 +109,9 @@ Upon first glance, the majority of property types are valued at less than 3 mill
 
 ### Histogram of prices for each year category
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.keep="all"}
 # Define breaks for x-axis in millions
-breaks <- seq(0, 5000000, by = 1000000)
+breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
 
 # Create a histogram of prices for each year category
@@ -95,15 +119,15 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ year_category, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Year Category",
-       x = "Price",
+       x = "Price in Chf",
        y = "Frequency") +
   theme_minimal() +
-  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5000000))
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Convert ggplot object to plotly object
-interactive_histogram_year <- ggplotly(histogram, width = 750, height = 1000)
+interactive_histogram_year <- ggplotly(histogram, width = 750, height = 1100)
 # Adjust margins to prevent x-axis label from being cut off
-interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50))
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
 interactive_histogram_year
 
@@ -111,9 +135,11 @@ interactive_histogram_year
 ```
 The majority of properties were built between 2016 and 2024. Interestingly, the distribution remains similar across almost all periods.
 
-### Histogram of prices for each canton
 
-```{r, warning=FALSE}
+### Histogram of prices for each canton
+Here we extend a little bit to better see the difference between Cantons
+
+```{r, warning=FALSE, fig.keep="all"}
 # Define breaks for x-axis in millions
 breaks <- seq(0, 5200000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
@@ -123,58 +149,68 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ canton, scales = "free", ncol = 2) +
   labs(title = "Distribution by Canton for properties between 0 and 5 million",
-       x = "Price",
+       x = "Price in Chf",
        y = "Frequency") +
   theme(axis.text.y = element_text(size = 2)) +
   theme_minimal() +
   scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5200000))
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 750, height = 1000)
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1100)
 # Adjust margins to prevent x-axis label from being cut off
-interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50))
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
 interactive_histogram
 
 
 ```
-Compared to other cantons, Geneva has a distinct distribution. 
-Canton Vaud, Valais, Tessin, Bern, and Fribourg are where the majority of the listed properties are concentrated.
+Compared to other cantons, Geneva has a distinct distribution with many properties that worth more than 2 million (relative to the others)
+The canton of Vaud, Valais, Tessin, Bern, and Fribourg are where the majority of the listed properties are concentrated and have a similar distribution where the majority properties worth between 0,4 and 2 million.
+The model needs to account for the different distributions of cantons to ensure fair comparison, avoiding bias towards larger cantons over smaller ones.
 
 ### Histogram of prices for each number of rooms
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.keep="all"}
 # Define breaks for x-axis in millions
-breaks <- seq(0, 5200000, by = 1000000)
+breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
-
+subset_properties <- properties_filtered %>% filter(number_of_rooms <= 15)
 # Create the histogram
-histogram <- ggplot(properties_filtered, aes(x = price)) +
+histogram <- ggplot(subset_properties, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ number_of_rooms, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Number of Rooms",
-       x = "Price",
+       x = "Price in Chf",
        y = "Frequency") +
   theme_minimal() +
-  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5200000))
+  scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 750, height = 2000) 
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1500) 
 # Adjust margins to prevent x-axis label from being cut off
-interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50))
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
 interactive_histogram
 
 
 ```
-The majority of properties have fewer than 10 rooms, and the distribution tends to shift slightly towards higher prices as the number of rooms increases.
+The majority of properties have between 2,5 and 6,5 rooms.
+And the distribution tends to shift slightly towards higher prices as the number of rooms increases.
 
 ## Histogram of properties by square meters
 To better see the data, we only show the properties with less than 1000 square meters
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.keep="all"}
+# Calculate percentile
+percentile_95 <- quantile(properties_filtered$square_meters, 0.95)
+percentile_05 <- quantile(properties_filtered$square_meters, 0.05)
+
 histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   geom_histogram(binwidth = 15, fill = "skyblue", color = "black") +
+  geom_vline(xintercept = percentile_05, linetype = "dashed", color = "blue")+
+  geom_text(aes(x = percentile_05, y = 1750, label = "5th percentile"), vjust = -1, color = "blue", size = 2) +
+  geom_vline(xintercept = percentile_95, linetype = "dashed", color = "blue") +
+  geom_text(aes(x = percentile_95, y = 1750, label = "95th percentile"), vjust = -1, color = "blue", size = 2) +
   labs(title = "Distribution of Properties by Square Meters",
        x = "Square Meters",
        y = "Frequency") +
@@ -182,64 +218,103 @@ histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   xlim(0,1000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 750, height = 500 )  # Adjust width and height as needed
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1100 )  # Adjust width and height as needed
 # Adjust margins to prevent x-axis label from being cut off
-interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50))
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
 interactive_histogram
 
 ```
+No surprise here, there are more "small" properties than big ones.
+90% of the properties are between 62 and 330 square meters.
 
 ## Histogram of prices by Tax Cluster
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.keep="all"}
 
-# Create the boxplot
-boxplot <- ggplot(properties_filtered, aes(x = as.factor(Tax_cluster), y = price)) +
-  geom_boxplot(fill = "skyblue", color = "black") +
-  labs(title = "Boxplot of Property Prices by Tax Cluster",
+# Calculate summary statistics for price by Tax Cluster
+summary_stats <- properties_filtered %>%
+  group_by(Tax_cluster) %>%
+  summarise(avg_price = mean(price),
+            Q10 = quantile(price, 0.10),
+            Q90 = quantile(price, 0.90))
+
+# Plot line plot
+line_plot <- ggplot(summary_stats, aes(x = Tax_cluster)) +
+  geom_line(aes(y = avg_price, color = "Mean Price")) +
+  geom_line(aes(y = Q10, color = "10th Quartile")) +
+  geom_line(aes(y = Q90, color = "90th Quartile")) +
+  labs(title = "Average Property Prices by Tax Cluster",
        x = "Tax Cluster",
-       y = "Price") +
-  theme_minimal() +
-  scale_y_continuous(labels = scales::unit_format(unit = "Mio", scale = 1e-6), limits = c(0, 4000000))
+       y = "Price in CHF") +
+  scale_color_manual(values = c("Mean Price" = "blue", "10th Quartile" = "green", "90th Quartile" = "red")) +
+  theme_minimal()+
+  scale_y_continuous(limits = c(0, 3500000))
 
-# Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot, width = 750, height = 500)
+# Display the line plot
+line_plot
 
-# Display the interactive plot
-interactive_boxplot
+
+
+
+
 
 ```
+Based on the results, the clusters 1 and 5 are similar with the mean around 1 million chf, same for 3 and 4 with a mean of 1,25 million , the cluster 2 seem to be the one slightly different from the others with a mean of 1,5 million and 80% of the properties are between 0,5 and 2,7 million.
 
 ## Histogram of prices by Political cluster
 
 ```{r, warning=FALSE}
-# Create the boxplot
-boxplot <- ggplot(properties_filtered, aes(x = as.factor(Political_cluster), y = price)) +
-  geom_boxplot(fill = "skyblue", color = "black") +
-  labs(title = "Boxplot of Property Prices by Political Cluster",
-       x = "Political Cluster",
-       y = "Price") +
-  theme_minimal() +
-  scale_y_continuous(labels = scales::unit_format(unit = "Mio", scale = 1e-6), limits = c(0, 4000000))
 
-# Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot, width = 750, height = 500 )
-interactive_boxplot
+# Calculate summary statistics for price by Political Cluster
+summary_stats <- properties_filtered %>%
+  group_by(Political_cluster) %>%
+  summarise(avg_price = mean(price),
+            Q10 = quantile(price, 0.10),
+            Q90 = quantile(price, 0.90))
+
+# Plot line plot
+line_plot <- ggplot(summary_stats, aes(x = Political_cluster)) +
+  geom_line(aes(y = avg_price, color = "Mean Price")) +
+  geom_line(aes(y = Q10, color = "10th Quartile")) +
+  geom_line(aes(y = Q90, color = "90th Quartile")) +
+  labs(title = "Average Property Prices by Political Cluster",
+       x = "Political Cluster",
+       y = "Price in CHF") +
+  scale_color_manual(values = c("Mean Price" = "blue", "10th Quartile" = "green", "90th Quartile" = "red")) +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, 3500000))
+
+# Display the line plot
+line_plot
+
+
 ```
+Based on this graphs the political clusters 1, 2 and 4 are similar with a mean price of properties of 1,1 million, the political cluster 3 as the higher mean price with 1,75 million. And the 5th one is between the cluster 3 and 1,2 and 4 with a mean of 1,3 million.
 ## Histogram of prices by demographic cluster
 
 ```{r, warning=FALSE}
-# Create the boxplot
-boxplot <- ggplot(properties_filtered, aes(x = as.factor(Demographic_cluster), y = price)) +
-  geom_boxplot(fill = "skyblue", color = "black") +
-  labs(title = "Boxplot of Property Prices by demographic Cluster",
-       x = "demographic Cluster",
-       y = "Price") +
-  theme_minimal() +
-  scale_y_continuous(labels = scales::unit_format(unit = "Mio", scale = 1e-6), limits = c(0, 4000000))
 
-# Convert ggplot object to plotly object
-interactive_boxplot <- ggplotly(boxplot, width = 750, height = 500 )
-interactive_boxplot
+# Calculate summary statistics for price by Demographic Cluster
+summary_stats <- properties_filtered %>%
+  group_by(Demographic_cluster) %>%
+  summarise(avg_price = mean(price),
+            Q10 = quantile(price, 0.10),
+            Q90 = quantile(price, 0.90))
+
+# Plot line plot
+line_plot <- ggplot(summary_stats, aes(x = Demographic_cluster)) +
+  geom_line(aes(y = avg_price, color = "Mean Price")) +
+  geom_line(aes(y = Q10, color = "10th Quartile")) +
+  geom_line(aes(y = Q90, color = "90th Quartile")) +
+  labs(title = "Average Property Prices by Demographic Cluster",
+       x = "Demographic Cluster",
+       y = "Price in CHF") +
+  scale_color_manual(values = c("Mean Price" = "blue", "10th Quartile" = "green", "90th Quartile" = "red")) +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, 4000000))
+
+# Display the line plot
+line_plot
+
 ```
