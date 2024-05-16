@@ -369,8 +369,10 @@ To solve this issue of variance at higher price points, we can filter the data t
 Indeed, as seen in the EDA section, these cantons have more porperties and show similar price distributions.
 
 ```{r}
-#filter properties_filtered based on the canton valais, tessin, vaud, Berne, Fribourg
-properties_filtered <- properties_filtered %>% filter(canton %in% c("valais", "ticino", "vaud", "bern", "Fribourg"))
+#selectt properties_filtered based on the canton valais, tessin, vaud, Berne, Fribourg
+properties_filtered_ <- properties_filtered %>% filter(canton %in% c("Valais", "Ticino", "Vaud", "Bern", "Fribourg"))
+#show each unique value in canton col
+unique(properties_filtered_$canton)
 ```
 
 #### Model Building and Evaluation
@@ -416,7 +418,7 @@ aic <- AIC(lm_model_10_90)
 # show those metrics in a html table
 metrics_1_10_90 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html", col.names = c("R-Squared", "Adjusted R-Squared", "RMSE", "MAE", "AIC")) %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
-  add_header_above(c("Basic Model Performance Metrics (10-90 Qt)" = 5))  
+  add_header_above(c("Basic Model Performance Metrics (Selected Canton)" = 5))  
 metrics_1_10_90
 ``` 
 
@@ -424,6 +426,8 @@ Here was the previous metrics of our first Basic model (without the 10-90 Qt fil
 ```{r}
 metrics_2
 ``` 
+
+We observe a sgifnicant increase in  RMSE for the selected canton model which indicates that the model may not perform as well in predicting property prices within this specific canton range.
 
 #### Variable Selection
 ```{r}
@@ -438,10 +442,12 @@ lm_model2_10_90
 tbl_reg_2_10_90 <- gtsummary::tbl_regression(lm_model2_10_90)
 tbl_reg_3_10_90 <- tbl_merge(
   tbls= list(tbl_reg_1_10_90, tbl_reg_2_10_90),
-  tab_spanner = c("**Basic Model (10-90 Qt)**", "**Stepwise Model (10-90 Qt)**")
+  tab_spanner = c("**Basic Model**", "**Stepwise Model**")
   )
 tbl_reg_3_10_90
 ```
+
+We observe that number_of_rooms and floor variable are dropeed from the model, indicating that these variables may not be significant predictors of property prices within this specific canton range.
 
 ##### Metrics
 
@@ -456,11 +462,12 @@ aic <- AIC(lm_model2_10_90)
 # show those metrics in a html table
 metrics_2_10_90 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html", col.names = c("R-Squared", "Adjusted R-Squared", "RMSE", "MAE", "AIC")) %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
-  add_header_above(c("Stepwise Model Performance Metrics (10-90 Qt)" = 5))
+  add_header_above(c("Stepwise Model Performance Metrics (Selected Canton)" = 5))
 metrics_2_10_90
 ```
 
 Here was the previous metrics of our Basic Model (without Stepwise Integration)
+
 ```{r}
 metrics_1_10_90
 ```
@@ -469,6 +476,8 @@ Here was the previous metrics of our stepwise model (without the 10-90 Qt filter
 ```{r}
 metrics_2
 ```
+
+We observe that selected model is worse than the initial model in terms of prediction accuracy (higher RMSE) and all other metrics are more or less the same. This means that the model may not perform as well in predicting property prices within this specific canton range. The higher RMSE indicates that the model's predictions are further from the actual prices, suggesting that the model may not generalize well to this specific canton range.
 
 #### Cross-Validation
 ```{r}
