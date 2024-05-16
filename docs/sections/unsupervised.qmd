@@ -48,7 +48,9 @@ clusters <- kmeans_model$cluster
 
 ```
 
+Here we can see that the optimal number of clusters is 5.
 
+Next, we will interpret the clusters by looking at the cluster centers, the size of each cluster, and the distribution of the variables within each cluster.
 ```{r}
 # Get the cluster centers
 cluster_centers <- kmeans_model$centers
@@ -81,6 +83,7 @@ impots_cluster <- impots_cluster %>%
 
 ```
 
+And then we will plot the boxplots of the variables in each cluster to interpret the clusters.
 ```{r}
 # Subset your dataset to include only the variables used to create the tax clusters and the tax cluster labels
 tax_vars <- select(impots_cluster, -c("Community", "cluster", "Coefficient d'impôt en %"))
@@ -102,7 +105,7 @@ my_colors <- c("#a6cee3", "#b2df8a", "#fb9a99", "#fdbf6f", "#cab2d6")
 overall_min <- min(melted_tax$value)
 overall_max <- max(melted_tax$value)
 
-dev.new(width = 15, height = 100)
+dev.new(width = 600, height = 1000)
 
 # Set up the layout for 2 columns and 4 rows
 par(mfrow = c(4, 2))
@@ -121,6 +124,45 @@ for (variable in unique(melted_tax$variable)) {
           col = my_colors,
           cex = 0.2)  # Adjust the cex parameter to increase plot size vertically
 }
+```
+
+```{r}
+# Subset your dataset to include only the variables used to create the tax clusters and the tax cluster labels
+tax_vars <- select(impots_cluster, -c("Community", "cluster", "Coefficient d'impôt en %"))
+
+# Scale the variables
+scaled_tax_vars <- scale(tax_vars)
+
+# Convert to data frame
+scaled_tax_vars <- as.data.frame(scaled_tax_vars)
+
+# Add tax cluster labels
+scaled_tax_vars$Tax_cluster <- impots_cluster$cluster
+
+# Melt the dataset to long format
+melted_tax <- melt(scaled_tax_vars, id.vars = "Tax_cluster")
+
+# Create boxplots for each variable using ggplot2 with viridis colors
+p <- ggplot(melted_tax, aes(x = as.factor(Tax_cluster), y = value, fill = as.factor(Tax_cluster))) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +  # Arrange plots in 2 columns
+  scale_fill_viridis_d() +  # Use viridis color palette
+  theme_minimal(base_size = 15) +  # Increase base font size for larger plot
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5),
+  ) +
+  labs(
+    x = "Tax Cluster",
+    y = "Value",
+    title = "Boxplots of Scaled Tax Variables by Cluster"
+  )
+
+# Convert ggplot to an interactive plot using plotly
+interactive_plot <- ggplotly(p, width = 800, height = 1000)
+
+# Print the interactive plot
+interactive_plot
 ```
 
 The fiscal clusters are quite difficult to interpret. A few interesting observations we can make are the following:
@@ -240,10 +282,6 @@ dend_pol <- color_branches(dend_pol, k = 5) #Set number of cluster to 5, to keep
 par(mar = c(0.001, 4, 4, 2) + 0.1)
 # plot(dend_pol, main = "Politics - Hierarchical Clustering Dendrogram")
 
-
-```
-
-```{r}
 # Subset your dataset to include only the variables used to create the political clusters and the political cluster labels
 political_vars <- select(commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
@@ -333,6 +371,7 @@ properties_filtered <- merge(properties_filtered, clusters_df[, c("zip_code", "D
 
 ```
 
+WHY WE DROP ? explain
 ```{r}
 # Dropping 228 rows containing NAs after the merge (Problem with names)
 

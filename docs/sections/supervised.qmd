@@ -483,7 +483,7 @@ We decided to implement a Random Forest model to compare its performance with th
 #### Model Building and Evaluation
 
 We split the data into training and testing sets, fit the Random Forest model and then evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power.
-```{r rf_model}
+```{r eval=FALSE}
 #split the data in training and test set 0.8/0.2
 set.seed(123)  # for reproducibility
 trainIndex <- createDataPartition(properties_filtered$price, p=0.8, list=FALSE)
@@ -506,12 +506,12 @@ metrics_rf <- kable(data.frame(r_sq_rf, rmse_rf, mae_rf), format = "html", col.n
 metrics_rf
 ```
 Comparing with the best model of the linear regression, we can see that the Random Forest model has a higher R-squared value and lower RMSE and MAE values, indicating better predictive accuracy.
-```{r}
+```{r eval=FALSE}
 metrics_2
 ```
 
 The plot shows the actual vs. predicted prices, with the diagonal line indicating perfect predictions.
-```{r}
+```{r eval=FALSE}
 plot(testData$price ~rf_model.pred_rf, col = 'skyblue',
      xlab = 'Actual Price', ylab = 'Predicted Price',
      main = 'Actual vs Predicted Price')
@@ -522,7 +522,7 @@ abline(0,1, col = 'darkred')
 
 #### Variable Importance
 VI plots are a useful tool to understand the relative importance of predictors in the Random Forest model. This plot shows the importance of each predictor in the model, helping to identify key features that drive price predictions.
-```{r VI}
+```{r eval=FALSE}
 varImpPlot(rf_model)
 importance(rf_model)
 ```
@@ -530,7 +530,7 @@ We see that square_meters is the most important predictor.
 
 #### Cross-Validation
 
-```{r CV-rf}
+```{r eval=FALSE}
 # cv_results_rf <- train(price ~., data=trainData, method="rf", trControl=trainControl(method="cv", number=5))
 # summary(cv_results_rf)
 # 
@@ -543,7 +543,7 @@ We see that square_meters is the most important predictor.
 
 
 #### Hyperparameter Tuning
-```{r hyp-tune}
+```{r eval=FALSE}
 # # Define the tuning grid
 # tuneGrid <- expand.grid(mtry = seq(2, sqrt(ncol(trainData)), by = 1))  # Tune over a range of mtry values
 # 
