@@ -9,41 +9,33 @@
 
 ## Properties Dataset
 
-The dataset is stored in CSV format, comprising real estate listings scraped from the ImmoScout24 platform as. 
-
-The instances in the dataset represent individual property listings. Each row corresponds to a unique listing on ImmoScout24.
-
-They are composed of :
-
-```{r}
-# Create a data frame with the information
-property_info <- data.frame(
-  Feature = c("Price (CHF)", "Number of Rooms", "Square Meters (m²)", "Address", "Canton", "Property Type", "Floor", "Year of Construction"),
-  Description = c("Numerical - Ranges from 25,000 to 26,149,500 CHF.",
-                  "Numerical - Values from 1 to 27 rooms, representing the total room count excluding bathrooms and kitchen.",
-                  "Numerical - Property sizes range from 1 to 2,700 m².",
-                  "Text - Specific address of the property.",
-                  "Categorical - Indicates the Swiss canton where the property is located.",
-                  "Categorical - Includes types such as Apartment, Single House, Villa, etc.",
-                  "Text/Numerical - Specifies if it on the ground floor or not (e.g., ground floor).",
-                  "Categorical - Grouped into categories such as 0-1919, 1920-1945, ... until 2024")
-)
-
-# Create the kable extra table
-property_table <- kable(property_info, format = "html") %>%
-  kable_styling(full_width = FALSE, position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))
-property_table
-```
+The dataset is stored in CSV format, comprising real estate listings scraped from the ImmoScout24 platform. It features a variety of fields related to property details
 
 Source - [ImmoScout24](https://www.immoscout24.ch/en)
 
 ### Raw dataset
+
 Here is the raw dataset:
 ```{r 2, warning=FALSE}
 properties <- read.csv(file.path(here(),"data/properties.csv"))
 # show 1000 first rows of properties using reactable
-reactable(head(properties, 1000))
 
+# show 100 first row of cleaned dataset using reactable
+reactable(head(properties, 2000),
+          bordered = TRUE,
+          striped = TRUE,
+          highlight = TRUE,
+          defaultPageSize = 5,
+          showPageSizeOptions = TRUE,
+          showPagination = TRUE,
+          showSortable = TRUE,
+          )
+```
+
+The instances in the dataset represent individual property listings. Each row corresponds to a unique listing on ImmoScout24.
+
+Here is the number of observations by canton:
+```{r}
 # Create a tibble with cantons and observations
 observations_table <- tibble(
   Canton = c("Vaud", "Bern", "Lucerne", "Zurich", "Uri", "Schwyz",
@@ -67,19 +59,22 @@ observations_table %>%
 
 ```
 
+We have 22136 observations in total, distributed across different cantons in Switzerland. 
+
 ### Wrangling and Cleaning
 
-The data wrangling and cleaning process undertaken for our dataset involves a series of methodical steps aimed at refining the data for accurate analysis and modeling. Initially, the script identifies and addresses problematic values in the number_of_rooms field, where non-numeric entries are detected and marked for further cleaning. The price field is then sanitized to remove any non-numeric characters, ensuring all data in this column represents valid numerical values. A filter is applied to exclude properties priced under 20,000 CHF to avoid anomalies that could skew analysis, likely due to data entry errors or unrealistic listing prices.
+The data cleaning process for our dataset involves several careful steps to prepare the data for accurate analysis and modeling. Initially, we identify and address problematic values in the `number_of_rooms` field, where non-numeric entries are detected and marked for further cleaning. The price field is then sanitized to remove any non-numeric characters, ensuring all data in this column represent valid numerical values. We also filter out properties priced under 20,000 CHF to avoid anomalies that could skew our analysis, likely due to data entry errors or unrealistic listing prices.
 
-- **Clarify any aggregation methods used or reasons behind choosing specific thresholds for filtering data (e.g., why properties priced under 20,000 CHF were excluded).**
+- We exclude properties priced under 20,000 CHF because such low prices are often due to data entry mistakes or listings that do not reflect real market values, which can distort our analysis.
 
-Further cleaning includes standardizing addresses by stripping unwanted characters at the beginning, enhancing uniformity across this variable. The dataset undergoes a reduction of incomplete data through the removal of rows with any NA values, which helps in maintaining a dataset with complete cases for analysis. Special attention is given to the square_meters field by removing non-digit characters and converting the cleansed string to numeric values, followed by discarding any remaining NA entries that emerge from this transformation.
+Further cleaning includes standardizing addresses by stripping unwanted characters at the beginning, enhancing uniformity across this variable. We remove rows with any NA values to maintain a dataset with complete cases for analysis. For the `square_meters` field, we remove non-digit characters and convert the cleansed string to numeric values, discarding any remaining NA entries from this transformation.
 
-- **Explain why we remove NA from m2 column.** above is it correct ?
+- We remove NA values from the `square_meters` column to ensure that all entries are complete and usable for accurate modeling and analysis. Incomplete data can lead to errors and unreliable results.
 
-Categorical data in year_category is truncated to maintain consistency and converted into a factor for potential use in modeling. In dealing with the number_of_rooms, non-relevant text (like "rooms" or "room") is removed, and checks are implemented to discard erroneous data such as entries mistakenly including "m²" or where room counts exceed 100 rooms, likely due to data entry oversights. An additional corrective measure divides the number of rooms by ten for entries unusually higher than 27, assuming these were misreported due to decimal placement errors.
+Categorical data in year_category is truncated for consistency and converted into a factor for potential use in modeling. In the `number_of_rooms` field, non-relevant text (like "rooms" or "room") is removed, and we discard erroneous data such as entries mistakenly including "m²" or room counts exceeding 100, which are likely due to data entry oversights. If the number of rooms exceeds 27, we divide the value by ten, assuming these were misreported due to decimal placement errors.
 
-Lastly, the script enhances the readability and standardization of the canton field by capitalizing each entry, which is important for categorical consistency across the dataset. These meticulous steps ensure the dataset’s integrity and readiness for analytical processes, focusing on maintaining a robust, clean, and usable data structure.
+Lastly, we enhance the readability and standardization of the canton field by capitalizing each entry, which is important for categorical consistency across the dataset. These steps ensure the dataset’s integrity and readiness for analytical processes, focusing on maintaining a robust, clean, and usable data structure.
+
 ```{r}
 # Identify values causing the issue
 problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
@@ -136,78 +131,64 @@ properties_filtered <- properties_filtered[properties_filtered$number_of_rooms !
 # properties_filtered$number_of_rooms <- gsub("\\D", properties_filtered$number_of_rooms)  # Remove non-numeric characters
 # properties_filtered$number_of_rooms <- as.numeric(properties_filtered$number_of_rooms)       # Convert to numeric
 # properties_filtered$number_of_rooms <- trunc(properties_filtered$number_of_rooms)             # Truncate non-integer values
-
-# show 100 first row of cleaned dataset using reactable
-reactable(head(properties_filtered, 100))
-
 ```
 
-Here we can have a glance at the Summary Statistics:
+Here is the cleaned dataset:
 ```{r}
-#filter properties_filtered to contains only 'price', 'number_of_rooms', 'square_meters'
+# show 100 first row of cleaned dataset using reactable
+reactable(head(properties_filtered, 2000),
+          bordered = TRUE,
+          striped = TRUE,
+          highlight = TRUE,
+          defaultPageSize = 5,
+          showPageSizeOptions = TRUE,
+          showPagination = TRUE,
+          showSortable = TRUE,
+          )
+```
+
+Here is a summary of the cleaned dataset:
+```{r}
+# Filter properties_filtered to contain only 'price', 'number_of_rooms', 'square_meters'
 properties_summary <- properties_filtered[, c('price', 'number_of_rooms', 'square_meters')]
-#summary statistics
+
+# Summary statistics
 summary(properties_summary)
+
 # Data
-data <- data.frame(
-  price = c(25000, 690000, 992340, 1351000, 1550000, 26149500),
-  number_of_rooms = c(1.0, 3.50, 4.50, 4.98, 5.50, 27.0),
-  square_meters = c(1, 99, 136, 160, 190, 2700)
+# Custom summary statistics with provided values
+summary_stats <- data.frame(
+  Min = c(format(25000, big.mark = "'"), format(1.00, big.mark = "'"), format(1, big.mark = "'")),
+  Q1 = c(format(690000, big.mark = "'"), format(3.50, big.mark = "'"), format(99, big.mark = "'")),
+  Median = c(format(992340, big.mark = "'"), format(4.50, big.mark = "'"), format(136, big.mark = "'")),
+  Mean = c(format(1350852, big.mark = "'"), format(4.98, big.mark = "'"), format(160, big.mark = "'")),
+  Q3 = c(format(1550000, big.mark = "'"), format(5.50, big.mark = "'"), format(190, big.mark = "'")),
+  Max = c(format(26149500, big.mark = "'"), format(27.00, big.mark = "'"), format(2000, big.mark = "'"))
 )
 
-# Summary statistics
-summary_stats <- summary(data)
-
-# Summary statistics
-summary_stats <- cbind(
-  Min = apply(data, 2, min),
-  Q1 = apply(data, 2, quantile, probs = 0.25),
-  Median = apply(data, 2, median),
-  Mean = apply(data, 2, mean),
-  Q3 = apply(data, 2, quantile, probs = 0.75),
-  Max = apply(data, 2, max)
-)
+# Assign row names
+row.names(summary_stats) <- c("price", "number_of_rooms", "square_meters")
 
 # Create table
 table <- kbl(summary_stats, align = rep('c', 6), caption = "Summary statistics for the dataset") %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
 table
 ```
 
-- **ecrire un petit text sur summary statistics** ??
+### AMTOVZ_CSV_LV95 Data
+The "Official Index of Localities" (Répertoire officiel des localités) is provided by the Swiss Federal Office of Topography (swisstopo). This dataset includes detailed information about all localities in Switzerland and Liechtenstein, such as names, postal codes, and boundaries.
 
-### AMTOVZ_CSV_LV95 Data Description
-The AMTOVZ_CSV_LV95 Data, provided by the Swiss Federal Office of Topography (swisstopo), is an "Official Index of Localities" that encompasses comprehensive geospatial and administrative details of all localities in Switzerland and the Principality of Liechtenstein. It includes critical data such as locality names, postal codes, and geographic perimeters.
+Updated monthly with input from cantonal authorities and Swiss Post, this dataset is useful for spatial analysis, integration with other geographic datasets, and use in GIS and CAD systems. It's also valuable for statistical analysis and as a reference for information systems.
 
-This dataset, in CSV format,  is regularly updated on a monthly basis, incorporating changes reported by cantonal authorities and Swiss Post. It serves various purposes, including spatial analysis, integration with other geographic datasets, usage as a geolocated background in GIS (Geographic Information Systems) and CAD (Computer-Aided Design) systems, statistical analysis, and as a reference dataset for information systems.
-
-Updates and release notes for the dataset are provided periodically, detailing changes and improvements made over time. The Swiss Federal Office of Topography manages and distributes this dataset as part of its responsibilities in collecting and providing official geospatial data for Switzerland.
-
-
-```{r}
-location_info <- data.frame(
-  Feature = c("Names (Gemeindename)", "Postal Codes (PLZ)", "Canton Codes (Kantonskürzel)", "Longitude (E)", "Latitude (N)"),
-  Description = c("Text - Names of the localities.",
-                  "Numerical - Postal code of each locality.",
-                  "Categorical - Short code representing each canton.",
-                  "Numerical - Geographic coordinate specifying the east-west position.",
-                  "Numerical - Geographic coordinate specifying the north-south position.")
-)
-
-# Create the kable extra table
-location_table <- kable(location_info, format = "html") %>%
-  kable_styling(full_width = FALSE, position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))
-
-# Print the table
-location_table
-```
-
-The instances in the dataset represent individual localities within Switzerland and the Principality of Liechtenstein.
+Periodic updates and release notes detail the changes and improvements made. Swisstopo manages and distributes this dataset, fulfilling its role in providing official geospatial data for Switzerland.
 
 Source - [swisstopo](https://www.swisstopo.admin.ch/fr/repertoire-officiel-des-localites)
 
 #### Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
-A new `zip_code` variable is created by extracting numeric values from the address column of the filtered properties dataset (properties_filtered). This is done using a regular expression that removes non-digit characters, assuming zip codes are embedded within the address string. The resulting zip codes are then cleaned to ensure they are four-digit numbers, removing any leading digits if the extracted value exceeds four digits.
+
+Here we create a new variable `zip_code` by extracting the zip code from the `address` column in the `properties_filtered` dataset. We identify the zip code as a 4-digit number within the address and remove any leading digits if the zip code exceeds 4 digits. We then merge the `zip_code` variable with the `AMTOVZ_CSV_LV95` dataset to obtain the corresponding city and canton information for each zip code.
+
 ```{r}
 df <- properties_filtered
 #the address column is like : '1844 Villeneuve VD' and has zip code number in it
@@ -218,8 +199,9 @@ df$zip_code <- as.numeric(gsub("\\D", "", df$address))
 df$zip_code <- ifelse(df$zip_code > 9999, df$zip_code %% 10000, df$zip_code)
 ```
 
-The properties_filtered dataset is merged with the prepared AMTOVZ_CSV_LV95 dataframe based on the zip_code, aiming to enrich property listings with accurate locality names, canton information, and geographic coordinates.
+#### Using AMTOVZ_CSV_LV95 to get the city and canton from the zip code
 
+Next, we used the AMTOVZ_CSV_LV95 dataset to retrieve additional information such as the city and canton based on the extracted zip codes. This involved the following steps:
 ```{r zip}
 #read .csv AMTOVZ_CSV_LV95
 amto <- read.csv(file.path(here(),"data/AMTOVZ_CSV_WGS84.csv"), sep = ";")
@@ -237,34 +219,24 @@ df <- merge(df, amto_df, by = "zip_code", all.x = TRUE)
 #check if there are nan in city
 df[is.na(df$Community),]
 ```
-In the data processing steps described, we identified and subsequently removed 77 instances where the Community field was `NaN` after attempting to merge the property listings with the AMTOVZ_CSV_LV95 dataset. 
+Upon merging, we identified 77 rows where the Community was NA. This could happen for two reasons:
 
-Reasons for NaN Occurrences:
+- The zip code extracted from the address did not exist in the amto_df dataset.
+- The zip code was incorrectly isolated from the address.
 
-- Zip Code Not Found in the AMTOVZ_CSV_LV95 Dataset. Occurs when the property's zip code isn't in the dataset, possibly due to outdated or incorrect listings. 
-- Incorrectly Isolated Zip Code from the Address. Errors in extracting zip codes, often due to irregular address formatting.
-
-Removing entries with NaN values ensures dataset accuracy and reliability for further analysis, crucial in real estate market analysis where geographical accuracy is paramount.
-Removed them
-
+To ensure the integrity of our data, we decided to remove these rows with missing Community values:
 ```{r}
 #remove the rows with nan in city
 properties_filtered <- df[!is.na(df$Community),]
 reactable(head(properties_filtered, 100))
 ```
 
+### Tax data
 
-
-### Swiss Tax Dataset Description
-The Swiss Tax dataset encompasses comprehensive information on income, wealth, profits, and capital taxes for each canton and commune in Switzerland. It provides detailed data on tax rates and regulations, allowing for in-depth analysis and comparison across regions.
-
-This dataset is sourced from various official authorities, including cantonal tax authorities and the Swiss Federal Tax Administration. It is regularly updated to reflect changes in tax laws, rates, and administrative details at both the cantonal and communal levels.
-This dataset might be useful to see if we have a link between some taxes and the prices of the properties
-
-Updates and revisions to the dataset are provided periodically, ensuring its accuracy and relevance. The Swiss Federal Tax Administration oversees the distribution and management of this dataset, supporting its role in providing reliable and comprehensive tax information for Switzerland.
-
-The dataset can be found here, take the year 2024 and the corresponding taxes.
+-  source
 https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
+- ajouter description
+- expliquer blabla
 
 #### Cleaning
 ```{r impots, warning=FALSE}
