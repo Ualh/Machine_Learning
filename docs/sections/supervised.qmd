@@ -21,7 +21,6 @@ car for diagnostic testing and variance inflation factor (VIF) analysis to detec
 Each of these tools was chosen for its specific functionality that aids in robust data analysis, ensuring that each step of the model building and evaluation process is well-supported.
 
 ### Linear Regression - With All Prices
-
 #### Correlation Analysis - Continuous Variable
 
 Initially, a correlation analysis was conducted to identify and visualize linear relationships between the property prices and potential predictive variables such as the number of rooms and square meters. The correlation matrix was computed and plotted using the `corrplot` package:
@@ -31,10 +30,31 @@ correlation_matrix <- cor(properties_filtered[ , c("price", "number_of_rooms", "
 corrplot(correlation_matrix, method="square", type="upper", tl.col="black", tl.srt=45, tl.cex=0.8, cl.cex=0.8, addCoef.col="black", number.cex=0.8, order="hclust", hclust.method="complete", tl.pos="lt", tl.offset=0.5, cl.pos="n", cl.length=1.5)
 ```
 
-We can observe that the correlation between the number of rooms and price (0.02) and square meters and price (0.68) suggests a weak correlation with the number of rooms but a strong correlation with square meters. The number of rooms and square meters have a weak correlation (0.12), indicating they offer independent information for the model.
+- We can observe that the correlation between the number of rooms and price (0.46) and square meters and price (0.67) suggests a moderate correlation with the number of rooms and a strong correlation with square meters. 
+- The number of rooms and square meters also have a strong correlation (0.69), indicating potential multicollinearity between these predictors.
 
 - **Question : How to make the correlation with `categorical` variables?**
 - **Question : Is VIF analysis really necessary and meaningful ?**
+#### GVIF (Generalized Variance Inflation Factor)
+```{r}
+properties_filtered
+## Multicollinearity Check
+model_for_vif <- lm(price ~ number_of_rooms + square_meters + canton + floor + year_category + Demographic_cluster + Political_cluster + Tax_cluster, data=properties_filtered)
+vif_values <- vif(model_for_vif)
+#show the result in the html
+kable(vif_values, format = "html") %>%
+  kable_styling(full_width = F)
+```
+
+ - High VIF Values:
+canton and Tax_cluster have VIF values much greater than 10, indicating serious multicollinearity issues. These predictors are highly correlated with other predictors in the model.
+
+- Moderate VIF Values:
+Other predictors like number_of_rooms, square_meters, Political_cluster, etc., have VIF values below 5, indicating acceptable multicollinearity.
+
+We removed the `canton` variable from the model due to its high VIF value, which could lead to unstable coefficient estimates and unreliable model predictions.
+
+We keep the `Tax_cluster` variable in the model for now, as it may provide valuable information for predicting property prices.
 
 ####Basic Model
 ##### Model Building and Evaluation
@@ -57,11 +77,6 @@ summary(lm_model)
 Diagnostic checks such as residual analysis and normality tests were conducted to validate model assumptions. Performance metrics including R-squared and RMSE were calculated to assess the model's explanatory power and prediction accuracy.
 
 ```{r}
-sum(is.na(testData$price))  # Check NAs in price
-sapply(testData, function(x) sum(is.na(x)))  # Check NAs in all predictors
-```
-
-```{r}
 # Model Evaluation
 ## Diagnostic Checks
 #plot(lm_model)
@@ -71,6 +86,13 @@ sapply(testData, function(x) sum(is.na(x)))  # Check NAs in all predictors
 tbl_reg_1 <- gtsummary::tbl_regression(lm_model)
 tbl_reg_1
 ```
+
+- Significant Predictors of Price:
+
+    - Square meters: The most influential variable with a strong positive effect on price.
+    - Property types: Some types significantly affect prices, with villas and attic flats increasing prices, while single houses and farm houses decrease prices.
+    - Year category: Newer properties consistently have higher prices, with significant positive impacts for all categories compared to the baseline.
+
 ##### Assess Overfitting
 
 ```{r}
@@ -94,8 +116,13 @@ results_table <- data.frame(
   Rsquared_Train = lm_train_rsquared,
   Rsquared_Test = lm_test_rsquared
 )
-results_table
+
+#show table in html
+kable(results_table, format = "html") %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))
 ```
+
+No overfitting is observed as the RMSE and R-squared values are similar between the training and test sets, indicating that the model generalizes well to new data.
 
 ##### Metrics 
 
@@ -114,6 +141,12 @@ metrics_1 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html", 
 metrics_1
 ```
 
+- The model has moderate explanatory power, with an R-Squared of 0.493 and an Adjusted R-Squared of 0.492.
+
+- Prediction accuracy, as indicated by RMSE (980,302) and MAE (491,715), shows that the model's predictions are reasonably close to actual prices but could be improved.
+
+- The AIC value (500,701) provides a benchmark for comparing with other models
+
 #### Hyperparameter Tuning
 ##### Stepwise Regression
 Stepwise regression was performed to refine the model and improve its predictive performance. The resulting model was evaluated using the same diagnostic checks and performance metrics as the initial model:
@@ -126,10 +159,15 @@ lm_model2 <- step(lm_model)
 tbl_reg_2 <- gtsummary::tbl_regression(lm_model2)
 tbl_reg_3 <- tbl_merge(
   tbls= list(tbl_reg_1, tbl_reg_2),
-  tab_spanner = c("**Model 1**", "**Model Stepwise**")
+  tab_spanner = c("**Basic Model**", "**Model Stepwise**")
   )
 tbl_reg_3
 ```
+
+We observe :
+
+- Consistency in Key Predictors: The primary significant predictors (e.g., square_meters, certain property types, and year categories) remain consistent across both models, indicating their robust influence on property prices.
+- Similar Effect Sizes: The effect sizes (β) and confidence intervals for significant predictors are similar in both models, reinforcing the reliability of these predictors.
 
 ##### Lasso and Ridge Regression
 A Lasso and Ridge regression were also performed to compare the performance of the linear regression model with regularization techniques. 
@@ -214,10 +252,10 @@ performance_table <- kable(performance_df, format = "html") %>%
 performance_table
 ```
 
-The Stewise model is thus the best model because it has the lowest RMSE and MAE values on the test and training set.
-**CHANGE FOR WHEN WE HAVE CORRECT DATAwe observe that the Lasso model outperforms the Ridge model in terms of RMSE and R-squared values, indicating that Lasso regularization may be more effective in this context.**
+The Stepwise model is the preferred choice for predicting property prices based on the provided metrics. It offers the best balance of accuracy and predictive power. Lasso regression is a good alternative, particularly if model simplicity and interpretability are priorities due to its ability to shrink coefficients and eliminate irrelevant features. Ridge regression, while slightly less accurate, provides stable performance and handles multicollinearity well, good for our tax_cluster variable with high VIF.
 
 ##### Metrics
+
 Here we compare the performance metrics of the initial model and the stepwise model.
 The metrics of our initial model :
 ```{r}
@@ -239,6 +277,10 @@ metrics_2 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html", 
 metrics_2
 ```
 
+The Stepwise model offers a slight improvement over the Basic model in terms of prediction accuracy (lower MAE) and model efficiency (lower AIC).
+Both models perform similarly in explaining the variance in property prices, with nearly identical R-Squared and Adjusted R-Squared values.
+Given the minimal differences, the choice between models may depend on the preference for model simplicity (Stepwise model) versus a more comprehensive approach (Basic model).
+
 #### Cross-Validation
 
 Cross-validation was used to assess the model's robustness, typically to avoid overfitting and ensure that the model generalizes well to new data., using the `caret` package to manage this process efficiently. The CV results show metrics like RMSE and R-squared across folds, which indicate the model’s performance stability across different subsets of the data.
@@ -249,6 +291,8 @@ Cross-validation was used to assess the model's robustness, typically to avoid o
 ## Cross-Validation
 cv_results <- train(price ~ number_of_rooms + square_meters + year_category + property_type , data=trainData, method="lm", trControl=trainControl(method="cv", number=10))
 summary(cv_results)
+
+
 #show the CV result in the html
 metrics_cv_1 <- kable(cv_results$results, format = "html") %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))  %>%
@@ -261,10 +305,14 @@ Here are the performance metrics for the stepwise model:
 metrics_2
 ```
 
-- **Write the comparison with stepwise model, seems robust ?**
+- Better Prediction Accuracy: 10-fold cross validation shows a lower RMSE compared to both Basic and Stepwise models.
+- Slightly Lower Explanatory Power: R-Squared is marginally lower in the cross-validated model.
+
+We can thus say that the model generalizes well to new data, with improved prediction accuracy compared to the initial models.
 
 #### Model testing
-We chose the model .... **WRITE WHICH MODEL IS THE BEST AND WHY**
+
+We chose the stepwise model as the best model for the linear regresion due to its balance of accuracy and simplicity.
 
 The final model was tested using the unseen test dataset to evaluate its predictive accuracy. Residual plots and actual vs. predicted price plots were created to visually assess model performance:
 
@@ -297,6 +345,7 @@ As we can observe, the spread of residuals suggests potential issues with model 
 ##### Actual vs Predicted Prices
 
 This plot should ideally show points along the diagonal line, where actual prices equal predicted prices. The data clustering along the line suggests a generally good model fit, but here we can observe the spread which indicates variance in predictions, especially at higher price points.
+
 ```{r}
 ## Visualization
 gg <- ggplot(data=testData, aes(x=predicted_prices, y=price)) +
@@ -311,14 +360,17 @@ p <- ggplotly(gg, width = 600, height = 400)
 p
 ```
 
-### Linear Regression between 10th and 90th percentile
+We also observe a spread in the actual vs. predicted prices plot, indicating that the model may not capture the variance in property prices effectively, particularly at higher price points.
 
-To solve this issue of variance at higher price points, we can filter the data to focus on a more specific range of prices. Here, we filter the data between the 10th and 90th percentiles of the price distribution to see if the model performs better within this range:
+### Linear Regression for Specific Canton
+
+To solve this issue of variance at higher price points, we can filter the data to focus on a more specific range of canton. Specifically cantons valais, tessin, vaud, Berne, Fribourg to see if the model performs better within this range.
+
+Indeed, as seen in the EDA section, these cantons have more porperties and show similar price distributions.
 
 ```{r}
-#filter properties_filtered based on the 10th percentile and 90th percentile of the data
-properties_filtered <- properties_filtered %>% 
-  filter(price >= quantile(price, 0.1) & price <= quantile(price, 0.9))
+#filter properties_filtered based on the canton valais, tessin, vaud, Berne, Fribourg
+properties_filtered <- properties_filtered %>% filter(canton %in% c("valais", "ticino", "vaud", "bern", "Fribourg"))
 ```
 
 #### Model Building and Evaluation
