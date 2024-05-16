@@ -153,8 +153,8 @@ p <- ggplot(melted_tax, aes(x = as.factor(Tax_cluster), y = value, fill = as.fac
     plot.title = element_text(hjust = 0.5),
   ) +
   labs(
-    x = "Tax Cluster",
-    y = "Value",
+    x = "",
+    y = "",
     title = "Boxplots of Scaled Tax Variables by Cluster"
   )
 
@@ -210,7 +210,6 @@ par(mar = c(0.001, 4, 4, 2) + 0.1)
 # Interpretaion of demographic clusters
 demographic_vars <- select(commune, -c("REGION", "CODE_REGION", "Conseil national - PLR", "Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite", "Population - Ménages privés"))
 
-
 # Scale the variables
 scaled_demographic_vars <- scale(demographic_vars)
 
@@ -223,30 +222,29 @@ scaled_demographic_vars$Demographic_cluster <- cutree(hclust_model_demographic, 
 # Melt the dataset to long format
 melted_demographic <- melt(scaled_demographic_vars, id.vars = "Demographic_cluster")
 
-# Define color palette
-my_colors <- c("#a6cee3", "#b2df8a", "#fb9a99", "#fdbf6f", "#cab2d6")
+# Create boxplots for each variable using ggplot2 with custom colors and smaller data points
+p <- ggplot(melted_demographic, aes(x = as.factor(Demographic_cluster), y = value, fill = as.factor(Demographic_cluster))) +
+  geom_boxplot() +
+  geom_boxplot(outlier.shape = 1) +  # Change outlier point shape
+  geom_point(size = 0.2) +  # Adjust the size of data points (smaller size)
+  facet_wrap(~ variable, scales = "free", ncol = 2) +  # Arrange plots in 2 columns
+  scale_fill_manual(values = my_colors) +  # Use custom color palette
+  theme_minimal(base_size = 15) +  # Increase base font size for larger plot
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5),
+  ) +
+  labs(
+    x = "",
+    y = "",
+    title = "Boxplots of Scaled Demographic Variables by Cluster"
+  )
 
-# Set up the layout with reduced margins
-par(mfrow = c(6,2), mar = c(2,2,1,2))
+# Convert ggplot to an interactive plot using plotly
+interactive_plot <- ggplotly(p, width = 800, height = 1000)
 
-# Create boxplots for each variable
-for (variable in unique(melted_demographic$variable)) {
-  # Calculate quantiles for each combination of variable and cluster
-  quantiles <- tapply(melted_demographic$value[melted_demographic$variable == variable], melted_demographic$Demographic_cluster[melted_demographic$variable == variable], quantile, c(0.05, 0.95))
-  
-  # Determine ylim for each plot
-  ylim_min <- min(unlist(quantiles))
-  ylim_max <- max(unlist(quantiles))
-  
-  # Create boxplot with custom colors
-  boxplot(value ~ Demographic_cluster, data = melted_demographic[melted_demographic$variable == variable,],
-          main = variable,
-          xlab = "",
-          ylab = variable,
-          ylim = c(ylim_min, ylim_max),
-          col = my_colors,
-          cex = 0.2)
-}
+# Print the interactive plot
+interactive_plot
 ```
 
 The unsupervised clustering method performed on the demographic data of Swiss municipalities return some interesting results.
@@ -285,7 +283,7 @@ par(mar = c(0.001, 4, 4, 2) + 0.1)
 # Subset your dataset to include only the variables used to create the political clusters and the political cluster labels
 political_vars <- select(commune, c("Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
-colnames(political_vars) <- sub("Conseil national - ", "", colnames(cols_commune_politics))
+colnames(political_vars) <- sub("Conseil national - ", "", colnames(political_vars))
 
 # Add political cluster labels
 political_vars$Political_cluster <- cutree(hclust_model_politics, k = 5)
@@ -293,39 +291,28 @@ political_vars$Political_cluster <- cutree(hclust_model_politics, k = 5)
 # Melt the dataset to long format
 melted_political <- melt(political_vars, id.vars = "Political_cluster")
 
-# Define pastel color palette
-pastel_colors <- c("#a6cee3", "#b2df8a", "#fb9a99", "#fdbf6f", "#cab2d6")
+# Create boxplots for each variable using ggplot2 with pastel colors
+p <- ggplot(melted_political, aes(x = as.factor(Political_cluster), y = value, fill = as.factor(Political_cluster))) +
+  geom_boxplot() +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +  # Arrange plots in 2 columns
+  scale_fill_manual(values = pastel_colors) +  # Use pastel color palette
+  theme_minimal(base_size = 15) +  # Increase base font size for larger plot
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5),
+  ) +
+  labs(
+    x = "Political Cluster",
+    y = "",
+    title = "Boxplots of Political Variables by Cluster"
+  )
 
-# Set up the layout with reduced margins
-par(mfrow = c(5, 2), mar = c(3, 3, 1, 1))
+# Convert ggplot to an interactive plot using plotly
+interactive_plot <- ggplotly(p, width = 800, height = 1000)
 
-quantiles <- tapply(melted_political$value, list(melted_political$variable, melted_political$Political_cluster), quantile, c(0.05, 0.95))
+# Print the interactive plot
+interactive_plot
 
-# Flatten the list of quantiles
-all_quantiles <- unlist(quantiles)
-
-# Determine overall ylim range
-ylim_min <- min(all_quantiles)
-ylim_max <- max(all_quantiles)
-
-# Create boxplots for each variable
-for (variable in unique(melted_political$variable)) {
-  # Calculate quantiles for each combination of variable and cluster
-  quantiles <- tapply(melted_political$value[melted_political$variable == variable], melted_political$Political_cluster[melted_political$variable == variable], quantile, c(0.05, 0.95))
-  
-  # Determine ylim for each plot
-  ylim_min <- min(unlist(quantiles))
-  ylim_max <- max(unlist(quantiles))
-  
-  # Create boxplot with pastel colors
-  boxplot(value ~ Political_cluster, data = melted_political[melted_political$variable == variable,],
-          main = variable,
-          xlab = "Political Cluster",
-          ylab = "",
-          ylim = c(ylim_min, ylim_max),
-          col = pastel_colors,
-          cex = 0.2)
-}
 ```
 
 The political clusters are more difficult to interpret than the demographic ones. It is however interesting to note the following points: 
@@ -371,7 +358,7 @@ properties_filtered <- merge(properties_filtered, clusters_df[, c("zip_code", "D
 
 ```
 
-WHY WE DROP ? explain
+Here, we encountered an issue when merging our clusters with the main data set. Indeed, the clusters' municipalities' names and the main data set's municipalities' names were not exactly the same. Trying to merge via the zip codes also resulted in a failure. Given the size of our data set (20k+ rows), and given the heterogeneous reparation of the missing data, we took the decision to remove these 228 rows from our main data set.
 ```{r}
 # Dropping 228 rows containing NAs after the merge (Problem with names)
 
