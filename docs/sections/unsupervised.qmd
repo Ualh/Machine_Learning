@@ -4,7 +4,7 @@
 
 We decided to 
 
-In order to explore the relationship between real estate prices and external factor, we decided to perform three unsupervised clustering methods on fiscal, demographic and political data sets for each Swiss municipalities. The resulting clusters are then included as features of our supervised models, as the municipalities within those clusters follow roughly the same behaviour.
+In order to explore the relationship between real estate prices and external factor, we decided to perform three unsupervised clustering methods on fiscal, demographic and political data sets for each Swiss municipalities. The resulting clusters are then included as features of our supervised models, as the municipalities within those clusters follow roughly the same behavior in these regards.
 
 ## Fiscal clustering
 
@@ -48,7 +48,7 @@ clusters <- kmeans_model$cluster
 
 ```
 
-Here we can see that the optimal number of clusters is 5.
+Here we can see that the optimal number of clusters is either 5 or 7. We decided to stop at 5.
 
 Next, we will interpret the clusters by looking at the cluster centers, the size of each cluster, and the distribution of the variables within each cluster.
 ```{r}
@@ -100,30 +100,6 @@ scaled_tax_vars$Tax_cluster <- impots_cluster$cluster
 # Melt the dataset to long format
 melted_tax <- melt(scaled_tax_vars, id.vars = "Tax_cluster")
 
-my_colors <- c("#a6cee3", "#b2df8a", "#fb9a99", "#fdbf6f", "#cab2d6")
-
-overall_min <- min(melted_tax$value)
-overall_max <- max(melted_tax$value)
-
-dev.new(width = 600, height = 1000)
-
-# Set up the layout for 2 columns and 4 rows
-par(mfrow = c(4, 2))
-
-# Reduce the margin size
-par(mar = c(2, 2, 2, 1)) 
-
-# Create boxplots for each variable
-# Create boxplots for each variable
-for (variable in unique(melted_tax$variable)) {
-  boxplot(value ~ Tax_cluster, data = melted_tax[melted_tax$variable == variable,],
-          main = variable,
-          xlab = "",
-          ylab = "",  # Remove variable name from y-axis
-          ylim = c(overall_min, overall_max),  # Set consistent ylim
-          col = my_colors,
-          cex = 0.2)  # Adjust the cex parameter to increase plot size vertically
-}
 ```
 
 ```{r}
@@ -175,9 +151,9 @@ The fiscal clusters are quite difficult to interpret. A few interesting observat
 
 - Cluster 4 has a very similar behaviour to cluster 2
 
-- Cluster has high cantonal taxes, while having average communal (municipal) taxes
+- Cluster 5 has high cantonal taxes, while having average communal (municipal) taxes. This cluster has overall the highest taxes for individuals
 
-We are however aware that these interpretation, has well as the interpretation given in the following sections fail to emcompass the whole picture. 
+We are however aware that these interpretation, has well as the interpretation given in the following sections fail to encompass the whole picture. Moreover, the clustering ran on all fiscal values fails to capture the difference in attractiveness for individuals and companies (taxes on income/wealth vs on profits).
 
 ## Demographic clustering
 
@@ -228,8 +204,8 @@ p <- ggplot(melted_demographic, aes(x = as.factor(Demographic_cluster), y = valu
   geom_boxplot(outlier.shape = 1) +  # Change outlier point shape
   geom_point(size = 0.2) +  # Adjust the size of data points (smaller size)
   facet_wrap(~ variable, scales = "free", ncol = 2) +  # Arrange plots in 2 columns
-  scale_fill_manual(values = my_colors) +  # Use custom color palette
   theme_minimal(base_size = 15) +  # Increase base font size for larger plot
+  scale_fill_viridis_d() +  # Use viridis color palette
   theme(
     legend.position = "none",
     plot.title = element_text(hjust = 0.5),
@@ -249,18 +225,18 @@ interactive_plot
 
 The unsupervised clustering method performed on the demographic data of Swiss municipalities return some interesting results.
 
-- Our first cluster seems to be for municipalities where a lot of families with children live ("Part du group d'âge 0-19 ans" is high, "Taille moyenne des ménages high)
+- Our first cluster seems to be for municipalities where a lot of families with children live ("Part du group d'âge 0-19 ans" is high, "Taille moyenne des ménages high). Moreover, we can observe the very low values for "Habitants/Densité de la population" (inhabitants, population density). From this, we can infer that cluster 1 encompasses rural municipalities, geared towards families.
 
-- Cluster 2 and 3 are very similar, with a lot of variables showing no special indication. It is however to note that municipalities in cluster 2 have slightly higher population density than cluster 3, with more foreign inhabitants.
+- Cluster 2 and 3 are very similar, with a lot of variables showing no special indication. It is however to note that municipalities in cluster 2 have slightly higher population density than cluster 3, with more foreign inhabitants. We could therefore hypothesize that cluster 2 is more urban that cluster 3.
 
-- Cluster 4 seems to be for municipalities of large cities (Large and dense population, with most of its inhabitants being 20 to 64 years old)
+- Cluster 4 seems to be for municipalities in large cities (Large and dense population, with most of its inhabitants being 20 to 64 years old). We can also note the high share of foreign inhabitants. This value could be explained by the large foreign workforce in large Swiss cities where large corporations and NGOs operate. Moreover, the above-average share of welfare recipients (Taux d'aide sociale) further reinforce the large city hypothesis, where wealth disparities are more prevalent.
 
-- Cluster 5 seems to be for municipalities with an aging population ("Part du groupe d'âge 65+ ans" and "Taux de mortalité" with high values)
+- Cluster 5 seems to be for municipalities with an aging population ("Part du groupe d'âge 65+ ans" and "Taux de mortalité" with high values). The low values in population density further paints the picture of the small rural villages in remote areas. 
 
 
 ## Political clustering
 
-The same process was used for our political data set. The share of each major parties voted for the Conseil National are represented. The only difference was that we did not scale our data, as all features are percentages.
+The same process was used for our political data set, with 5 clusters for the same reasons. The share of each major parties voted for the Conseil National are represented. The only difference was that we did not scale our data, as all features are percentages.
 ```{r}
 # Clustering politics
 
@@ -277,7 +253,6 @@ hclust_model_politics <- hclust(dist_matrix_politics, method = "ward.D2")
 dend_pol <- as.dendrogram(hclust_model_politics)
 dend_pol <- color_branches(dend_pol, k = 5) #Set number of cluster to 5, to keep the same scale for all our variables
 
-par(mar = c(0.001, 4, 4, 2) + 0.1)
 # plot(dend_pol, main = "Politics - Hierarchical Clustering Dendrogram")
 
 # Subset your dataset to include only the variables used to create the political clusters and the political cluster labels
@@ -295,8 +270,8 @@ melted_political <- melt(political_vars, id.vars = "Political_cluster")
 p <- ggplot(melted_political, aes(x = as.factor(Political_cluster), y = value, fill = as.factor(Political_cluster))) +
   geom_boxplot() +
   facet_wrap(~ variable, scales = "free", ncol = 2) +  # Arrange plots in 2 columns
-  scale_fill_manual(values = pastel_colors) +  # Use pastel color palette
   theme_minimal(base_size = 15) +  # Increase base font size for larger plot
+  scale_fill_viridis_d() +  # Use viridis color palette
   theme(
     legend.position = "none",
     plot.title = element_text(hjust = 0.5),
@@ -317,15 +292,15 @@ interactive_plot
 
 The political clusters are more difficult to interpret than the demographic ones. It is however interesting to note the following points: 
 
-- Cluster 1 has average values for most major political parties
+- Cluster 1 has average values for most major political parties, displaying equal strengths across the political spectrum within the municipality.
 
-- Cluster 2 has fairly high value for UDC
+- Cluster 2 has a fairly high value for UDC while the other political parties receive average votes. This paints the picture of municipalities that lean more towards the right.
 
-- Cluster 3 has fairly high values for left-leaning parties (PS, PST) and one center-right party (PLR)
+- Cluster 3 has fairly high values for left-leaning parties (PS, PST) and one center-right party (PLR). This seems to show the opposite behaviour to cluster 2, with a balanced view but leaning towards the left.
 
-- Cluster 4 finds its highest values for PDC and UDC
+- Cluster 4 finds its highest values in PDC and UDC. Municipalities in cluster 4 are therefore very right-leaning.
 
-- Cluster 5's most striking difference is its large distribtion amongst "Petits partis de droite"
+- Cluster 5's most striking difference is its large distribution amongst "Petits partis de droite". We could maybe hypothesize that these municipalities are from the Italian-speaking part of Switzerland, where a lot of small right-wing parties find a lot of support.
 
 ```{r}
 # Preparing df_commune for merging with main dataset

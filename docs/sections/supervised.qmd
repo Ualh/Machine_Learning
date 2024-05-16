@@ -18,7 +18,7 @@ car for diagnostic testing and variance inflation factor (VIF) analysis to detec
 - `ggplot2` and `plotly` for creating visual representations of model diagnostics, predictions, and residuals.
 - `gtsummary` for creating publication-ready tables summarizing regression analysis results.
 
-Each of these tools was chosen for its specific functionality that aids in robust data analysis, ensuring that each step of the model building and evaluation process is well-supported.
+Each of these tools was chosen for its specific functionality that aids in data analysis, ensuring that each step of the model building and evaluation process is well-supported.
 
 ### Linear Regression - With All Prices
 #### Correlation Analysis - Continuous Variable
@@ -59,7 +59,7 @@ We keep the `Tax_cluster` variable in the model for now, as it may provide valua
 ####Basic Model
 ##### Model Building and Evaluation
 
-The dataset was split into training and testing sets to validate the model’s performance. The linear regression model was then fitted using selected predictors:
+The data set was split into training and testing sets to validate the model’s performance. The linear regression model was then fitted using selected predictors:
 ```{r}
 # Model Building
 ## Split the Data
