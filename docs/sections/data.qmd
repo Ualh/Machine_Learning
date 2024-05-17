@@ -176,7 +176,7 @@ table <- kbl(summary_stats, align = rep('c', 6), caption = "Summary statistics f
 table
 ```
 
-### AMTOVZ_CSV_LV95 Data
+## AMTOVZ_CSV_LV95 Data
 The "Official Index of Localities" (Répertoire officiel des localités) is provided by the Swiss Federal Office of Topography (swisstopo). This dataset includes detailed information about all localities in Switzerland and Liechtenstein, such as names, postal codes, and boundaries.
 
 Updated monthly with input from cantonal authorities and Swiss Post, this data set is useful for spatial analysis, integration with other geographic data sets, and use in GIS and CAD systems. It's also valuable for statistical analysis and as a reference for information systems.
@@ -185,6 +185,7 @@ Periodic updates and release notes detail the changes and improvements made. Swi
 
 Source - [swisstopo](https://www.swisstopo.admin.ch/fr/repertoire-officiel-des-localites)
 
+### Wrangling and Cleaning
 #### Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
 
 Here we create a new variable `zip_code` by extracting the zip code from the `address` column in the `properties_filtered` data set. We identify the zip code as a 4-digit number within the address and remove any leading digits if the zip code exceeds 4 digits. We then merge the `zip_code` variable with the `AMTOVZ_CSV_LV95` data set to obtain the corresponding city and canton information for each zip code.
@@ -231,7 +232,7 @@ properties_filtered <- df[!is.na(df$Community),]
 reactable(head(properties_filtered, 100))
 ```
 
-### Tax data
+## Tax data
 
 The Swiss Tax dataset encompasses comprehensive information on income, wealth, profits, and capital taxes for each canton and commune in Switzerland. It provides detailed data on tax rates and regulations, allowing for in-depth analysis and comparison across regions.
 
@@ -241,8 +242,10 @@ This dataset might be useful to see if we have a link between some taxes and the
 Updates and revisions to the dataset are provided periodically, ensuring its accuracy and relevance. The Swiss Federal Tax Administration oversees the distribution and management of this dataset, supporting its role in providing reliable and comprehensive tax information for Switzerland.
 
 The dataset can be found here, take the year 2024 and the corresponding taxes.
-https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates
-#### Cleaning
+
+Source - [swisstaxcalculator](https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates)
+
+### Wrangling and Cleaning
 ```{r impots, warning=FALSE}
 # read csv
 impots <- read.csv(file.path(here(),"data/estv_income_rates.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
@@ -312,8 +315,8 @@ rownames(cleaned_impots) <- rownames(impots)
 
 ```
 
-### Commune Data
-#### Cleaning
+## Commune Data
+###  Wrangling and Cleaning
 
 The Regional Portrait 2021 (Portraits régionaux 2021: chiffres-clés de toutes les communes) is the most recent data set provided by the Swiss Federal Statistical Office, providing key figures for all municipalities in Switzerland. We incorporate this data set in our analysis to include the external environment that may impact the prices of real estate. The completeness and precision of the data makes the cleaning task easier. The outlines of the significant steps are as follows:
 
