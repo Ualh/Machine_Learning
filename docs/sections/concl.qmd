@@ -4,3 +4,30 @@
 * Take home message
 * Limitations
 * Future work?
+
+## Results
+
+TODOS: 
+Present All Results:
+
+- Include both positive and negative results without further data or method descriptions.
+
+Use Subsections:
+
+- Structure the section with subsections for clarity, especially if there are many results.
+
+Highlight Key Figures:
+
+- Show the most interesting and relevant figures in the main results section.
+Use Appendix for Additional Figures:
+
+- Place additional figures (e.g., extensive time series) in the appendix or supplementary material and reference them appropriately.
+Include Technical Interpretations:
+
+- Provide limited technical interpretations of the results, saving broader discussions for the next section.
+
+# Recommendations and Discussion
+
+- Summary of what was observed from the results
+- Implications for the business (link with the context and the initial objectives of the study).
+- Limitations (this may be the subject of a separated section). An opening is often expected here: “What next?” “What can be done for improvement”, etc.?
