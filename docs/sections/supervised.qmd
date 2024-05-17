@@ -596,6 +596,10 @@ p
 
 The points are even more concentrated that for the model with all cantons, indicating that the model performs better in predicting prices for this specific canton range. We still see a spread of points at higher price points, indicating variance in predictions. Which is confirmed by the previous metrics which doesn't change much.
 
+### Conclusion
+
+For our first model, we used a linear regression model to predict property prices based on various features. We evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power. The model does not perform well even if reducing the numbers of canton taken into account.
+
 ## Model 2
 ### Random Forest
 
