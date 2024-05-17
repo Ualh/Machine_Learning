@@ -396,9 +396,9 @@ We then repeat the model building and evaluation process for this filtered datas
 # Model Building
 ## Split the Data
 set.seed(123)  # for reproducibility
-trainIndex <- createDataPartition(properties_filtered_2$price, p=0.8, list=FALSE)
-trainData <- properties_filtered[trainIndex, ]
-testData <- properties_filtered[-trainIndex, ]
+#trainIndex <- createDataPartition(properties_filtered$price, p=0.8, list=FALSE)
+#trainData <- properties_filtered[trainIndex, ]
+# testData <- properties_filtered[-trainIndex, ]
 
 
 ## Fit the Model
@@ -616,13 +616,9 @@ We split the data into training and testing sets, fit the Random Forest model an
 ```{r}
 #split the data in training and test set 0.8/0.2
 set.seed(123)  # for reproducibility
-trainIndex <- createDataPartition(properties_filtered_2$price, p=0.8, list=FALSE)
-trainData <- properties_filtered[trainIndex, ]
-testData <- properties_filtered[-trainIndex, ]
-
-# Remove the "address" column from both datasets
-trainData <- trainData[, !(names(trainData) %in% c("address"))]
-testData <- testData[, !(names(testData) %in% c("address"))]
+#trainIndex <- createDataPartition(properties_filtered$price, p=0.8, list=FALSE)
+#trainData <- properties_filtered[trainIndex, ]
+#testData <- properties_filtered[-trainIndex, ]
 
 
 #apply the RF model as a regression
@@ -719,14 +715,14 @@ EVALUATE MODEL STABILITY
 
 A SUPPRIMER TOO LONG OU TENTER OTHER APPROACH
 ```{r eval=TRUE}
-# Define the tuning grid
 tuneGrid <- expand.grid(mtry = seq(2, sqrt(ncol(trainData)), by = 1))  # Tune over a range of mtry values
 
 # Train the model with tuning
-rf_tuned <- train(price ~ number_of_rooms + square_meters + canton + floor + year_category + Demographic_cluster + Political_cluster+ Tax_cluster, data = trainData, method = "rf", 
+rf_tuned <- train(price ~ number_of_rooms + square_meters + canton + floor + year_category + Demographic_cluster + Political_cluster + Tax_cluster, 
+                  data = trainData, method = "rf", 
                   trControl = trainControl(method = "cv", number = 5, search = "grid"), 
                   tuneGrid = tuneGrid, 
-                  ntree = 1000)
+                  ntree = 500)
 
 # Plotting the tuning effect
 plot(rf_tuned)
