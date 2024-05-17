@@ -8,7 +8,7 @@ source(here("src/setup.R"))
 ## Overview and Motivation
 ### Context and Background
 
-The Swiss real estate market is known for its resilience and complexity, making it an ideal candidate for advanced analytical approaches to understand pricing dynamics. This project, part of a Master’s degree in Machine Learning at the University of Lausanne, aims to leverage data science to predict real estate market prices in Switzerland. This project provides practical and up-to-date insights into real estate valuation.
+The Swiss real estate market is known for its resilience and complexity, making it an ideal candidate for advanced analytical approaches to understand pricing dynamics. This project, part of a Master's degree course in Machine Learning at the University of Lausanne, aims to leverage data science to predict real estate market prices in Switzerland. This project provides practical and up-to-date insights into real estate valuation.
 
 With housing prices fluctuating due to factors like interest rate changes and demographic shifts, ([Credit Suisse](https://www.credit-suisse.com/ch/en/private-clients/mortgages/schweizer-immobilienmarkt-aktuelle-fakten.html)), this study could be valuable for investors, policymakers, and academics alike.
 

@@ -609,7 +609,7 @@ We decided to implement a Random Forest model to compare its performance with th
 
 ##### Data Splitting and Fitting
 We split the data into training and testing sets, fit the Random Forest model and then evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power.
-```{r eval=FALSE}
+```{r}
 #split the data in training and test set 0.8/0.2
 set.seed(123)  # for reproducibility
 trainIndex <- createDataPartition(properties_filtered_2$price, p=0.8, list=FALSE)
@@ -634,12 +634,12 @@ metrics_rf
 
 ##### Evaluation Metrics and Comparison
 Comparing with the best model of the linear regression, we can see that the Random Forest model has a higher R-squared value and lower RMSE and MAE values, indicating better predictive accuracy.
-```{r eval=FALSE}
+```{r}
 metrics_2
 ```
 
 The plot shows the actual vs. predicted prices, with the diagonal line indicating perfect predictions.
-```{r eval=FALSE}
+```{r}
 plot(testData$price ~rf_model.pred_rf, col = 'skyblue',
      xlab = 'Actual Price', ylab = 'Predicted Price',
      main = 'Actual vs Predicted Price')
@@ -651,7 +651,7 @@ abline(0,1, col = 'darkred')
 #### Variable Importance
 ##### Importance of Predictors
 VI plots are a useful tool to understand the relative importance of predictors in the Random Forest model. This plot shows the importance of each predictor in the model, helping to identify key features that drive price predictions.
-```{r eval=FALSE}
+```{r eval=TRUE}
 varImpPlot(rf_model)
 ```
 We see that square_meters is the most important predictor.
@@ -666,7 +666,7 @@ importance(rf_model)
 #### Cross-Validation
 
 A SUPPRIMER TOO LONG OU TENTER OTHER APPROACH
-```{r eval=FALSE}
+```{r eval=TRUE}
 # cv_results_rf <- train(price ~., data=trainData, method="rf", trControl=trainControl(method="cv", number=5))
 # summary(cv_results_rf)
 # 
@@ -683,7 +683,7 @@ EVALUATE MODEL STABILITY
 ##### Tuning Hyperparameters (mtry, ntree)
 
 A SUPPRIMER TOO LONG OU TENTER OTHER APPROACH
-```{r eval=FALSE}
+```{r eval=TRUE}
 # # Define the tuning grid
 # tuneGrid <- expand.grid(mtry = seq(2, sqrt(ncol(trainData)), by = 1))  # Tune over a range of mtry values
 # 
