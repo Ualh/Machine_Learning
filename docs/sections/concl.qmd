@@ -1,38 +1,25 @@
 # Conclusion
 
-In conclusion, our exploration of different models for predicting property prices revealed insights into their strengths, weaknesses, and suitability for the task at hand. 
+This project used data science and machine learning techniques to predict Swiss real estate prices, focusing on data scrapped from ImmoScout24. Through data analysis and model evaluation, several insights and conclusions were drawn:
 
-The first model, based on linear regression, initially seemed promising, offering interpretability and ease of implementation. However, despite efforts to refine the model through feature selection, hyperparameter tuning, and cross-validation, its performance fell short, especially at higher price points. This indicates that the linear regression model may not adequately capture the complex relationships inherent in property price determination.
+## Linear Regression Model:
+- Initially employed, the linear regression model provided moderate explanatory power with an R-squared of 0.493 and an RMSE of 980,302.
+- Model refinement through stepwise regression slightly improved performance but still struggled with higher price points and multicollinearity issues.
+- Simplifying the model by focusing on specific cantons and removing less significant variables improved stability and predictive power, though challenges remained with higher property prices.
 
-In contrast, the Random Forest model provided a more robust alternative, leveraging the power of ensemble learning to capture non-linear relationships and interactions among predictors. This model demonstrated superior predictive accuracy, as evidenced by higher R-squared values and lower RMSE and MAE metrics. Moreover, its ability to handle a wide range of predictors and identify important features through variable importance plots enhanced our understanding of the underlying factors driving property prices.
+## Random Forest Model:
+- The Random Forest model addressed the limitations of linear regression by capturing non-linear relationships, achieving higher accuracy.
+- Performance metrics (higher R-squared and lower RMSE and MAE) indicated better predictive accuracy compared to linear regression but tend to overfit if we are not careful with the data taken
+- Variable importance analysis highlighted square_meters as the most influential predictor, validating its significant impact on property prices.
 
-Despite its advantages, the Random Forest model comes with its own set of challenges, including potential overfitting and limited interpretability compared to linear regression. Additionally, the computational complexity of Random Forest may pose scalability issues with larger datasets.
+## Model Optimization:
+- Both linear regression and Random Forest models were refined through hyperparameter tuning and cross-validation, ensuring robust predictions.
+- Focused analysis on specific cantons and filtering data to a realistic price range further enhanced model performance and reduced overfitting.
 
-Ultimately, the choice of model depends on various factors such as the nature of the data, the desired level of interpretability, and computational constraints. While linear regression offers simplicity and interpretability, Random Forest excels in predictive accuracy and handling complex relationships. Future research could explore hybrid approaches or ensemble methods to harness the strengths of both models and further improve property price predictions.
+## Recommendation
+- For accurate property price predictions, a model tailored to specific cantons and price ranges is more effective, we try with different canton and the prediction was always better but we don't have enough space to show the 17 cantons :)
+- Random Forest models, due to their ability to handle complex, non-linear interactions, are preferred over linear regression models for this task.
 
-## Results
+## Final Thoughts
 
-TODOS: 
-Present All Results:
-
-- Include both positive and negative results without further data or method descriptions.
-
-Use Subsections:
-
-- Structure the section with subsections for clarity, especially if there are many results.
-
-Highlight Key Figures:
-
-- Show the most interesting and relevant figures in the main results section.
-Use Appendix for Additional Figures:
-
-- Place additional figures (e.g., extensive time series) in the appendix or supplementary material and reference them appropriately.
-Include Technical Interpretations:
-
-- Provide limited technical interpretations of the results, saving broader discussions for the next section.
-
-# Recommendations and Discussion
-
-- Summary of what was observed from the results
-- Implications for the business (link with the context and the initial objectives of the study).
-- Limitations (this may be the subject of a separated section). An opening is often expected here: “What next?” “What can be done for improvement”, etc.?
+This study demonstrates the potential of machine learning in predicting real estate prices, providing valuable insights for investors, policymakers, and academics. However, continuous model refinement and incorporation of more diverse data sources could further enhance predictive accuracy and reliability.
