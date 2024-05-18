@@ -1,11 +1,10 @@
 # Data
 
-* Sources
-* Description
-* Wrangling/cleaning
-* Spotting mistakes and missing data (could be part of EDA too)
-* Listing anomalies and outliers (could be part of EDA too)
-
+-   Sources
+-   Description
+-   Wrangling/cleaning
+-   Spotting mistakes and missing data (could be part of EDA too)
+-   Listing anomalies and outliers (could be part of EDA too)
 
 ## Properties Dataset
 
@@ -16,12 +15,13 @@ Source - [ImmoScout24](https://www.immoscout24.ch/en)
 ### Raw dataset
 
 Here is the raw dataset:
+
 ```{r 2, warning=FALSE}
 properties <- read.csv(file.path(here(),"data/properties.csv"))
 # show 1000 first rows of properties using reactable
 
 # show 100 first row of cleaned dataset using reactable
-reactable(head(properties, 2000),
+reactable(head(properties, 500),
           bordered = TRUE,
           striped = TRUE,
           highlight = TRUE,
@@ -35,6 +35,7 @@ reactable(head(properties, 2000),
 The instances in the dataset represent individual property listings. Each row corresponds to a unique listing on ImmoScout24.
 
 Here is the number of observations by canton:
+
 ```{r}
 # Create a tibble with cantons and observations
 observations_table <- tibble(
@@ -59,17 +60,17 @@ observations_table %>%
 
 ```
 
-We have 22136 observations in total, distributed across different cantons in Switzerland. 
+We have 22136 observations in total, distributed across different cantons in Switzerland.
 
 ### Wrangling and Cleaning
 
 The data cleaning process for our dataset involves several careful steps to prepare the data for accurate analysis and modeling. Initially, we identify and address problematic values in the `number_of_rooms` field, where non-numeric entries are detected and marked for further cleaning. The price field is then sanitized to remove any non-numeric characters, ensuring all data in this column represent valid numerical values.
 
-- We exclude properties priced under 20,000 CHF because such low prices are often due to data entry mistakes or listings that do not reflect real market values, which can distort our analysis.
+-   We exclude properties priced under 20,000 CHF because such low prices are often due to data entry mistakes or listings that do not reflect real market values, which can distort our analysis.
 
 Further cleaning includes standardizing addresses by stripping unwanted characters at the beginning, enhancing uniformity across this variable. We remove rows with any NA values to maintain a dataset with complete cases for analysis. For the `square_meters` field, we remove non-digit characters and convert the cleansed string to numeric values, discarding any remaining NA entries from this transformation.
 
-- We remove NA values from the `square_meters` column to ensure that all entries are complete and usable for accurate modeling and analysis. Incomplete data can lead to errors and unreliable results.
+-   We remove NA values from the `square_meters` column to ensure that all entries are complete and usable for accurate modeling and analysis. Incomplete data can lead to errors and unreliable results.
 
 Categorical data in year_category is truncated for consistency and converted into a factor for potential use in modeling. In the `number_of_rooms` field, non-relevant text (like "rooms" or "room") is removed, and we discard erroneous data such as entries mistakenly including "m²" or room counts exceeding 100, which are likely due to data entry oversights. If the number of rooms exceeds 27, we divide the value by ten, assuming these were misreported due to decimal placement errors.
 
@@ -134,9 +135,10 @@ properties_filtered <- properties_filtered[properties_filtered$number_of_rooms !
 ```
 
 Here is the cleaned dataset:
+
 ```{r}
 # show 100 first row of cleaned dataset using reactable
-reactable(head(properties_filtered, 2000),
+reactable(head(properties_filtered, 500),
           bordered = TRUE,
           striped = TRUE,
           highlight = TRUE,
@@ -148,6 +150,7 @@ reactable(head(properties_filtered, 2000),
 ```
 
 Here is a summary of the cleaned dataset:
+
 ```{r}
 # Filter properties_filtered to contain only 'price', 'number_of_rooms', 'square_meters'
 properties_summary <- properties_filtered[, c('price', 'number_of_rooms', 'square_meters')]
@@ -177,6 +180,7 @@ table
 ```
 
 ## AMTOVZ_CSV_LV95 Data
+
 The "Official Index of Localities" (Répertoire officiel des localités) is provided by the Swiss Federal Office of Topography (swisstopo). This dataset includes detailed information about all localities in Switzerland and Liechtenstein, such as names, postal codes, and boundaries.
 
 Updated monthly with input from cantonal authorities and Swiss Post, this data set is useful for spatial analysis, integration with other geographic data sets, and use in GIS and CAD systems. It's also valuable for statistical analysis and as a reference for information systems.
@@ -186,6 +190,7 @@ Periodic updates and release notes detail the changes and improvements made. Swi
 Source - [swisstopo](https://www.swisstopo.admin.ch/fr/repertoire-officiel-des-localites)
 
 ### Wrangling and Cleaning
+
 #### Creating Variable zip_code and merging with AMTOVZ_CSV_LV95
 
 Here we create a new variable `zip_code` by extracting the zip code from the `address` column in the `properties_filtered` data set. We identify the zip code as a 4-digit number within the address and remove any leading digits if the zip code exceeds 4 digits. We then merge the `zip_code` variable with the `AMTOVZ_CSV_LV95` data set to obtain the corresponding city and canton information for each zip code.
@@ -203,6 +208,7 @@ df$zip_code <- ifelse(df$zip_code > 9999, df$zip_code %% 10000, df$zip_code)
 #### Using AMTOVZ_CSV_LV95 to get the city and canton from the zip code
 
 Next, we used the AMTOVZ_CSV_LV95 data set to retrieve additional information such as the city and canton based on the extracted zip codes. This involved the following steps:
+
 ```{r zip}
 #read .csv AMTOVZ_CSV_LV95
 amto <- read.csv(file.path(here(),"data/AMTOVZ_CSV_WGS84.csv"), sep = ";")
@@ -220,24 +226,33 @@ df <- merge(df, amto_df, by = "zip_code", all.x = TRUE)
 #check if there are nan in city
 df[is.na(df$Community),]
 ```
+
 Upon merging, we identified 77 rows where the Community was NA. This could happen for two reasons:
 
-- The zip code extracted from the address did not exist in the amto_df data set.
-- The zip code was incorrectly isolated from the address.
+-   The zip code extracted from the address did not exist in the amto_df data set.
+-   The zip code was incorrectly isolated from the address.
 
 To ensure the integrity of our data, we decided to remove these rows with missing Community values:
+
 ```{r}
 #remove the rows with nan in city
 properties_filtered <- df[!is.na(df$Community),]
-reactable(head(properties_filtered, 100))
+reactable(head(properties_filtered, 100),
+          bordered = TRUE,
+          striped = TRUE,
+          highlight = TRUE,
+          defaultPageSize = 5,
+          showPageSizeOptions = TRUE,
+          showPagination = TRUE,
+          showSortable = TRUE,
+          )
 ```
 
 ## Tax data
 
 The Swiss Tax dataset encompasses comprehensive information on income, wealth, profits, and capital taxes for each canton and commune in Switzerland. It provides detailed data on tax rates and regulations, allowing for in-depth analysis and comparison across regions.
 
-This dataset is sourced from various official authorities, including cantonal tax authorities and the Swiss Federal Tax Administration. It is regularly updated to reflect changes in tax laws, rates, and administrative details at both the cantonal and communal levels.
-This dataset might be useful to see if we have a link between some taxes and the prices of the properties
+This dataset is sourced from various official authorities, including cantonal tax authorities and the Swiss Federal Tax Administration. It is regularly updated to reflect changes in tax laws, rates, and administrative details at both the cantonal and communal levels. This dataset might be useful to see if we have a link between some taxes and the prices of the properties
 
 Updates and revisions to the dataset are provided periodically, ensuring its accuracy and relevance. The Swiss Federal Tax Administration oversees the distribution and management of this dataset, supporting its role in providing reliable and comprehensive tax information for Switzerland.
 
@@ -246,6 +261,7 @@ The dataset can be found here, take the year 2024 and the corresponding taxes.
 Source - [swisstaxcalculator](https://swisstaxcalculator.estv.admin.ch/#/taxdata/tax-rates)
 
 ### Wrangling and Cleaning
+
 ```{r impots, warning=FALSE}
 # read csv
 impots <- read.csv(file.path(here(),"data/estv_income_rates.csv"), sep = ",", header = TRUE, stringsAsFactors = FALSE)
@@ -311,25 +327,35 @@ if (non_numeric > 0) {
 
 rownames(cleaned_impots) <- rownames(impots)
 
-#reactable(head(cleaned_impots, 100))
+reactable(head(cleaned_impots, 100),
+          bordered = TRUE,
+          striped = TRUE,
+          highlight = TRUE,
+          defaultPageSize = 5,
+          showPageSizeOptions = TRUE,
+          showPagination = TRUE,
+          showSortable = TRUE,
+          )
 
 ```
 
 ## Commune Data
-###  Wrangling and Cleaning
+
+### Wrangling and Cleaning
 
 The Regional Portrait 2021 (Portraits régionaux 2021: chiffres-clés de toutes les communes) is the most recent data set provided by the Swiss Federal Statistical Office, providing key figures for all municipalities in Switzerland. We incorporate this data set in our analysis to include the external environment that may impact the prices of real estate. The completeness and precision of the data makes the cleaning task easier. The outlines of the significant steps are as follows:
 
-- We select only the most recent year with complete data (2019).
-- We remove the marked missing values. Either marked as "M = Not indicated because data was not important or applicable" or as "Q = Not indicated to protect confidentiality".
+-   We select only the most recent year with complete data (2019).
+-   We remove the marked missing values. Either marked as "M = Not indicated because data was not important or applicable" or as "Q = Not indicated to protect confidentiality".
 
 The data set comprising of both detailed data and aggregates:
 
-- We remove aggregate values to retain the most information.
+-   We remove aggregate values to retain the most information.
 
 We make the decision to replace the 480 missing values for the "Taux de couverture sociale" variable by the Swiss mean for 2019 (3.2%). These values were marked as missing for reason "Q = Not indicated to protect confidentiality". We are aware that this decision introduces some bias. For example, it could be hypothesized that the Federal Statistic Office had decided to remove the value from public registers above a certain percentage to protect confidentiality and avoid prejudice, therefore distorting our analysis. Nonetheless, we value the information contained in this variable, and therefore, keep it in our model.
 
-- Source - [Federal Statistical Office](https://www.bfs.admin.ch/bfs/fr/home/statistiques/statistique-regions/portraits-regionaux-chiffres-cles/communes.assetdetail.15864461.html)
+-   Source - [Federal Statistical Office](https://www.bfs.admin.ch/bfs/fr/home/statistiques/statistique-regions/portraits-regionaux-chiffres-cles/communes.assetdetail.15864461.html)
+
 ```{r commune, warning=FALSE}
 # il faudra changer le path
 commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
@@ -387,7 +413,15 @@ mean_taux_aide_social <- 3.2
 commune <- commune %>%
   mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
 #show 100 first rows of commune using reactable
-reactable(head(commune, 100))
+reactable(head(commune, 100),
+          bordered = TRUE,
+          striped = TRUE,
+          highlight = TRUE,
+          defaultPageSize = 5,
+          showPageSizeOptions = TRUE,
+          showPagination = TRUE,
+          showSortable = TRUE,
+          )
 
 # commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
 # 
@@ -445,4 +479,3 @@ reactable(head(commune, 100))
 #   mutate(`Sécurité sociale - Taux d'aide sociale` = if_else(is.na(`Sécurité sociale - Taux d'aide sociale`), mean_taux_aide_social, `Sécurité sociale - Taux d'aide sociale`))
 # 
 ```
-

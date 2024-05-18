@@ -42,9 +42,6 @@ The map highlights that properties are well-distributed throughout the region, w
 ## Histogram of prices
 
 ```{r, warning=FALSE}
-
-
-
 # Define breaks for x-axis in millions
 breaks <- seq(0, 25000000, by = 5000000)
 labels <- paste0(breaks/1000000, "Mio")
@@ -73,8 +70,6 @@ interactive_histogram_price <- ggplotly(histogram_price, width = 750, height = 4
 
 # Display the interactive histogram
 interactive_histogram_price
-
-
 ```
 As we can see, 90% of the properties are concentrated between 395590 chf and 3,3 million chf. Feel free zoom on this part of the graph to see the majority of the properties.
 Only 5% worth more than 3,3 million and only 1% of the properties worth more than 6,6 million.
