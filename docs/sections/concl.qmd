@@ -1,9 +1,14 @@
 # Conclusion
 
-* Brief summary of the project
-* Take home message
-* Limitations
-* Future work?
+In conclusion, our exploration of different models for predicting property prices revealed insights into their strengths, weaknesses, and suitability for the task at hand. 
+
+The first model, based on linear regression, initially seemed promising, offering interpretability and ease of implementation. However, despite efforts to refine the model through feature selection, hyperparameter tuning, and cross-validation, its performance fell short, especially at higher price points. This indicates that the linear regression model may not adequately capture the complex relationships inherent in property price determination.
+
+In contrast, the Random Forest model provided a more robust alternative, leveraging the power of ensemble learning to capture non-linear relationships and interactions among predictors. This model demonstrated superior predictive accuracy, as evidenced by higher R-squared values and lower RMSE and MAE metrics. Moreover, its ability to handle a wide range of predictors and identify important features through variable importance plots enhanced our understanding of the underlying factors driving property prices.
+
+Despite its advantages, the Random Forest model comes with its own set of challenges, including potential overfitting and limited interpretability compared to linear regression. Additionally, the computational complexity of Random Forest may pose scalability issues with larger datasets.
+
+Ultimately, the choice of model depends on various factors such as the nature of the data, the desired level of interpretability, and computational constraints. While linear regression offers simplicity and interpretability, Random Forest excels in predictive accuracy and handling complex relationships. Future research could explore hybrid approaches or ensemble methods to harness the strengths of both models and further improve property price predictions.
 
 ## Results
 

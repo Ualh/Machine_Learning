@@ -196,7 +196,9 @@ We observe :
 A Lasso and Ridge regression were also performed to compare the performance of the linear regression model with regularization techniques. 
 We fit both models using cross-validation to determine the optimal lambda (penalty parameter).
 The plots show the lambda selection process for both Lasso and Ridge models.
+
 ```{r Warning=FALSE}
+
 # Convert data frames to matrices for glmnet
 dat_tr_re_mat_x <- as.matrix(trainData[, c("number_of_rooms", "square_meters", "floor", "year_category", "Demographic_cluster", "Political_cluster", "Tax_cluster")])
 dat_tr_re_mat_y <- trainData$price
