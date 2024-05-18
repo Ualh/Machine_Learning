@@ -411,7 +411,7 @@ We then repeat the model building and evaluation process for this filtered datas
 ## Split the Data
 set.seed(123)  # for reproducibility
 trainIndex <- createDataPartition(properties_filtered_2$price, p=0.8, list=FALSE)
-trainData2 <- properties_filtered_2[trainIndex, ]
+testData2 <- properties_filtered_2[trainIndex, ]
 testData2 <- properties_filtered_2[-trainIndex, ]
 
 
@@ -663,6 +663,7 @@ metrics_rf <- kable(data.frame(r_sq_rf, rmse_rf, mae_rf), format = "html", col.n
   add_header_above(c("Random Forest Model Performance Metrics" = 3))
 metrics_rf
 ```
+
 ```{r}
 # Predictions on Training Data
 rf_train_pred <- predict(rf_model, newdata=trainData)
@@ -781,3 +782,89 @@ metrics_rf
 ```
 
 
+### Random Forest 2 - less complex
+
+```{r}
+#filter price on less than 3.3M
+properties_filtered_3 <- properties_filtered_2 %>% filter(price < 3300000)
+# Model Building
+## Split the Data and randomize it
+set.seed(123)  # for reproducibility
+
+trainIndex <- createDataPartition(properties_filtered_3$price, p=0.8, list=FALSE)
+trainData3 <- properties_filtered_3[trainIndex, ]
+testData3 <- properties_filtered_3[-trainIndex, ]
+
+#apply the RF model as a regression
+rf_model <- randomForest(price ~ square_meters + property_type +  year_category  + Political_cluster + Tax_cluster + Demographic_cluster, data=testData3, ntree=500, importance=TRUE)
+rf_model.pred_rf <- predict(rf_model, newdata=testData3)
+
+
+rmse_rf <- sqrt(mean((testData3$price - rf_model.pred_rf)^2))
+mae_rf <- mean(abs(testData2$price - rf_model.pred_rf))
+r_sq_rf <- cor(testData3$price, rf_model.pred_rf)^2
+
+# show those metrics in a html table
+metrics_rf_2 <- kable(data.frame(r_sq_rf, rmse_rf, mae_rf), format = "html", col.names = c("R-Squared", "RMSE", "MAE")) %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
+  add_header_above(c("Random Forest Model Metrics (less complex)" = 3))
+metrics_rf_2
+```
+
+#### Assess Overfitting
+
+```{r}
+#assess overfitting
+# For the Random Forest Model
+rf_train_pred <- predict(rf_model, newdata = trainData3)
+rf_test_pred <- predict(rf_model, newdata = testData3)
+
+# Calculate RMSE and R-squared and Mae for Training Data
+rf_train_rmse <- sqrt(mean((trainData3$price - rf_train_pred)^2))
+rf_train_rsquared <- cor(trainData3$price, rf_train_pred)^2
+rf_train_mae <- mean(abs(trainData3$price - rf_train_pred))
+
+# Calculate RMSE and R-squared for Test Data
+rf_test_rmse <- sqrt(mean((testData3$price - rf_test_pred)^2))
+rf_test_rsquared <- cor(testData3$price, rf_test_pred)^2
+rf_test_mae <- mean(abs(testData3$price - rf_test_pred))
+
+
+# Create a data frame for displaying metrics comparison
+performance_metrics <- data.frame(
+  Model = c("Random Forest"),
+  RMSE_Train = rf_train_rmse,
+  RMSE_Test = rf_test_rmse,
+  Rsquared_Train = rf_train_rsquared,
+  Rsquared_Test = rf_test_rsquared,
+  MAE_Train = rf_train_mae,
+  MAE_Test = rf_test_mae
+)
+# Generate HTML table using kable and apply styling
+kable(performance_metrics, format = "html", col.names = c("Model", "RMSE Train", "RMSE Test", "R-Squared Train", "R-Squared Test", "MAE Train", "MAE Test")) %>%
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))
+```
+
+
+```{r}
+plot(testData3$price ~rf_model.pred_rf, col = 'skyblue',
+     xlab = 'Actual Price', ylab = 'Predicted Price',
+     main = 'Actual vs Predicted Price')
+
+abline(0,1, col = 'darkred')
+```
+
+
+#### Cross-Validation
+```{r}
+## Cross-Validation
+cv_results2 <- train(price ~ square_meters + year_category + property_type + Demographic_cluster +Political_cluster + Tax_cluster, data=trainData3, method="lm", trControl=trainControl(method="cv", number=10))
+summary(cv_results2)
+
+#show the CV result in the html
+metrics_cv3 <- kable(cv_results3$results, format = "html") %>%
+  
+  kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))  %>%
+  add_header_above(c("10 Fold Cross Validation Metrics (less complex)" = 7))
+metric_cv3
+```
