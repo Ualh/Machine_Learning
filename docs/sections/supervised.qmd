@@ -42,7 +42,22 @@ properties2$year_category <- as.factor(properties2$year_category)
 # Convert the factor to numeric scale
 properties2$year_category_numeric <- as.numeric(properties2$year_category)
 
-correlation_matrix <- cor(properties2[ , c("price", "number_of_rooms", "square_meters","property_type_numeric","canton_numeric", "year_category_numeric")], use="complete.obs")
+# Convert canton column to a factor in properties2
+properties2$Demographic_cluster <- as.factor(properties2$Demographic_cluster)
+# Convert the factor to numeric scale
+properties2$Demographic_cluster_numeric <- as.numeric(properties2$Demographic_cluster)
+
+# Convert canton column to a factor in properties2
+properties2$Tax_cluster <- as.factor(properties2$Tax_cluster)
+# Convert the factor to numeric scale
+properties2$Tax_cluster_numeric <- as.numeric(properties2$Tax_cluster)
+
+# Convert canton column to a factor in properties2
+properties2$Political_cluster <- as.factor(properties2$Political_cluster)
+# Convert the factor to numeric scale
+properties2$Political_cluster_numeric <- as.numeric(properties2$Political_cluster)
+
+correlation_matrix <- cor(properties2[ , c("price", "number_of_rooms", "square_meters","property_type_numeric","canton_numeric", "year_category_numeric", "Political_cluster_numeric","Tax_cluster_numeric","Demographic_cluster_numeric")], use="complete.obs")
 corrplot(correlation_matrix, method="square", type="upper", tl.col="black", tl.srt=45, tl.cex=0.8, cl.cex=0.8, addCoef.col="black", number.cex=0.8, order="hclust", hclust.method="complete", tl.pos="lt", tl.offset=0.5, cl.pos="n", cl.length=1.5)
 ```
 
@@ -197,7 +212,7 @@ A Lasso and Ridge regression were also performed to compare the performance of t
 We fit both models using cross-validation to determine the optimal lambda (penalty parameter).
 The plots show the lambda selection process for both Lasso and Ridge models.
 
-```{r Warning=FALSE}
+```{r, warning=FALSE}
 
 # Convert data frames to matrices for glmnet
 dat_tr_re_mat_x <- as.matrix(trainData[, c("number_of_rooms", "square_meters", "floor", "year_category", "Demographic_cluster", "Political_cluster", "Tax_cluster")])
@@ -411,7 +426,7 @@ We then repeat the model building and evaluation process for this filtered datas
 ## Split the Data
 set.seed(123)  # for reproducibility
 trainIndex <- createDataPartition(properties_filtered_2$price, p=0.8, list=FALSE)
-testData2 <- properties_filtered_2[trainIndex, ]
+trainData2 <- properties_filtered_2[trainIndex, ]
 testData2 <- properties_filtered_2[-trainIndex, ]
 
 
@@ -785,8 +800,8 @@ metrics_rf
 ### Random Forest 2 - less complex
 
 ```{r}
-#filter price on less than 3.3M
-properties_filtered_3 <- properties_filtered_2 %>% filter(price < 3300000)
+#filter price on less than 3.3M and year 2016-2024
+properties_filtered_3 <- properties_filtered_2 %>% filter(price < 3300000 & year_category =="2016-2024")
 # Model Building
 ## Split the Data and randomize it
 set.seed(123)  # for reproducibility
@@ -796,7 +811,7 @@ trainData3 <- properties_filtered_3[trainIndex, ]
 testData3 <- properties_filtered_3[-trainIndex, ]
 
 #apply the RF model as a regression
-rf_model <- randomForest(price ~ square_meters + property_type +  year_category  + Political_cluster + Tax_cluster + Demographic_cluster, data=testData3, ntree=500, importance=TRUE)
+rf_model <- randomForest(price ~ square_meters + number_of_rooms + property_type  + Political_cluster + Tax_cluster + Demographic_cluster, data=testData3, ntree=500, importance=TRUE)
 rf_model.pred_rf <- predict(rf_model, newdata=testData3)
 
 
@@ -858,7 +873,7 @@ abline(0,1, col = 'darkred')
 #### Cross-Validation
 ```{r}
 ## Cross-Validation
-cv_results2 <- train(price ~ square_meters + year_category + property_type + Demographic_cluster +Political_cluster + Tax_cluster, data=trainData3, method="lm", trControl=trainControl(method="cv", number=10))
+cv_results3 <- train(price ~ square_meters + year_category + property_type + Demographic_cluster +Political_cluster + Tax_cluster, data=trainData3, method="lm", trControl=trainControl(method="cv", number=10))
 summary(cv_results2)
 
 #show the CV result in the html
@@ -866,5 +881,5 @@ metrics_cv3 <- kable(cv_results3$results, format = "html") %>%
   
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))  %>%
   add_header_above(c("10 Fold Cross Validation Metrics (less complex)" = 7))
-metric_cv3
+metrics_cv3
 ```
