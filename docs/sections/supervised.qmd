@@ -800,8 +800,8 @@ metrics_rf
 ### Random Forest 2 - less complex
 
 ```{r}
-#filter price on less than 3.3M and year 2016-2024
-properties_filtered_3 <- properties_filtered_2 %>% filter(price < 3300000 & year_category =="2016-2024")
+#filter price on less than 3.3M and year 2016-2024 and by canton
+properties_filtered_3 <- properties_filtered_2 %>% filter(price < 3300000 & year_category =="2016-2024" & canton == "Vaud")
 # Model Building
 ## Split the Data and randomize it
 set.seed(123)  # for reproducibility
@@ -810,8 +810,10 @@ trainIndex <- createDataPartition(properties_filtered_3$price, p=0.8, list=FALSE
 trainData3 <- properties_filtered_3[trainIndex, ]
 testData3 <- properties_filtered_3[-trainIndex, ]
 
+#remove canton and demographic clusters
+
 #apply the RF model as a regression
-rf_model <- randomForest(price ~ square_meters + number_of_rooms + property_type  + Political_cluster + Tax_cluster, data=testData3, ntree=500, importance=TRUE)
+rf_model <- randomForest(price ~ square_meters + number_of_rooms + property_type  + Political_cluster +Tax_cluster, data=testData3, ntree=500, importance=TRUE)
 rf_model.pred_rf <- predict(rf_model, newdata=testData3)
 
 
