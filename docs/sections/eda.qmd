@@ -7,10 +7,11 @@ Here we decided to represent the distribution of properties in Switzerland using
 This visualization helps in understanding the geographical spread and density of properties in the dataset.
 
 ```{r}
-# Create a leaflet map with optimized markers
+# Create a leaflet map with optimized markers and default view set to Switzerland
 map <- leaflet(properties_filtered) %>%
   addTiles() %>%  # Add default OpenStreetMap tiles
-  addProviderTiles(providers$Esri.NatGeoWorldMap) %>% # Add topographic maps for context
+  addProviderTiles(providers$Esri.NatGeoWorldMap) %>%  # Add topographic maps for context
+  setView(lng = 8.2, lat = 46.1, zoom = 7.49) %>%  # Set the default view to Switzerland
   addCircleMarkers(
     ~lon, ~lat,
     radius = 1.5,  # Smaller radius for the circle markers
@@ -22,7 +23,8 @@ map <- leaflet(properties_filtered) %>%
                    "Type: ", property_type, "<br>",
                    "Year: ", year_category),
     label = ~paste("Price: ", price)  # Tooltip on hover
-  ) %>% addLegend(
+  ) %>% 
+  addLegend(
     position = "bottomright",  # Position the legend at the bottom right
     colors = "#F97300",  # Use the same color as the markers
     labels = "Properties"  # Label for the legend
@@ -32,6 +34,7 @@ map$width <- "100%"  # Set the width of the map to 100%
 map$height <- 600  # Set the height of the map to 600 pixels
 
 map
+
 ```
 
 The map highlights that properties are well-distributed throughout the region, with fewer properties in the Alpine region, which is expected due to its mountainous terrain. We thus have a good representation of the data across different cantons and locations and we can use it for further analysis.
@@ -66,7 +69,7 @@ histogram_price <- ggplot(properties_filtered, aes(x = price)) +
   scale_x_continuous(breaks = breaks, labels = labels)
 
 # Convert ggplot object to plotly object
-interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 500)
+interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 300)
 
 # Display the interactive histogram
 interactive_histogram_price
@@ -81,7 +84,7 @@ To enhance data visibility, we will focus on the majority of the data between 0 
 
 ### Histogram of prices for each property type
 
-```{r, warning=FALSE, fig.keep="all"}
+```{r, warning=FALSE}
 # Define breaks for x-axis in millions
 breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
@@ -109,7 +112,7 @@ Upon first glance, the majority of property types are valued at less than 3 mill
 
 ### Histogram of prices for each year category
 
-```{r, warning=FALSE, fig.keep="all"}
+```{r, warning=FALSE}
 # Define breaks for x-axis in millions
 breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
@@ -139,7 +142,7 @@ The majority of properties were built between 2016 and 2024. Interestingly, the 
 ### Histogram of prices for each canton
 Here we extend a little bit to better see the difference between Cantons
 
-```{r, warning=FALSE, fig.keep="all"}
+```{r, warning=FALSE}
 # Define breaks for x-axis in millions
 breaks <- seq(0, 5200000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
@@ -170,7 +173,7 @@ The model needs to account for the different distributions of cantons to ensure 
 
 ### Histogram of prices for each number of rooms
 
-```{r, warning=FALSE, fig.keep="all"}
+```{r, warning=FALSE}
 # Define breaks for x-axis in millions
 breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
@@ -200,7 +203,7 @@ And the distribution tends to shift slightly towards higher prices as the number
 ## Histogram of properties by square meters
 To better see the data, we only show the properties with less than 1000 square meters
 
-```{r, warning=FALSE, fig.keep="all"}
+```{r, warning=FALSE}
 # Calculate percentile
 percentile_95 <- quantile(properties_filtered$square_meters, 0.95)
 percentile_05 <- quantile(properties_filtered$square_meters, 0.05)
@@ -218,7 +221,7 @@ histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   xlim(0,1000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 750, height = 1100 )  # Adjust width and height as needed
+interactive_histogram <- ggplotly(histogram, width = 750, height = 600 )  # Adjust width and height as needed
 # Adjust margins to prevent x-axis label from being cut off
 interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
@@ -230,7 +233,8 @@ No surprise here, there are more "small" properties than big ones.
 
 ## Histogram of prices by Tax Cluster
 
-```{r, warning=FALSE, fig.keep="all"}
+```{r, warning=FALSE}
+
 
 # Calculate summary statistics for price by Tax Cluster
 summary_stats <- properties_filtered %>%
@@ -238,6 +242,10 @@ summary_stats <- properties_filtered %>%
   summarise(avg_price = mean(price),
             Q10 = quantile(price, 0.10),
             Q90 = quantile(price, 0.90))
+
+# Define breaks for y-axis in millions
+breaks <- seq(0, 3500000, by = 1000000)
+labels <- paste0(breaks / 1000000, "Mio")
 
 # Plot line plot
 line_plot <- ggplot(summary_stats, aes(x = Tax_cluster)) +
@@ -248,11 +256,12 @@ line_plot <- ggplot(summary_stats, aes(x = Tax_cluster)) +
        x = "Tax Cluster",
        y = "Price in CHF") +
   scale_color_manual(values = c("Mean Price" = "blue", "10th Quartile" = "green", "90th Quartile" = "red")) +
-  theme_minimal()+
-  scale_y_continuous(limits = c(0, 3500000))
+  theme_minimal() +
+  scale_y_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Display the line plot
 line_plot
+
 
 
 
@@ -266,12 +275,19 @@ Based on the results, the clusters 1 and 5 are similar with the mean around 1 mi
 
 ```{r, warning=FALSE}
 
+library(ggplot2)
+library(dplyr)
+
 # Calculate summary statistics for price by Political Cluster
 summary_stats <- properties_filtered %>%
   group_by(Political_cluster) %>%
   summarise(avg_price = mean(price),
             Q10 = quantile(price, 0.10),
             Q90 = quantile(price, 0.90))
+
+# Define breaks for y-axis in millions
+breaks <- seq(0, 3500000, by = 1000000)
+labels <- paste0(breaks / 1000000, "Mio")
 
 # Plot line plot
 line_plot <- ggplot(summary_stats, aes(x = Political_cluster)) +
@@ -283,10 +299,11 @@ line_plot <- ggplot(summary_stats, aes(x = Political_cluster)) +
        y = "Price in CHF") +
   scale_color_manual(values = c("Mean Price" = "blue", "10th Quartile" = "green", "90th Quartile" = "red")) +
   theme_minimal() +
-  scale_y_continuous(limits = c(0, 3500000))
+  scale_y_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Display the line plot
 line_plot
+
 
 
 ```
@@ -303,6 +320,10 @@ summary_stats <- properties_filtered %>%
             Q10 = quantile(price, 0.10),
             Q90 = quantile(price, 0.90))
 
+# Define breaks for y-axis in millions
+breaks <- seq(0, 4000000, by = 1000000)
+labels <- paste0(breaks / 1000000, "Mio")
+
 # Plot line plot
 line_plot <- ggplot(summary_stats, aes(x = Demographic_cluster)) +
   geom_line(aes(y = avg_price, color = "Mean Price")) +
@@ -313,9 +334,10 @@ line_plot <- ggplot(summary_stats, aes(x = Demographic_cluster)) +
        y = "Price in CHF") +
   scale_color_manual(values = c("Mean Price" = "blue", "10th Quartile" = "green", "90th Quartile" = "red")) +
   theme_minimal() +
-  scale_y_continuous(limits = c(0, 4000000))
+  scale_y_continuous(breaks = breaks, labels = labels, limits = c(0, 4000000))
 
 # Display the line plot
 line_plot
+
 
 ```
