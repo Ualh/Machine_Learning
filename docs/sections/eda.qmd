@@ -66,7 +66,7 @@ histogram_price <- ggplot(properties_filtered, aes(x = price)) +
   scale_x_continuous(breaks = breaks, labels = labels)
 
 # Convert ggplot object to plotly object
-interactive_histogram_price <- ggplotly(histogram_price, width = 600, height = 300)
+interactive_histogram_price <- ggplotly(histogram_price, width = 750, height = 400)
 
 # Display the interactive histogram
 interactive_histogram_price
@@ -80,12 +80,27 @@ To enhance data visibility, we will focus on the majority of the data between 0 
 ### Histogram of prices for each property type
 
 ```{r, warning=FALSE}
+
+# Count the number of observations for each property_type
+property_type_counts <- properties_filtered %>%
+  group_by(property_type) %>%
+  summarise(count = n())
+
+# Filter property types with more than 300 observations
+filtered_property_types <- property_type_counts %>%
+  filter(count > 300) %>%
+  pull(property_type)
+
+# Filter the properties_filtered dataset
+filtered_properties <- properties_filtered %>%
+  filter(property_type %in% filtered_property_types)
+
 # Define breaks for x-axis in millions
 breaks <- seq(0, 3500000, by = 1000000)
-labels <- paste0(breaks/1000000, "Mio")
+labels <- paste0(breaks / 1000000, "Mio")
 
 # Create the ggplot object
-histogram <- ggplot(properties_filtered, aes(x = price)) +
+histogram <- ggplot(filtered_properties, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ property_type, scales = "free", ncol = 2) +
   labs(title = "Distribution of Prices by Property Type",
@@ -95,43 +110,49 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
   scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Convert ggplot object to plotly object
-interactive_histogram <- ggplotly(histogram, width = 750, height = 1100)
+interactive_histogram <- ggplotly(histogram, width = 750, height = 600)
 # Adjust margins to prevent x-axis label from being cut off
 interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 
 # Display the interactive plot
 interactive_histogram
 
+
 ```
+We choose to only display the properties type with more than 300 observations, but you can find other type such as rustic house, terrace flat, loft or farm house.
 Upon first glance, the majority of property types are valued at less than 3 million, with apartments and single houses being the most frequent.
 
 ### Histogram of prices for each year category
 
 ```{r, warning=FALSE}
+# Filter data for the year category 2016-2024
+properties_filtered_2016_2024 <- properties_filtered %>% 
+  filter(year_category =="2016-2024")
+
 # Define breaks for x-axis in millions
 breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
 
 # Create a histogram of prices for each year category
-histogram <- ggplot(properties_filtered, aes(x = price)) +
+histogram <- ggplot(properties_filtered_2016_2024, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
   facet_wrap(~ year_category, scales = "free", ncol = 2) +
-  labs(title = "Distribution of Prices by Year Category",
-       x = "Price in Chf",
+  labs(title = "Distribution of Prices by Year Category (2016-2024)",
+       x = "Price in CHF",
        y = "Frequency") +
   theme_minimal() +
   scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Convert ggplot object to plotly object
-interactive_histogram_year <- ggplotly(histogram, width = 750, height = 1100)
+interactive_histogram_year <- ggplotly(histogram, width = 750, height = 300)
 # Adjust margins to prevent x-axis label from being cut off
-interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
+interactive_histogram_year <- layout(interactive_histogram_year, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
 interactive_histogram_year
 
 
 ```
-The majority of properties were built between 2016 and 2024. Interestingly, the distribution remains similar across almost all periods.
+We choose to only show 1 category because the majority of properties were built between 2016 and 2024. And the distribution remains similar across almost all periods so it make sens to only show the relevant graph
 
 
 ### Histogram of prices for each canton
@@ -172,7 +193,7 @@ The model needs to account for the different distributions of cantons to ensure 
 # Define breaks for x-axis in millions
 breaks <- seq(0, 3500000, by = 1000000)
 labels <- paste0(breaks/1000000, "Mio")
-subset_properties <- properties_filtered %>% filter(number_of_rooms <= 15)
+subset_properties <- properties_filtered %>% filter(number_of_rooms <= 12)
 # Create the histogram
 histogram <- ggplot(subset_properties, aes(x = price)) +
   geom_histogram(binwidth = 100000, fill = "skyblue", color = "black") +
@@ -184,7 +205,7 @@ histogram <- ggplot(subset_properties, aes(x = price)) +
   scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 750, height = 1500) 
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1000) 
 # Adjust margins to prevent x-axis label from being cut off
 interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
@@ -192,6 +213,7 @@ interactive_histogram
 
 
 ```
+Note that we didn't show the properties with more than 12 rooms because we have less observations and we understand the tendency with those graphs.
 The majority of properties have between 2,5 and 6,5 rooms.
 And the distribution tends to shift slightly towards higher prices as the number of rooms increases.
 
@@ -216,7 +238,7 @@ histogram <- ggplot(properties_filtered, aes(x = square_meters)) +
   xlim(0,1000)
 
 # Convert ggplot object to plotly object with adjusted height
-interactive_histogram <- ggplotly(histogram, width = 750, height = 600 )  # Adjust width and height as needed
+interactive_histogram <- ggplotly(histogram, width = 750, height = 300 )  # Adjust width and height as needed
 # Adjust margins to prevent x-axis label from being cut off
 interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
 # Display the interactive plot
