@@ -7,18 +7,16 @@
 * Interpretation of the model(s)
 
 ## Model 1
+
 This section provides a comprehensive outline of the linear regression model and analysis methods employed in the study of property price determinants.
 
-### Tools and Software
-The study was conducted using R, a programming language and environment widely recognized for its robust capabilities in statistical computing and graphics. Key packages used include:
+### Tools 
 
-- `corrplot` for visualization of correlation matrices, aiding in preliminary feature selection.
-car for diagnostic testing and variance inflation factor (VIF) analysis to detect multicollinearity among predictors.
-- `caret` for creating training and testing sets, and managing cross-validation processes.
-- `ggplot2` and `plotly` for creating visual representations of model diagnostics, predictions, and residuals.
-- `gtsummary` for creating publication-ready tables summarizing regression analysis results.
+For the linear regression model, R programming language and its packages were used `corrplot` was used for visualizing correlation matrices, `car` for checking multicollinearity through variance inflation factor (VIF), `caret` for managing data splits and cross-validation, `ggplot2` and `plotly` for graphical representations of diagnostics and results, and `gtsummary` for summarizing the regression outcomes in tables. These tools supported each phase of the model, from preliminary analysis to validation.
 
-Each of these tools was chosen for its specific functionality that aids in data analysis, ensuring that each step of the model building and evaluation process is well-supported.
+### Linear Regression
+
+We analyzed property price determinants using linear regression, involving data splitting, correlation analysis for predictor selection, and VIF for multicollinearity checks. The model was refined with stepwise regression, and its performance evaluated using RMSE, MAE, and R-squared through cross-validation to ensure robustness and generalizability.
 
 ### Linear Regression - With All Prices
 #### Correlation Analysis - Continuous Variable
@@ -605,9 +603,16 @@ The points are even more concentrated that for the model with all cantons, indic
 For our first model, we used a linear regression model to predict property prices based on various features. We evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power. The model does not perform well even if reducing the numbers of canton taken into account.
 
 ## Model 2
+
+This section provides a comprehensive outline of the linear regression model and analysis methods employed in the study of property price determinants.
+
+### Tools
+
+The Random Forest model was implemented using R with the `randomForest` package, which facilitated the model fitting and evaluation. Data partitioning was managed by `caret`, ensuring robust training and testing sets. Performance metrics were derived using base R functions and visualizations of variable importance were generated using `varImpPlot` from the randomForest package. Hyperparameter tuning was conducted to optimize the model, enhancing its predictive accuracy and generalizability.
+
 ### Random Forest
 
-We decided to implement a Random Forest model to compare its performance with the linear regression model. Random Forest is an ensemble learning method that builds multiple decision trees during training and outputs the mode of the classes or the mean prediction of the individual trees. This model is known for its robustness and ability to handle complex relationships in the data.
+As an alternative, the Random Forest model addressed non-linear relationships using multiple decision trees, enhancing prediction accuracy and robustness. After data splitting and hyperparameter tuning, predictor importance was assessed, and model stability confirmed with performance metrics like R-squared, RMSE, and MAE through cross-validation.
 
 #### Model Building and Evaluation
 
