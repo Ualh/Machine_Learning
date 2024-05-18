@@ -26,12 +26,34 @@ Each of these tools was chosen for its specific functionality that aids in data 
 Initially, a correlation analysis was conducted to identify and visualize linear relationships between the property prices and potential predictive variables such as the number of rooms and square meters. The correlation matrix was computed and plotted using the `corrplot` package:
 
 ```{r}
-correlation_matrix <- cor(properties_filtered[ , c("price", "number_of_rooms", "square_meters")], use="complete.obs")
+# Create a copy of properties_filtered as properties2
+properties2 <- properties_filtered
+
+# Convert property_type column to a factor in properties2
+properties2$property_type <- as.factor(properties2$property_type)
+# Convert the factor to numeric scale
+properties2$property_type_numeric <- as.numeric(properties2$property_type)
+
+# Convert canton column to a factor in properties2
+properties2$canton <- as.factor(properties2$canton)
+# Convert the factor to numeric scale
+properties2$canton_numeric <- as.numeric(properties2$canton)
+
+# Convert canton column to a factor in properties2
+properties2$year_category <- as.factor(properties2$year_category)
+# Convert the factor to numeric scale
+properties2$year_category_numeric <- as.numeric(properties2$year_category)
+
+correlation_matrix <- cor(properties2[ , c("price", "number_of_rooms", "square_meters","property_type_numeric","canton_numeric", "year_category_numeric")], use="complete.obs")
 corrplot(correlation_matrix, method="square", type="upper", tl.col="black", tl.srt=45, tl.cex=0.8, cl.cex=0.8, addCoef.col="black", number.cex=0.8, order="hclust", hclust.method="complete", tl.pos="lt", tl.offset=0.5, cl.pos="n", cl.length=1.5)
 ```
 
 - We can observe that the correlation between the number of rooms and price (0.46) and square meters and price (0.67) suggests a moderate correlation with the number of rooms and a strong correlation with square meters. 
 - The number of rooms and square meters also have a strong correlation (0.7), indicating potential multicollinearity between these predictors.
+- There is a correlation of 0.28 between the type of properties and price, suggesting a weak positive relationship. 
+- The correlation of 0.08 between canton and price indicates a very weak positive relationship. 
+- Surprisingly, there are almost no correlation (-0.03) between the year category and price.
+- Further analysis reveals that the year category exhibits correlations of -0.31, -0.28, and -0.17 with the type of properties, number of rooms, and square meters, respectively. These negative correlations suggest that as the year category increases, there is a tendency for the type of properties, number of rooms, and square meters to decrease, which may reflect changing trends or market dynamics over time.
 
 #### GVIF (Generalized Variance Inflation Factor)
 ```{r}
