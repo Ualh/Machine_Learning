@@ -180,9 +180,7 @@ dend_demo <- color_branches(dend_demo, k = 5) #Set number of cluster to 5, to ke
 
 par(mar = c(0.001, 4, 4, 2) + 0.1)
 # plot(dend_demo, main = "Demographics - Hierarchical Clustering Dendrogram", xlab = "")
-```
 
-```{r}
 # Interpretaion of demographic clusters
 demographic_vars <- select(commune, -c("REGION", "CODE_REGION", "Conseil national - PLR", "Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite", "Population - Ménages privés"))
 
