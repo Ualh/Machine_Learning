@@ -76,7 +76,7 @@ Categorical data in year_category is truncated for consistency and converted int
 
 Lastly, we enhance the readability and standardization of the canton field by capitalizing each entry, which is important for categorical consistency across the dataset. These steps ensure the dataset’s integrity and readiness for analytical processes, focusing on maintaining a robust, clean, and usable data structure.
 
-```{r}
+```{r, warning=FALSE}
 # Identify values causing the issue
 problematic_values <- properties$number_of_rooms[is.na(as.numeric(properties$number_of_rooms))]
 # Replace non-numeric values with NA
