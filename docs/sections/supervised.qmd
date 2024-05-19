@@ -64,6 +64,7 @@ rm(properties2)
 - Further analysis reveals that the` year category` exhibits correlations of (-0.31), (-0.28), and (-0.17) with the `type of properties`, `number of rooms`, and `square meters`, respectively. These negative correlations suggest that as the `year category` increases, there is a tendency for `the type of properties`, `number of rooms`, and `square meters` to decrease, which may reflect changing trends or market dynamics over time.
 
 #### GVIF (Generalized Variance Inflation Factor)
+
 ```{r}
 properties_filtered
 ## Multicollinearity Check
@@ -154,6 +155,7 @@ No overfitting is observed as the RMSE and R-squared values are similar between 
 ##### Metrics 
 
 Here are the performance metrics for the initial model:
+
 ```{r}
 # print R-squared and Adj R-squared and RMSE and MAE and AIC
 r_sq <- summary(lm_model_1)$r.squared
@@ -301,12 +303,14 @@ We note however, that the Lasso model might also be considered as it shows sligh
 
 Here we compare the performance metrics of the initial model and the stepwise model.
 The metrics of our initial model :
+
 ```{r}
 metrics_1
 ```
 
 
 Stepwise model:
+
 ```{r}
 # print R-squared and Adj R-squared and RMSE and MAE and AIC
 r_sq <- summary(lm_model_2)$r.squared
@@ -330,6 +334,7 @@ Given the minimal differences, the choice between models may depend on the prefe
 Cross-validation was used to assess the model's robustness, typically to avoid overfitting and ensure that the model generalizes well to new data., using the `caret` package to manage this process efficiently. The CV results show metrics like RMSE and R-squared across folds, which indicate the model’s performance stability across different subsets of the data.
 
 10-fold cross-validation Metrics:
+
 ```{r}
 #add + Demographic_cluster +Political_cluster + Tax_cluster after dealing with NAN
 ## Cross-Validation
@@ -345,6 +350,7 @@ metrics_cv_1
 ```
 
 Here are the performance metrics for the stepwise model:
+
 ```{r}
 metrics_2
 ```
@@ -425,6 +431,7 @@ properties_filtered_2 <- properties_filtered_2 %>% filter(canton %in% c("Valais"
 
 #### Model Building and Evaluation
 We then repeat the model building and evaluation process for this filtered dataset to compare the performance with the initial (best) model:
+
 ```{r}
 # Model Building
 ## Split the Data
@@ -506,6 +513,7 @@ kable(results_table, format = "html") %>%
 ##### Metrics 
 
 Here are the performance metrics for the filtered:
+
 ```{r}
 # print R-squared and Adj R-squared and RMSE and MAE and AIC
 r_sq <- summary(lm_model_1.1)$r.squared
@@ -521,6 +529,7 @@ metrics_1.1
 ``` 
 
 Here was the previous metrics of our first Basic model (more complex)
+
 ```{r}
 metrics_2
 ``` 
@@ -528,6 +537,7 @@ metrics_2
 We observe a very slight increase in r-squared, a big drop in RMSE, and a other drop in AIC, indicating that the model may perform better in predicting property prices within this specific canton range.
 
 #### Variable Selection
+
 ```{r}
 # stepwise regression
 lm_model_2.1 <- step(lm_model_1.1)
@@ -550,6 +560,7 @@ We observe no change. The stepwise model retains the same predictors as the init
 ##### Metrics
 
 Here are the performance metrics for the stepwise model with prices between the 10th and 90th percentiles as well as the comparison with the initial model:
+
 ```{r}
 ## Performance Metrics
 r_sq <- summary(lm_model_2.1)$r.squared
@@ -573,6 +584,7 @@ metrics_1.1
 As indicated before, the predictors remain consistent across both models, so the metrics are similar.
 
 #### Cross-Validation
+
 ```{r}
 ## Cross-Validation
 cv_results2 <- train(price ~ square_meters + year_category + property_type + Demographic_cluster +Political_cluster + Tax_cluster, data=trainData2, method="lm", trControl=trainControl(method="cv", number=10))
@@ -587,6 +599,7 @@ metrics_cv2
 ```
 
 Here was the previous metrics of our first Basic Model (without selecting variables) :
+
 ```{r}
 metrics_cv_1
 ```
@@ -602,6 +615,7 @@ metrics_cv_1
 
 #### Model testing
 ##### Residual vs Predicted Prices
+
 ```{r}
 # Model Testing 
 ## Test the Model
@@ -626,6 +640,7 @@ p
 The residual plot for the less compley modeldisplays a similar pattern where a clustering of residuals around the zero line and some extreme outliers.
 
 ##### Actual vs Predicted Prices
+
 ```{r}
 ## Visualization
 gg <- ggplot(data=testData, aes(x=predicted_prices, y=price)) +
@@ -663,6 +678,7 @@ As an alternative, the Random Forest model addressed non-linear relationships us
 #### Model Building and Evaluation
 
 We split the data into training and testing sets, fit the Random Forest model and then evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power.
+
 ```{r}
 #split the data in training and test set 0.8/0.2
 set.seed(123)  # for reproducibility
@@ -716,32 +732,19 @@ kable(performance_metrics, format = "html", col.names = c("Data Set", "RMSE", "M
 
 ##### Evaluation Metrics and Comparison
 Comparing with the best model of the linear regression, we can see that the Random Forest model has a higher R-squared value and lower RMSE and MAE values, indicating better predictive accuracy.
+
 ```{r}
 metrics_2
 ```
 
 The plot shows the actual vs. predicted prices, with the diagonal line indicating perfect predictions.
+
 ```{r}
 plot(testData$price ~rf_model.pred_rf, col = 'skyblue',
      xlab = 'Actual Price', ylab = 'Predicted Price',
      main = 'Actual vs Predicted Price')
 
 abline(0,1, col = 'darkred')
-```
-
-
-#### Variable Importance
-##### Importance of Predictors
-VI plots are a useful tool to understand the relative importance of predictors in the Random Forest model. This plot shows the importance of each predictor in the model, helping to identify key features that drive price predictions.
-```{r eval=TRUE}
-varImpPlot(rf_model)
-```
-We see that square_meters is the most important predictor.
-
-##### Interpretation of Key Features
-```{r}
-# Get the importance of each feature
-importance(rf_model)
 ```
 
 ### Random Forest 2 - less complex
@@ -812,6 +815,7 @@ kable(performance_metrics, format = "html", col.names = c("Model", "RMSE Train",
 This time we can see that the R squared difference between the training and test set is much lower than the previous random forest with the others models.
 Our model explain 61,9% so almost 10% more than the others. 
 Note that even with others splitting of the dataset between the test and the training, the test set is always higher that might indicate some underlying issue in our model
+
 ```{r}
 plot(testData3$price ~rf_model.pred_rf, col = 'skyblue',
      xlab = 'Actual Price', ylab = 'Predicted Price',
@@ -821,6 +825,7 @@ abline(0,1, col = 'darkred')
 ```
 
 #### Cross-Validation
+
 ```{r}
 ## Cross-Validation
 cv_results3 <- train(price ~ square_meters + property_type +Political_cluster + Tax_cluster, data=trainData3, method="lm", trControl=trainControl(method="cv", number=10))
@@ -833,3 +838,48 @@ metrics_cv3 <- kable(cv_results3$results, format = "html") %>%
   add_header_above(c("10 Fold Cross Validation Metrics (less complex)" = 7))
 metrics_cv3
 ```
+
+#### Variable Importance
+
+
+#### Hyperparameter Tuning
+##### Tuning Hyperparameters (mtry, ntree)
+
+```{r}
+tuneGrid <- expand.grid(mtry = seq(2, sqrt(ncol(trainData3)), by = 1))  # Tune over a range of mtry values
+
+# Train the model with tuning
+rf_tuned <- train(price ~ square_meters + number_of_rooms + property_type  + Political_cluster +Tax_cluster, 
+                  data = trainData3, method = "rf", 
+                  trControl = trainControl(method = "cv", number = 5, search = "grid"), 
+                  tuneGrid = tuneGrid, 
+                  ntree = 500)
+
+# Plotting the tuning effect
+plot(rf_tuned)
+# Now, evaluate the tuned model
+rf_model_pred <- predict(rf_tuned, newdata = testData3)
+# Calculate performance metrics
+rmse_rf <- sqrt(mean((testData3$price - rf_model_pred)^2))
+mae_rf <- mean(abs(testData3$price - rf_model_pred))
+r_sq_rf <- cor(testData3$price, rf_model_pred)^2
+# Show metrics
+metrics_rf <- kable(data.frame(R_Squared = r_sq_rf, RMSE = rmse_rf, MAE = mae_rf),
+                    format = "html", col.names = c("R-Squared", "RMSE", "MAE")) %>%
+              kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
+              add_header_above(c("Tuned Random Forest Model Performance Metrics" = 3))
+metrics_rf
+```
+
+
+##### Importance of Predictors
+
+VI plots are a useful tool to understand the relative importance of predictors in the Random Forest model. This plot shows the importance of each predictor in the model, helping to identify key features that drive price predictions.0
+
+```{r eval=TRUE}
+var_imp <- varImp(rf_tuned)
+plot(var_imp)
+```
+
+We see that square_meters is the most important predictor, followed by number_of_rooms. It is interesting to note that, in our simplified model, our Political clusters carry more weight than some of our native variables.
+

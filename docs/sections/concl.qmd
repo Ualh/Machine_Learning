@@ -1,5 +1,9 @@
 # Conclusion
 
+```{r}
+rm(list = ls())
+```
+
 This project used data science and machine learning techniques to predict Swiss real estate prices, focusing on data scrapped from ImmoScout24. Through data analysis and model evaluation, several insights and conclusions were drawn:
 
 ## Linear Regression Model:
@@ -17,7 +21,7 @@ This project used data science and machine learning techniques to predict Swiss 
 - Focused analysis on specific cantons and filtering data to a realistic price range further enhanced model performance and reduced overfitting.
 
 ## Recommendation
-- For accurate property price predictions, a model tailored to specific cantons and price ranges is more effective, we try with different canton and the prediction was always better but we don't have enough space to show the 17 cantons :)
+- For accurate property price predictions, a model tailored to specific cantons, year-categories, and price ranges is more effective. We try with different canton and the prediction was always better but we don't have enough space to show the 17 cantons.
 - Random Forest models, due to their ability to handle complex, non-linear interactions, are preferred over linear regression models for this task.
 
 ## Final Thoughts
