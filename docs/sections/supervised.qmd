@@ -5,7 +5,7 @@ This section provides a comprehensive outline of the linear regression model and
 
 ### Tools 
 
-For the linear regression model, R programming language and its packages were used `corrplot` was used for visualizing correlation matrices, `car` for checking multicollinearity through variance inflation factor (VIF), `caret` for managing data splits and cross-validation, `ggplot2` and `plotly` for graphical representations of diagnostics and results, and `gtsummary` for summarizing the regression outcomes in tables. These tools supported each phase of the model, from preliminary analysis to validation.
+For the linear regression model, R programming language and its packages were used. `corrplot` was used for visualizing correlation matrices, `car` for checking multicollinearity through variance inflation factor (VIF), `caret` for managing data splits and cross-validation, `ggplot2` and `plotly` for graphical representations of diagnostics and results, and `gtsummary` for summarizing the regression outcomes in tables. These tools supported each phase of the model, from preliminary analysis to validation.
 
 ### Linear Regression
 
@@ -75,7 +75,7 @@ kable(vif_values, format = "html") %>%
   kable_styling(full_width = F)
 ```
 
-- No multicollinearity issues are observed for the predictors `number_of_rooms` and `square_meters`, with VIF values below 5 as though they are correlated, the correlation is not strong enough to cause multicollinearity issues.
+- No multicollinearity issues are observed for the predictors `number_of_rooms` and `square_meters`, with VIF values below 5. Despite their correlation, it is not strong enough to cause multicollinearity issues.
 - High VIF Values:
 
     - canton and `Tax_cluster` have VIF values much greater than 10, indicating serious multicollinearity issues. These predictors are highly correlated with other predictors in the model.
@@ -116,7 +116,7 @@ tbl_reg_1
 ```
 
 - Square Meters: The coefficient of 9,149 for square meters is highly significant (p < 0.001), underscoring its importance as a predictor of property price.
-- Property Type: Different property types show varied impacts on price, with some types (like Attic flats and Chalets) **significantly** increasing price, while others (such as Farm houses and Bifamiliar houses) **significantly** decreasing it. Lots of them have none significant p-values and high confidence intervals, indicating that they may not significantly influence property prices.
+- Property Type: Different property types show varied impacts on price, with some types (like Attic flats and Chalets) **significantly increasing** price, while others (such as Farm houses and Bifamiliar houses) **significantly decreasing** it. A large set of them have none significant p-values and high confidence intervals, indicating that they may not significantly influence property prices.
 - Year Category: The coefficients for the year categories are all significantly different from zero (p < 0.001), indicating that the age and era of construction are important factors in predicting property prices.
 - Demographic, Political, and Tax Clusters: These coefficients are significant, suggesting that demographic factors, political, and tax considerations within different clusters significantly affect property prices.
 - Floor : Seems none significant.
@@ -172,9 +172,9 @@ metrics_1
 
 - The model has moderate explanatory power, with an R-Squared of 0.493 and an Adjusted R-Squared of 0.492.
 
-- Prediction accuracy, as indicated by RMSE (980,302) and MAE (491,715), shows that the model's predictions are reasonably close to actual prices but could be improved.
+- Prediction accuracy, as indicated by RMSE (980'302) and MAE (491'715), shows that the model's predictions are reasonably close to actual prices but could be improved.
 
-- The AIC value (500,701) provides a benchmark for comparing with other models
+- The AIC value (500'701) provides a benchmark for comparing with other models
 
 #### Hyperparameter Tuning
 ##### Stepwise Regression
@@ -208,7 +208,6 @@ We observe :
 ##### Lasso and Ridge Regression
 A Lasso and Ridge regression were also performed to compare the performance of the linear regression model with regularization techniques. 
 We fit both models using cross-validation to determine the optimal lambda (penalty parameter).
-The plots show the lambda selection process for both Lasso and Ridge models.
 
 ```{r, warning=FALSE}
 
@@ -355,7 +354,7 @@ Here are the performance metrics for the stepwise model:
 metrics_2
 ```
 
-The 10-fold cross-validation results indicate improved prediction accuracy with a lower RMSE of 955,116 compared to the Stepwise model's RMSE of 980,670. However, the explanatory power is slightly reduced, as shown by a marginally lower R-squared of 0.496 in the cross-validated assessments versus 0.493 in the Stepwise model. These findings suggest that while the model exhibits a stable generalization to new data, it does so with a *slight* compromise in explaining the variance across different data subsets. But the difference is **minimal**.
+The 10-fold cross-validation results indicate improved prediction accuracy with a lower RMSE of 955,116 compared to the Stepwise model's RMSE of 980,670. However, the explanatory power is slightly reduced, as shown by a marginally lower R-squared of 0.496 in the cross-validated assessments versus 0.493 in the Stepwise model. These findings suggest that while the model exhibits a stable generalization to new data, it does so with a *slight* compromise in explaining the variance across different data subsets. But the difference is minimal.
 
 #### Model testing
 
@@ -387,7 +386,7 @@ p <- ggplotly(gg, width = 600, height = 400)
 p
 ```
 
-The residual plot for all cantons shows a pronounced trend of increasing residuals with higher predicted prices, along with more extreme outliers. This indicates potential model misfit or heteroscedasticity issues when considering all cantons. In contrast, 
+The residual plot for all cantons shows a pronounced trend of increasing residuals with higher predicted prices, along with more extreme outliers. This indicates potential model misfit or heteroscedasticity issues when considering all cantons.
 
 ##### Actual vs Predicted Prices
 
@@ -411,7 +410,7 @@ The actual vs. predicted prices plot shows a similar trend, with a wider spread 
 
 ### Linear Regression - Reducing Complexity
 
-To solve this issue of variance at higher price points, we can filter the data to focus on a more specific range of canton. Specifically cantons valais, tessin, vaud, Berne, Fribourg to see if the model performs better within this range.
+To solve this issue of variance at higher price points, we can filter the data to focus on a more specific range of canton. Specifically cantons Valais, Tessin, Vaud, Berne, Fribourg to see if the model performs better within this range.
 
 Indeed, as seen in the EDA section, these cantons have more properties and show similar price distributions.
 
@@ -534,7 +533,7 @@ Here was the previous metrics of our first Basic model (more complex)
 metrics_2
 ``` 
 
-We observe a very slight increase in r-squared, a big drop in RMSE, and a other drop in AIC, indicating that the model may perform better in predicting property prices within this specific canton range.
+We observe a very slight increase in r-squared, a large drop in RMSE, and another drop in AIC, indicating that the model may perform better in predicting property prices within this specific canton range.
 
 #### Variable Selection
 
@@ -611,7 +610,7 @@ metrics_cv_1
 
 - Explanatory Power and Accuracy: 
 
-    - While the more complex model might score slightly better on average in predicting exact values, it's less consistent. This means in some cases it might not perform as expected. On the other hand, the less complex model, although not always as sharp, explains the variations in the data more steadily across different tests.
+    - While the more complex model might score slightly better on average in predicting exact values, it is less consistent. This means in some cases it might not perform as expected. On the other hand, the less complex model, although not always as sharp, explains the variations in the data more steadily across different tests.
 
 #### Model testing
 ##### Residual vs Predicted Prices
@@ -637,7 +636,7 @@ p <- ggplotly(gg, width = 600, height = 400)
 p
 ```
 
-The residual plot for the less compley modeldisplays a similar pattern where a clustering of residuals around the zero line and some extreme outliers.
+The residual plot for the less complex model displays a similar pattern where a clustering of residuals around the zero line and some extreme outliers.
 
 ##### Actual vs Predicted Prices
 
@@ -659,7 +658,7 @@ The same trend is observed in the actual vs. predicted prices plot, with a wider
 
 ### Conclusion
 
-For our first model, we used a linear regression model to predict property prices based on various features. We evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power. The model does not perform well even if reducing the complexity. Especially at higher price points. We have tried to limit the price range to only include prices lower than 3.3 Million (as per the EDA) but the model was even worse. 
+For our first model, we used a linear regression model to predict property prices based on various features. We evaluated the model using performance metrics such as R-squared, RMSE, and MAE to assess its predictive accuracy and explanatory power. Even when the complexity is reduced, especially at higher price points. Especially at higher price points. We have tried to limit the price range to only include prices lower than 3.3 Million (as per the EDA) but the model was even worse. 
 
 Thus we have to consider other models to predict the property prices.
 
