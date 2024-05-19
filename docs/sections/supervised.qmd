@@ -1,11 +1,4 @@
 # Supervised learning
-
-* Data splitting (if a training/test set split is enough for the global analysis, at least one CV or bootstrap must be used)
-* Two or more models 
-* Two or more scores
-* Tuning of one or more hyperparameters per model
-* Interpretation of the model(s)
-
 ## Model 1
 
 This section provides a comprehensive outline of the linear regression model and analysis methods employed in the study of property price determinants.
@@ -16,12 +9,12 @@ For the linear regression model, R programming language and its packages were us
 
 ### Linear Regression
 
-We analyzed property price determinants using linear regression, involving data splitting, correlation analysis for predictor selection, and VIF for multicollinearity checks. The model was refined with stepwise regression, and its performance evaluated using RMSE, MAE, and R-squared through cross-validation to ensure robustness and generalizability.
+We analyzed property price determinants using linear regression, involving data splitting, correlation analysis for predictor selection, and VIF for multicollinearity checks. The model was refined with stepwise regression, lasso and ridge regularization, and its performance evaluated using RMSE, MAE, and R-squared through cross-validation to ensure robustness and generalizability.
 
 ### Linear Regression - With All Prices
 #### Correlation Analysis - Continuous Variable
 
-Initially, a correlation analysis was conducted to identify and visualize linear relationships between the property prices and potential predictive variables such as the number of rooms and square meters. The correlation matrix was computed and plotted using the `corrplot` package:
+Initially, a correlation analysis was conducted to identify and visualize linear relationships between the property prices and potential predictive variables such as the `number of rooms` and `square meters`. The correlation matrix was computed and plotted using the `corrplot` package:
 
 ```{r}
 # Create a copy of properties_filtered as properties2
@@ -63,12 +56,12 @@ corrplot(correlation_matrix, method="square", type="upper", tl.col="black", tl.s
 rm(properties2)
 ```
 
-- We can observe that the correlation between the number of rooms and price (0.46) and square meters and price (0.67) suggests a moderate correlation with the number of rooms and a strong correlation with square meters. 
-- The number of rooms and square meters also have a strong correlation (0.7), indicating potential multicollinearity between these predictors.
-- There is a correlation of 0.28 between the type of properties and price, suggesting a weak positive relationship. 
-- The correlation of 0.08 between canton and price indicates a very weak positive relationship. 
-- Surprisingly, there are almost no correlation (-0.03) between the year category and price.
-- Further analysis reveals that the year category exhibits correlations of -0.31, -0.28, and -0.17 with the type of properties, number of rooms, and square meters, respectively. These negative correlations suggest that as the year category increases, there is a tendency for the type of properties, number of rooms, and square meters to decrease, which may reflect changing trends or market dynamics over time.
+- We can observe that the correlation between the `number of rooms` and `price` (0.46) and `square meters` and `price` (0.67) suggests a moderate correlation with the `number of rooms` and a strong correlation with `square meters`. 
+- The number of `rooms` and` square meters` also have a strong correlation (0.7), indicating potential multicollinearity between these predictors.
+- There is a correlation of (0.28) between the `type of properties` and `price`, suggesting a weak positive relationship. 
+- The correlation of (0.08) between `canton` and `price` indicates a very weak positive relationship. 
+- Surprisingly, there are almost no correlation (-0.03) between the `year category` and `price`.
+- Further analysis reveals that the` year category` exhibits correlations of (-0.31), (-0.28), and (-0.17) with the `type of properties`, `number of rooms`, and `square meters`, respectively. These negative correlations suggest that as the `year category` increases, there is a tendency for `the type of properties`, `number of rooms`, and `square meters` to decrease, which may reflect changing trends or market dynamics over time.
 
 #### GVIF (Generalized Variance Inflation Factor)
 ```{r}
@@ -81,23 +74,24 @@ kable(vif_values, format = "html") %>%
   kable_styling(full_width = F)
 ```
 
-- No multicollinearity issues are observed for the predictors number_of_rooms and square_meters, with VIF values below 5 as though they are correlated, the correlation is not strong enough to cause multicollinearity issues.
+- No multicollinearity issues are observed for the predictors `number_of_rooms` and `square_meters`, with VIF values below 5 as though they are correlated, the correlation is not strong enough to cause multicollinearity issues.
 - High VIF Values:
 
-    - canton and Tax_cluster have VIF values much greater than 10, indicating serious multicollinearity issues. These predictors are highly correlated with other predictors in the model.
+    - canton and `Tax_cluster` have VIF values much greater than 10, indicating serious multicollinearity issues. These predictors are highly correlated with other predictors in the model.
 
 - Moderate VIF Values:
   
-    - Other predictors like number_of_rooms, square_meters, Political_cluster, etc., have VIF values below 5, indicating acceptable multicollinearity.
+    - Other predictors like `number_of_rooms`, `square_meters`, `Political_cluster`, etc., have VIF values below 5, indicating acceptable multicollinearity.
 
 We removed the `canton` variable from the model due to its high VIF value, which could lead to unstable coefficient estimates and unreliable model predictions.
 
 We keep the `Tax_cluster` variable in the model for now, as it may provide valuable information for predicting property prices.
 
-####Basic Model
+#### Basic Model
 ##### Model Building and Evaluation
 
 The data set was split into training and testing sets to validate the model’s performance. The linear regression model was then fitted using selected predictors:
+
 ```{r}
 # Model Building
 ## Split the Data
@@ -120,11 +114,11 @@ tbl_reg_1 <- gtsummary::tbl_regression(lm_model_1)
 tbl_reg_1
 ```
 
-- Significant Predictors of Price:
-
-    - Square meters: The most influential variable with a strong positive effect on price.
-    - Property types: Some types significantly affect prices, with villas and attic flats increasing prices, while single houses and farm houses decrease prices.
-    - Year category: Newer properties consistently have higher prices, with significant positive impacts for all categories compared to the baseline.
+- Square Meters: The coefficient of 9,149 for square meters is highly significant (p < 0.001), underscoring its importance as a predictor of property price.
+- Property Type: Different property types show varied impacts on price, with some types (like Attic flats and Chalets) **significantly** increasing price, while others (such as Farm houses and Bifamiliar houses) **significantly** decreasing it. Lots of them have none significant p-values and high confidence intervals, indicating that they may not significantly influence property prices.
+- Year Category: The coefficients for the year categories are all significantly different from zero (p < 0.001), indicating that the age and era of construction are important factors in predicting property prices.
+- Demographic, Political, and Tax Clusters: These coefficients are significant, suggesting that demographic factors, political, and tax considerations within different clusters significantly affect property prices.
+- Floor : Seems none significant.
 
 ##### Assess Overfitting
 
@@ -223,7 +217,7 @@ dat_tr_re_mat_y <- trainData$price
 dat_te_re_mat_x <- as.matrix(testData[, c("number_of_rooms", "square_meters", "floor", "year_category", "Demographic_cluster", "Political_cluster", "Tax_cluster")])
 dat_te_re_mat_y <- testData$price
 
-#fit lasso and ridge
+# Fit Lasso model using cross-validation
 set.seed(123)  # For reproducibility
 
 # Fit Lasso model
@@ -293,8 +287,15 @@ performance_table_hyp_tune <- kable(performance_df, format = "html") %>%
 # Print the table
 performance_table_hyp_tune
 ```
+The performance metrics of the Ridge, Lasso, and Stepwise regression models on both training and testing sets indicate moderate model effectiveness. RMSE values are relatively high across all models, suggesting that the models' predictions are on average about 950,000 to 1,003,230 units away from the actual values, which may indicate limited predictive accuracy. The MAE values, being lower than the RMSE values, suggest fewer extreme errors in prediction. R-squared values, ranging from 0.464 to 0.493, show that the models explain approximately 46.4% to 49.3% of the variance in the dependent variable, which is moderate but indicates room for improvement in model fit or perhaps exploring more predictive features or different modeling techniques.
 
-The Stepwise model is the preferred choice for predicting property prices based on the provided metrics. It offers the best balance of accuracy and predictive power. Lasso regression is a good alternative, particularly if model simplicity and interpretability are priorities due to its ability to shrink coefficients and eliminate irrelevant features. Ridge regression, while slightly less accurate, provides stable performance and handles multicollinearity well, good for our tax_cluster variable with high VIF.
+
+Among the Ridge, Lasso, and Stepwise regression models evaluated based on the provided metrics, the Stepwise regression model appears to be the preferred choice. 
+
+- Lower RMSE and MAE: The Stepwise model shows the lowest RMSE and MAE values on both the training and testing sets compared to the Ridge and Lasso models, suggesting it has better accuracy and fewer prediction errors.
+- Higher R-squared: It also boasts the highest R-squared values in both training (0.493) and testing (0.480) scenarios, indicating it can explain a higher proportion of variance in the dependent variable than the other models.
+
+We note however, that the Lasso model might also be considered as it shows slightly less overfitting than the others, although the difference in generalization between the training and testing sets is minimal.
 
 ##### Metrics
 
@@ -303,6 +304,7 @@ The metrics of our initial model :
 ```{r}
 metrics_1
 ```
+
 
 Stepwise model:
 ```{r}
@@ -347,7 +349,7 @@ Here are the performance metrics for the stepwise model:
 metrics_2
 ```
 
-The 10-fold cross-validation results indicate improved prediction accuracy with a lower RMSE of 955,116 compared to the Stepwise model's RMSE of 980,670. However, the explanatory power is slightly reduced, as shown by a marginally lower R-squared of 0.496 in the cross-validated assessments versus 0.493 in the Stepwise model. These findings suggest that while the model exhibits a stable generalization to new data, it does so with a *slight* compromise in explaining the variance across different data subsets. But the difference is minimal.
+The 10-fold cross-validation results indicate improved prediction accuracy with a lower RMSE of 955,116 compared to the Stepwise model's RMSE of 980,670. However, the explanatory power is slightly reduced, as shown by a marginally lower R-squared of 0.496 in the cross-validated assessments versus 0.493 in the Stepwise model. These findings suggest that while the model exhibits a stable generalization to new data, it does so with a *slight* compromise in explaining the variance across different data subsets. But the difference is **minimal**.
 
 #### Model testing
 
@@ -454,11 +456,15 @@ tbl_reg_1_vs_1.1
 
 - Consistency and Impact: 
 
-    - Most variables retain their significance and exhibit similar or enhanced predictive power across both models, affirming their robustness as predictors.
+    - Most variables retain their significance and exhibit similar or enhanced predictive power across both models, affirming their robustness as predictors. Like `square_meters`,
 
+- Property Types: 
+
+    - The impact of specific property types like `Chalet` and `Villa` has increased significantly in the reduced complexity model,but the confidence intervals are still wide, indicating some uncertainty in their effects even though less than in the previous model.
+    
 - Shifts in Significance: 
 
-    - Reducing model complexity has led to significant changes in the predictive impact and statistical significance of some variables like `Duplex` and the `1919-1945` (two world war period might explain that) year category, suggesting a potential overestimation or uncertainty in their effects when fewer variables are included
+    - Reducing model complexity has led to significant changes in the predictive impact and statistical significance of some variables like `Duplex` and the `1919-1945` (two world war period might explain that) `year category`, suggesting a potential overestimation or uncertainty in their effects when fewer variables are included
 
 #### Assess Overfitting
 
@@ -510,7 +516,7 @@ aic <- AIC(lm_model_1.1)
 # show those metrics in a html table
 metrics_1.1 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html", col.names = c("R-Squared", "Adjusted R-Squared", "RMSE", "MAE", "AIC")) %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
-  add_header_above(c("Basic Model Performance Metrics (less comple)" = 5))  
+  add_header_above(c("Basic Model Performance Metrics (less complex)" = 5))  
 metrics_1.1
 ``` 
 
@@ -554,7 +560,7 @@ aic <- AIC(lm_model_2.1)
 # show those metrics in a html table
 metrics_2.1 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html", col.names = c("R-Squared", "Adjusted R-Squared", "RMSE", "MAE", "AIC")) %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
-  add_header_above(c("Stepwise Model Performance Metrics (Selected Canton)" = 5))
+  add_header_above(c("Stepwise Model Performance Metrics (Less Complex)" = 5))
 metrics_2.1
 ```
 
@@ -580,7 +586,7 @@ metrics_cv2 <- kable(cv_results2$results, format = "html") %>%
 metrics_cv2
 ```
 
-Here was the previous metrics of our first Basic Model (without selectig for Cantons) :
+Here was the previous metrics of our first Basic Model (without selecting variables) :
 ```{r}
 metrics_cv_1
 ```
