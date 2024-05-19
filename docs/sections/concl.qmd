@@ -25,7 +25,7 @@ This project used data science and machine learning techniques to predict Swiss 
 
 ## Recommendation and Discussion
 
-- **Observations : ** For accurate property price predictions, a model tailored to specific cantons, year-categories, and price ranges is more effective. Though we tested different cantons, constraints prevented us from detailing all 26 cantons and combined with all 11 year category, would prove to be too computationally heavy.
+- **Observations : ** For accurate property price predictions, a model tailored to specific cantons, year-categories, and price ranges is more effective. Constraints prevented us from detailing all 26 cantons and combined with all 11 year category, as it would prove to be too computationally heavy.
 - **Business Implications : **Tailored models are recommended to accurately predict property prices, offering crucial insights for real estate investors and policymakers.
 - **Limitations and Future Directions:** While effective, the models require continuous refinement and expansion of the dataset to include a wider range of variables. Further research could explore the integration of economic indicators, a time-series analyiss, and extend the analysis to other regions or sectors. Future research could explore incorporating additional variables, other models, and employing newer analytical methods, such as Deep Learning Techniques or Geospatial Analysis, to enhance the models accuracy and applicability.
 

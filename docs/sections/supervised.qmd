@@ -406,7 +406,6 @@ p <- ggplotly(gg, width = 600, height = 400)
 p
 ```
 
-The actual vs. predicted prices plot shows a similar trend, with a wider spread of points at higher price points, indicating that the model may not perform as well in predicting prices for more expensive properties.
 
 ### Linear Regression - Reducing Complexity
 
@@ -574,7 +573,7 @@ metrics_2.1 <- kable(data.frame(r_sq, adj_r_sq, rmse, mae, aic), format = "html"
 metrics_2.1
 ```
 
-Here was the previous metrics of our Basic Model (without Stepwise Integration)
+Here was the previous metrics of our Basic Model (without selecting variables)
 
 ```{r}
 metrics_1.1
@@ -699,10 +698,8 @@ r_sq_rf <- cor(testData$price, rf_model.pred_rf)^2
 metrics_rf <- kable(data.frame(r_sq_rf, rmse_rf, mae_rf), format = "html", col.names = c("R-Squared", "RMSE", "MAE")) %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed")) %>%
   add_header_above(c("Random Forest Model Performance Metrics" = 3))
-metrics_rf
-```
+# metrics_rf
 
-```{r}
 # Predictions on Training Data
 rf_train_pred <- predict(rf_model, newdata=trainData)
 
@@ -736,16 +733,12 @@ On the test set, the model's R-squared value drops significantly to 0.770, expla
 
 This substantial difference in performance metrics between the training and test sets suggests that the model is overfitting. Overfitting occurs when a model learns the training data too well, including its noise and outliers, but fails to generalize to new, unseen data. The Random Forest model captures the complexity of the training data, but this complexity does not transfer well to the test data, leading to poorer performance.
 
+
 ##### Evaluation Metrics and Comparison
-Comparing with the best model of the linear regression, we can see that the Random Forest model has a higher R-squared value and lower RMSE and MAE values, indicating better predictive accuracy.
 
 ```{r}
-metrics_2
-```
+# metrics_2
 
-The plot shows the actual vs. predicted prices, with the diagonal line indicating perfect predictions.
-
-```{r}
 plot(testData$price ~rf_model.pred_rf, col = 'skyblue',
      xlab = 'Actual Price', ylab = 'Predicted Price',
      main = 'Actual vs Predicted Price')
@@ -753,10 +746,11 @@ plot(testData$price ~rf_model.pred_rf, col = 'skyblue',
 abline(0,1, col = 'darkred')
 ```
 
-The graph indicates that while there is a general correlation between actual and predicted prices, the model's accuracy diminishes for higher-priced items, leading to greater prediction errors in this range. That's a reason to build a other model with a specific range of prices.
+The graph shows a general correlation between actual and predicted prices. However, the model's accuracy diminishes for higher-priced items, leading to greater prediction errors in this range.
 
 ### Random Forest 2 - less complex
-To minimize the mulcolinearity of some variables, we choose to focus on 1 canton, Vaud for the properties between 2016-2024 and the price less than 3,3 million. We could obviously take a other canton. The goal is to see if the prediction of the new model can be better if we take a subset more homogeneous.
+
+To reduce the overfitting issue, we choose to train our model on a single canton (Vaud), for properties built between 2016 and 2024, and for prices between CHF 0 and CHF 3.3 Million. The goal is to assess the prediction power of the new model with a more homogeneous subset of data
 
 ```{r}
 #filter price on less than 3.3M and year 2016-2024 and by canton
@@ -820,10 +814,8 @@ performance_metrics <- data.frame(
 kable(performance_metrics, format = "html", col.names = c("Model", "RMSE Train", "RMSE Test", "R-Squared Train", "R-Squared Test", "MAE Train", "MAE Test")) %>%
   kable_styling(position = "center", bootstrap_options = c("striped", "bordered", "hover", "condensed"))
 ```
-The performance metrics for the Random Forest model indicate its predictive capability on both the training and test datasets. The model achieves a Root Mean Squared Error (RMSE) of 416,285 on the training set and 352,086 on the test set. The R-squared values are 0.619 for the training set and 0.66 for the test set, suggesting the model explains 61.9% of the variance in the training data and 66% in the test data. The Mean Absolute Error (MAE) is 307,292 for the training set and 271,968 for the test set. These results show that the model performs slightly better on the test data, with lower RMSE and MAE values and a higher R-squared value, indicating good generalization but also a potential overfit to the training data.
-This time we can see that the R squared difference between the training and test set is much lower than the previous random forest with the others models.
-Our model explain 61,9% so almost 10% more than the others. 
-Note that even with others splitting of the dataset between the test and the training, the test set is always higher that might indicate some underlying issue in our model
+
+The performance metrics for the Random Forest model indicate its predictive capability on both the training and test data sets. The model achieves a Root Mean Squared Error (RMSE) of 416'285 on the training set and 352'086 on the test set. The R-squared values are 0.619 for the training set and 0.66 for the test set, suggesting the model explains 61.9% of the variance in the training data and 66% in the test data. The Mean Absolute Error (MAE) is 307'292 for the training set and 271,968 for the test set. These results show that the model performs slightly better on the test data, with lower RMSE and MAE values and a higher R-squared value, indicating good generalization but also potential underlying issues within our model.
 
 ```{r}
 plot(testData3$price ~rf_model.pred_rf, col = 'skyblue',
@@ -832,9 +824,10 @@ plot(testData3$price ~rf_model.pred_rf, col = 'skyblue',
 
 abline(0,1, col = 'darkred')
 ```
-The data points are more concentrated around the dark red line compared to the previous graph, suggesting a somewhat closer alignment between actual and predicted prices in this range. However, the scatter around the line indicates that there are still discrepancies
-This graph indicates that while the model has a reasonable predictive power, there is room for improvement, especially in reducing overestimation for higher-priced items and addressing the underestimation in the lower price range.
-But comparing to the previous model, it's better.
+
+The data points are more concentrated around the dark red line compared to the previous graph, suggesting a closer alignment between actual and predicted prices in this range. However, the scatter around the line indicates the presence of some remaining discrepancies.
+
+This graph indicates that while the model has a reasonable predictive power, there is room for improvement, especially in reducing overestimation for higher-priced items and addressing the underestimation in the lower price range. It is however a large improvment compared to our more complex model.
 
 #### Cross-Validation
 
@@ -851,11 +844,9 @@ metrics_cv3 <- kable(cv_results3$results, format = "html") %>%
 metrics_cv3
 ```
 
-The model explains about 51.8% of the variance in the outcome variable, as indicated by the R-squared value from cross-validation. The RMSE of 564,412 and MAE of 319,816 suggest that while the model has a reasonable fit, there is still a significant amount of unexplained variance. The high standard deviations for RMSE and R-squared indicate variability in model performance across different folds, highlighting potential instability.
+The model explains about 51.8% of the variance in the outcome variable, as indicated by the R-squared value from cross-validation. The RMSE of 564'412 and MAE of 319'816 suggest that while the model has a reasonable fit, there is still a significant amount of unexplained variance. The high standard deviations for RMSE and R-squared indicate variability in model performance across different folds, highlighting potential instability.
 
 In summary, the model identifies several significant predictors of the outcome variable, with square_meters, property_typeFarm house, property_typeSingle house, property_typeVilla, and Political_cluster being the most influential.
-
-It decrease from the random forest model so...
 
 #### Variable Importance
 
