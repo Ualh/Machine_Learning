@@ -731,7 +731,7 @@ The model's R-squared value on the training set is 0.958, indicating an excellen
 
 On the test set, the model's R-squared value drops significantly to 0.770, explaining only 77.0% of the variance in the test data. Additionally, the RMSE and MAE values increase to 666,553 and 322,086, respectively, indicating a substantial drop in prediction accuracy.
 
-This substantial difference in performance metrics between the training and test sets suggests that the model is overfitting. Overfitting occurs when a model learns the training data too well, including its noise and outliers, but fails to generalize to new, unseen data. The Random Forest model captures the complexity of the training data, but this complexity does not transfer well to the test data, leading to poorer performance.
+This substantial difference in performance metrics between the training and test sets suggests that the model is severly overfitting. Overfitting occurs when a model learns the training data too well, including its noise and outliers, but fails to generalize to new, unseen data. The Random Forest model captures the complexity of the training data, but this complexity does not transfer well to the test data, leading to poorer performance.
 
 
 ##### Evaluation Metrics and Comparison
@@ -746,11 +746,11 @@ plot(testData$price ~rf_model.pred_rf, col = 'black',
 abline(0,1, col = 'blue')
 ```
 
-The graph shows a general correlation between actual and predicted prices. However, the model's accuracy diminishes for higher-priced items, leading to greater prediction errors in this range.
+As seen in the linear regression, this plot demonstrates a similar pattern  where the model accurately predicts lower-priced properties, but it's predictions for higher-priced properties are less accurate, indicating a need for further model refinement.
 
 ### Random Forest 2 - less complex
 
-To reduce the overfitting issue, we choose to train our model on a single canton (Vaud), for properties built between 2016 and 2024, and for prices between CHF 0 and CHF 3.3 Million. The goal is to assess the prediction power of the new model with a more homogeneous subset of data
+To reduce the overfitting issue, we tested various model as per the linear regression (less complex) one which still did not solve the issue. We then choose to train our model on a single canton (Vaud), for properties built between 2016 and 2024, and for prices between CHF 0 and CHF 3.3 Million. The goal is to assess the prediction power of the new model with a more homogeneous subset of data.
 
 ```{r}
 #filter price on less than 3.3M and year 2016-2024 and by canton
@@ -848,9 +848,6 @@ The model explains about 52.5% of the variance in the outcome variable, as indic
 
 In summary, the model identifies several significant predictors of the outcome variable, with `square_meters`, `property_type`, `Farm house`, `property_type`,` Single house`, `property_type`, `Villa`, and `Political_cluster` being the most influential.
 
-#### Variable Importance
-
-
 #### Hyperparameter Tuning
 ##### Tuning Hyperparameters (mtry, ntree)
 
@@ -866,6 +863,12 @@ rf_tuned <- train(price ~ square_meters + number_of_rooms + property_type  + Pol
 
 # Plotting the tuning effect
 plot(rf_tuned)
+```
+
+The graph displays the RMSE of a less complex random forest model decreasing as the number of randomly selected predictors increases from 2 to 4, during cross-validation. The steepest drop in RMSE occurs between 2 and 3 predictors, suggesting a significant improvement in model accuracy with the addition of the third predictor. After this point, gains in accuracy diminish, indicating that three predictors might provide an optimal balance between model complexity and predictive accuracy, while additional predictors offer minimal further benefits. This trend can guide the tuning of model complexity to enhance generalization without overfitting.
+
+```{r}
+
 # Now, evaluate the tuned model
 rf_model_pred <- predict(rf_tuned, newdata = testData3)
 # Calculate performance metrics
@@ -879,6 +882,8 @@ metrics_rf <- kable(data.frame(R_Squared = r_sq_rf, RMSE = rmse_rf, MAE = mae_rf
               add_header_above(c("Tuned Random Forest Model Performance Metrics" = 3))
 metrics_rf
 ```
+
+The hyperparameter tuning further refined the model, achieving a post-tuning R-squared of 0.603, which, while slightly lower than the test set performance pre-tuning, still shows a solid understanding of the underlying data dynamics. The RMSE and particularly the MAE improved significantly post-tuning, highlighting the effectiveness of adjusting the model parameters.
 
 
 ##### Importance of Predictors

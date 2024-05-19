@@ -17,6 +17,7 @@ This project used data science and machine learning techniques to predict Swiss 
 - The Random Forest model addressed the limitations of linear regression by capturing non-linear relationships, achieving higher accuracy.
 - Performance metrics (higher R-squared and lower RMSE and MAE) indicated better predictive accuracy compared to linear regression but tend to overfit if we are not careful with the data taken
 - After varied tests, reducing the model complexity by focusing on specific cantons and year categories improved the performance and reduced overfitting
+- The hyperparameter-tuned model stands out as the superior option, primarily due to the strategic adjustment of the number of variables considered for splitting at each leaf node (mtry), which significantly enhances the model's generalization capabilities from training to unseen test data, thereby optimizing performance metrics like RMSE, MAE, and R-squared.
 - Variable importance analysis highlighted square_meters as the most influential predictor, validating its significant impact on property prices.
 
 ### Model Optimization:
