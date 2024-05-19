@@ -844,9 +844,9 @@ metrics_cv3 <- kable(cv_results3$results, format = "html") %>%
 metrics_cv3
 ```
 
-The model explains about 51.8% of the variance in the outcome variable, as indicated by the R-squared value from cross-validation. The RMSE of 564'412 and MAE of 319'816 suggest that while the model has a reasonable fit, there is still a significant amount of unexplained variance. The high standard deviations for RMSE and R-squared indicate variability in model performance across different folds, highlighting potential instability.
+The model explains about 52.5% of the variance in the outcome variable, as indicated by the R-squared value from cross-validation. The RMSE of 558'770 and MAE of 320'632 suggest that while the model has a reasonable fit, there is still a significant amount of unexplained variance. The high standard deviations for RMSE and R-squared indicate variability in model performance across different folds, highlighting potential instability.
 
-In summary, the model identifies several significant predictors of the outcome variable, with square_meters, property_typeFarm house, property_typeSingle house, property_typeVilla, and Political_cluster being the most influential.
+In summary, the model identifies several significant predictors of the outcome variable, with `square_meters`, `property_type`, `Farm house`, `property_type`,` Single house`, `property_type`, `Villa`, and `Political_cluster` being the most influential.
 
 #### Variable Importance
 
