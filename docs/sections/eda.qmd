@@ -355,6 +355,9 @@ line_plot <- ggplot(summary_stats, aes(x = Demographic_cluster)) +
 
 # Display the line plot
 line_plot
+all_objects <- ls()
 
+# Remove all objects except 'properties_filtered'
+rm(list = setdiff(all_objects, "properties_filtered"))
 
 ```

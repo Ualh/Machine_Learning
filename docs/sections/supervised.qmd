@@ -59,6 +59,8 @@ properties2$Political_cluster_numeric <- as.numeric(properties2$Political_cluste
 
 correlation_matrix <- cor(properties2[ , c("price", "number_of_rooms", "square_meters","property_type_numeric","canton_numeric", "year_category_numeric", "Political_cluster_numeric","Tax_cluster_numeric","Demographic_cluster_numeric")], use="complete.obs")
 corrplot(correlation_matrix, method="square", type="upper", tl.col="black", tl.srt=45, tl.cex=0.8, cl.cex=0.8, addCoef.col="black", number.cex=0.8, order="hclust", hclust.method="complete", tl.pos="lt", tl.offset=0.5, cl.pos="n", cl.length=1.5)
+
+rm(properties2)
 ```
 
 - We can observe that the correlation between the number of rooms and price (0.46) and square meters and price (0.67) suggests a moderate correlation with the number of rooms and a strong correlation with square meters. 
