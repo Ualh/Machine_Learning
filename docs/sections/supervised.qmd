@@ -811,7 +811,7 @@ kable(performance_metrics, format = "html", col.names = c("Model", "RMSE Train",
 ```
 This time we can see that the R squared difference between the training and test set is much lower than the previous random forest with the others models.
 Our model explain 61,9% so almost 10% more than the others. 
-Note that even with others splitting of the dataset between the test and the training, the test set is always higher that might indicate that our model isn't perfect
+Note that even with others splitting of the dataset between the test and the training, the test set is always higher that might indicate some underlying issue in our model
 ```{r}
 plot(testData3$price ~rf_model.pred_rf, col = 'skyblue',
      xlab = 'Actual Price', ylab = 'Predicted Price',
