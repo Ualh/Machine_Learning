@@ -161,7 +161,7 @@ Then, we performed a hierarchical clustering. First, the data was scaled (some f
 
 As the optimal number of clusters for the fiscal data set was determined to be 5, we decided to continue our analysis of the two other data sets with 5 clusters in order to keep the same scale (even though categorical) for the 3 features resulting from the unsupervised clustering.
 
-```{r}
+```{r, warning=FALSE}
 # Clustering demographic
 cols_commune_demographic <- select(commune, -c("REGION", "CODE_REGION","Conseil national - PLR","Conseil national - PDC", "Conseil national - PS", "Conseil national - UDC", "Conseil national - PEV/PCS", "Conseil national - PVL", "Conseil national - PBD", "Conseil national - PST/Sol.", "Conseil national - PES", "Conseil national - Petits partis de droite"))
 
@@ -340,6 +340,12 @@ na_rows <- subset(properties_filtered, is.na(Demographic_cluster) | is.na(Politi
 
 # Drop the NA rows
 properties_filtered <- anti_join(properties_filtered, na_rows, by = "zip_code")
+
+all_objects <- ls()
+
+# Remove all objects except 'properties_filtered'
+rm(list = setdiff(all_objects, "properties_filtered"))
+
 ```
 
 

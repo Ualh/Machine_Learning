@@ -1,9 +1,10 @@
 ---
-title: My ML Project
+title: ML Project
 author:
- - Name I, First Name I
- - Name II, First Name II
-institute : Name of the University
+ - Urs Hurni
+ - Hugo Troendle
+ - Léo Wenger
+institute : University of Lausanne
 date: today
 title-block-banner: "#0095C8" #chosen for the university of lausanne
 format:
@@ -20,7 +21,7 @@ abstract: |
  The following machine learning project focuses on...
 ---
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, warning= FALSE}
 # loading all the necessary packages
 library(here)
 source(here("src/setup.R"))

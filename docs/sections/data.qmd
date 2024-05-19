@@ -422,7 +422,12 @@ reactable(head(commune, 100),
           showPagination = TRUE,
           showSortable = TRUE,
           )
-
+rm(amto)
+rm(commune_prep)
+rm(commune_2019)
+rm(df)
+rm(observations_table)
+rm(summary_stats)
 # commune_prep <- read.csv(file.path(here(),"data/commune_data.csv"), sep = ";", header = TRUE, stringsAsFactors = FALSE)
 # 
 # # We keep only 2019 to have some reference? (2020 is apparently not really complete)
