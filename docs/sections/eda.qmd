@@ -74,7 +74,7 @@ interactive_histogram_price
 As we can see, 90% of the properties are concentrated between CHF 395590 and CHF 3,3 million. Feel free zoom on this part of the graph to see the majority of the properties. Only 5% of the data is worth more than CHF 3,3 million and only 1% of the properties are worth more than CHF 6,6 million.
 
 ## Price between 0 and 3,5 millions
-To enhance data visibility, we will focus on the majority of the data between 0 and 3,5 million, while filtering out outliers.
+To enhance data visibility, we will focus on the majority of the data between 0 and 3,5 million, to filter out outliers.
 
 ### Histogram of prices for each property type
 
@@ -118,6 +118,7 @@ interactive_histogram
 
 
 ```
+
 We choose to only display the properties type with more than 300 observations. However, please not that our data set contains other types, such as rustic house, terrace flat, loft or farm house.
 The majority of property types seem to be valued at less than CHF 3 million, with apartments and single houses being the most frequent.
 
@@ -184,7 +185,7 @@ interactive_histogram
 
 ```
 Compared to other cantons, Geneva has a distinct distribution with many properties worth more than CHF 2 million.
-The canton of Vaud, Valais, Tessin, Bern, and Fribourg are where the majority of the listed properties are concentrated in our data set.Their distribution show that the majority of properties are worth between 0,4 and 2 million.
+The canton of Vaud, Valais, Tessin, Bern, and Fribourg are where the majority of the listed properties are concentrated in our data set.Their distribution show that the majority of properties are worth between 0,4 million and 2 million chf.
 
 We can note that our model may be biased towards Cantons with more extensive data availability.
 
@@ -215,7 +216,7 @@ interactive_histogram
 
 ```
 
-Here are the distribution of prices per number of rooms. Please note that we didn't display the properties with more than 12 rooms as the number of observations for these are very scattered.
+Here is the distribution of prices per number of rooms. Please note that we didn't display the properties with more than 12 rooms as the number of observations for these are very scattered.
 
 The majority of properties have between 2,5 and 6,5 rooms, and the distribution tends to shift towards higher prices as the number of rooms increases.
 
@@ -365,4 +366,5 @@ all_objects <- ls()
 rm(list = setdiff(all_objects, "properties_filtered"))
 
 ```
-This graph aligns with our interpretation of the clusters in section 3. Indeed, cluster 4, which we defined to be municipalities in large cities,unsurprisingly shows the highest mean price.
+
+This graph aligns with our interpretation of the clusters in section 3. Indeed, cluster 4, which we defined to be municipalities in large cities, unsurprisingly shows the highest mean price.
