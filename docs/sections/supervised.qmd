@@ -379,11 +379,7 @@ gg <- ggplot(data = testData, aes(x = predicted_prices, y = test_residuals)) +
   geom_smooth(method = "lm", color = "blue") +
   labs(title = "Residuals vs Predicted Prices", x = "Predicted Prices", y = "Residuals")
 
-# Convert ggplot to plotly
-p <- ggplotly(gg, width = 600, height = 400)
-
-# Show the interactive plot
-p
+gg
 ```
 
 The residual plot for all cantons shows a pronounced trend of increasing residuals with higher predicted prices, along with more extreme outliers. This indicates potential model misfit or heteroscedasticity issues when considering all cantons.
@@ -399,11 +395,7 @@ gg <- ggplot(data=testData, aes(x=predicted_prices, y=price)) +
     geom_smooth(method="lm", col="blue") +
     labs(title="Actual vs Predicted Prices", x="Predicted Prices", y="Actual Prices")
 
-# Convert ggplot to plotly
-p <- ggplotly(gg, width = 600, height = 400)
-
-# Show the interactive plot
-p
+gg
 ```
 
 
@@ -628,11 +620,7 @@ gg <- ggplot(data = testData2, aes(x = predicted_prices, y = test_residuals)) +
   geom_smooth(method = "lm", color = "blue") +
   labs(title = "Residuals vs Predicted Prices", x = "Predicted Prices", y = "Residuals")
 
-# Convert ggplot to plotly
-p <- ggplotly(gg, width = 600, height = 400)
-
-# Show the interactive plot
-p
+gg
 ```
 
 The residual plot for the less complex model displays a similar pattern where a clustering of residuals around the zero line and some extreme outliers.
@@ -646,11 +634,7 @@ gg <- ggplot(data=testData, aes(x=predicted_prices, y=price)) +
     geom_smooth(method="lm", col="blue") +
     labs(title="Actual vs Predicted Prices", x="Predicted Prices", y="Actual Prices")
 
-# Convert ggplot to plotly
-p <- ggplotly(gg, width = 600, height = 400)
-
-# Show the interactive plot
-p
+gg
 ```
 
 The same trend is observed in the actual vs. predicted prices plot, with a wider spread of points at higher price points, indicating that the model may not perform as well in predicting prices for more expensive properties.
