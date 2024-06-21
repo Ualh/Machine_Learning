@@ -110,7 +110,7 @@ histogram
 We choose to only display the properties type with more than 300 observations. However, please not that our data set contains other types, such as rustic house, terrace flat, loft or farm house.
 The majority of property types seem to be valued at less than CHF 3 million, with apartments and single houses being the most frequent.
 
-### Histogram of prices for each year category
+### Histogram of prices for 2016-2024 year category
 
 ```{r, warning=FALSE}
 # Filter data for the year category 2016-2024
@@ -156,7 +156,12 @@ histogram <- ggplot(properties_filtered, aes(x = price)) +
   theme_minimal() +
   scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 5200000))
 
-histogram
+# Convert ggplot object to plotly object with adjusted height
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1100)
+# Adjust margins to prevent x-axis label from being cut off
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
+# Display the interactive plot
+interactive_histogram
 ```
 Compared to other cantons, Geneva has a distinct distribution with many properties worth more than CHF 2 million.
 The canton of Vaud, Valais, Tessin, Bern, and Fribourg are where the majority of the listed properties are concentrated in our data set.Their distribution show that the majority of properties are worth between 0,4 million and 2 million chf.
@@ -180,7 +185,12 @@ histogram <- ggplot(subset_properties, aes(x = price)) +
   theme_minimal() +
   scale_x_continuous(breaks = breaks, labels = labels, limits = c(0, 3500000))
 
-histogram
+# Convert ggplot object to plotly object with adjusted height
+interactive_histogram <- ggplotly(histogram, width = 750, height = 1000) 
+# Adjust margins to prevent x-axis label from being cut off
+interactive_histogram <- layout(interactive_histogram, margin = list(l = 50, r = 50, b = 50, t = 50), autosize = TRUE)
+# Display the interactive plot
+interactive_histogram
 ```
 
 Here is the distribution of prices per number of rooms. Please note that we didn't display the properties with more than 12 rooms as the number of observations for these are very scattered.
